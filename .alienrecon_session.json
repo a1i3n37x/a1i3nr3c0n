@@ -1,0 +1,18 @@
+{
+  "state": {
+    "target_ip": "127.0.0.1",
+    "target_hostname": "localhost",
+    "open_ports": [],
+    "discovered_subdomains": [],
+    "web_findings": {},
+    "active_ctf_context": null,
+    "session_created": "2025-07-22T15:54:28.368523",
+    "last_updated": "2025-07-22T15:54:29.228788",
+    "target_input": "127.0.0.1"
+  },
+  "chat_history": [],
+  "task_queue": [],
+  "current_plan": null,
+  "plan_history": [],
+  "last_updated": "2025-07-22T15:54:29.228788"
+}

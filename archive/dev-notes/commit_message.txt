@@ -1,0 +1,36 @@
+feat: enhance CLI user control and command flexibility
+
+Major improvements to alienrecon CLI user experience:
+
+## Command Modification & Flexibility
+- Added full command modification functionality with [M]odify option
+- Users can now directly edit complete command strings with syntax highlighting
+- Security validation prevents dangerous operations (command chaining, redirects)
+- Custom commands are executed through new execute_custom_command() method
+
+## Enhanced Tool Arguments
+- Added validate_custom_arguments() for secure custom flag validation
+- Improved support for tool-specific custom arguments
+- Better handling of custom flags in nmap_scan and other tools
+- Clear error messages when custom arguments are rejected
+
+## Output Display Improvements
+- Fixed ugly XML/JSON output for custom commands
+- Intelligent parsing attempts to use tool's native parser
+- Custom nmap commands now show formatted port/service tables
+- Fallback to clean text display when parsing fails
+- Output truncation at 2000 chars for readability
+
+## AI Prompt Enhancements
+- Added comprehensive guidance for user control options
+- Emphasized command modification capabilities
+- Included examples of common custom arguments
+- Educational guidance for safe command customization
+
+## Security Enhancements
+- Comprehensive validation of custom commands and arguments
+- Tool-specific restrictions (e.g., no output redirection)
+- Protection against command injection attempts
+- Whitelist of allowed executables
+
+These changes significantly improve user control over tool execution while maintaining security and educational value. Advanced users can now customize commands with full flexibility, while beginners still get guided assistance.

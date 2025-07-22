@@ -1,0 +1,102 @@
+version: '3.8'
+
+services:
+  # Main AlienRecon application
+  alienrecon:
+    build: .
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ALIENRECON_AGENT_MODE=mcp
+      - MCP_TOOLS_URL=http://mcp-tools:50051
+      - MCP_FUZZING_URL=http://mcp-fuzzing:50052
+      - MCP_ENUM_URL=http://mcp-enum:50053
+      - MCP_EXPLOIT_URL=http://mcp-exploit:50054
+      - MCP_CUSTOM_URL=http://mcp-custom:50055
+    volumes:
+      - ./sessions:/app/sessions
+      - ./cache:/app/cache
+      - ./missions:/app/missions
+    depends_on:
+      - mcp-tools
+      - mcp-fuzzing
+      - mcp-enum
+      - mcp-exploit
+      - mcp-custom
+    networks:
+      - alienrecon-net
+
+  # MCP Server: Core reconnaissance tools (nmap, nikto, ssl)
+  mcp-tools:
+    build: ./mcp_servers/alienrecon_tools
+    environment:
+      - MCP_PORT=50051
+    ports:
+      - "50051:50051"
+    networks:
+      - alienrecon-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:50051/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  # MCP Server: Web fuzzing tools (ffuf)
+  mcp-fuzzing:
+    build: ./mcp_servers/alienrecon_fuzzing
+    environment:
+      - MCP_PORT=50052
+    ports:
+      - "50052:50052"
+    networks:
+      - alienrecon-net
+    volumes:
+      - /usr/share/wordlists:/usr/share/wordlists:ro
+
+  # MCP Server: Service enumeration (smb, hydra)
+  mcp-enum:
+    build: ./mcp_servers/alienrecon_enum
+    environment:
+      - MCP_PORT=50053
+    ports:
+      - "50053:50053"
+    networks:
+      - alienrecon-net
+
+  # MCP Server: Exploit search (searchsploit)
+  mcp-exploit:
+    build: ./mcp_servers/alienrecon_exploit
+    environment:
+      - MCP_PORT=50054
+    ports:
+      - "50054:50054"
+    networks:
+      - alienrecon-net
+
+  # MCP Server: AlienRecon custom functions (plans, http_fetch)
+  mcp-custom:
+    build: ./mcp_servers/alienrecon_custom
+    environment:
+      - MCP_PORT=50055
+    ports:
+      - "50055:50055"
+    networks:
+      - alienrecon-net
+    volumes:
+      - ./sessions:/app/sessions
+
+  # Redis for caching (shared between services)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - alienrecon-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+networks:
+  alienrecon-net:
+    driver: bridge

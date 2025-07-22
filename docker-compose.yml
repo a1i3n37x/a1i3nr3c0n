@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  alienrecon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      cache_from:
+        - alienrecon:latest
+    image: alienrecon:latest
+    container_name: alienrecon
+    restart: unless-stopped
+
+    # Security options
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_RAW  # Required for nmap
+      - NET_ADMIN  # Required for certain network tools
+
+    # Environment variables
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ALIENRECON_DATA_DIR=/data
+      - ALIENRECON_CACHE_DIR=/data/cache
+      - ALIENRECON_SESSIONS_DIR=/data/sessions
+      - ALIENRECON_MISSIONS_DIR=/data/missions
+      - PYTHONUNBUFFERED=1
+
+    # Volume mounts for persistence
+    volumes:
+      # Data persistence
+      - alienrecon_data:/data
+      - alienrecon_cache:/data/cache
+      - alienrecon_sessions:/data/sessions
+      - alienrecon_missions:/data/missions
+
+      # Optional: Mount local wordlists
+      - ./wordlists:/app/wordlists:ro
+
+      # Optional: Mount for development (comment out for production)
+      # - ./src:/app/src:ro
+      # - ./pyproject.toml:/app/pyproject.toml:ro
+      # - ./poetry.lock:/app/poetry.lock:ro
+
+    # Network mode - host is required for some scanning tools
+    network_mode: host
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+    # Interactive mode for CLI
+    stdin_open: true
+    tty: true
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "alienrecon", "doctor"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  # Optional: Redis cache for improved performance
+  redis:
+    image: redis:7-alpine
+    container_name: alienrecon_redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    ports:
+      - "127.0.0.1:6379:6379"
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  alienrecon_data:
+    driver: local
+  alienrecon_cache:
+    driver: local
+  alienrecon_sessions:
+    driver: local
+  alienrecon_missions:
+    driver: local
+  redis_data:
+    driver: local

@@ -1,0 +1,48 @@
+# Development override for docker-compose.yml
+# Use with: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+version: '3.8'
+
+services:
+  alienrecon:
+    # Mount source code for development
+    volumes:
+      - .:/app
+      - alienrecon_sessions:/home/alienrecon/.alienrecon
+      - alienrecon_cache:/home/alienrecon/.cache/alienrecon
+      - alienrecon_missions:/home/alienrecon/a37_missions
+      # Mount Poetry cache to speed up dependency installation
+      - poetry_cache:/home/alienrecon/.cache/pypoetry
+
+    # Development environment variables
+    environment:
+      - ALIENRECON_DEV_MODE=true
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+
+    # Override entrypoint for development
+    entrypoint: ["/bin/bash"]
+
+    # Keep container running for development
+    stdin_open: true
+    tty: true
+
+    # Rebuild on changes
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development  # Use development stage if available
+
+    # Additional development tools
+    command: |
+      bash -c "
+        echo '🚀 AlienRecon Development Mode'
+        echo 'Source code mounted at /app'
+        echo 'Run: poetry install to install in development mode'
+        echo 'Run: poetry run alienrecon --help to test'
+        exec /bin/bash
+      "
+
+volumes:
+  poetry_cache:
+    driver: local
