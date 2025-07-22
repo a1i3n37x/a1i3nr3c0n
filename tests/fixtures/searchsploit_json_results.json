@@ -1,0 +1,44 @@
+{
+    "RESULTS_EXPLOIT": [
+        {
+            "Title": "Apache 2.4.49 - Path Traversal and Remote Code Execution (RCE) - CVE-2021-41773",
+            "Date": "2021-10-05",
+            "Platform": "Linux",
+            "Type": "webapps",
+            "Path": "exploits/multiple/webapps/50383.sh",
+            "EDB-ID": "50383"
+        },
+        {
+            "Title": "Apache HTTP Server 2.4.50 - Remote Code Execution (RCE) (Exploit) (2) - CVE-2021-42013",
+            "Date": "2021-10-07",
+            "Platform": "Multiple",
+            "Type": "webapps",
+            "Path": "exploits/multiple/webapps/50512.py",
+            "EDB-ID": "50512"
+        },
+        {
+            "Title": "Apache Struts 2.5.0-2.5.16 - Remote Code Execution",
+            "Date": "2018-08-22",
+            "Platform": "Multiple",
+            "Type": "remote",
+            "Path": "exploits/multiple/remote/45262.py",
+            "EDB-ID": "45262"
+        },
+        {
+            "Title": "Apache Tomcat < 9.0.1 (Beta) / < 8.5.23 / < 8.0.47 / < 7.0.8 - JSP Upload Bypass / Remote Code Execution",
+            "Date": "2017-10-03",
+            "Platform": "Windows",
+            "Type": "webapps",
+            "Path": "exploits/windows/webapps/42966.py",
+            "EDB-ID": "42966"
+        },
+        {
+            "Title": "Apache CouchDB < 2.1.0 - Remote Code Execution",
+            "Date": "2017-08-08",
+            "Platform": "Linux",
+            "Type": "webapps",
+            "Path": "exploits/linux/webapps/44913.py",
+            "EDB-ID": "44913"
+        }
+    ]
+}

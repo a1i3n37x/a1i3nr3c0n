@@ -145,16 +145,21 @@ class TestMCPClient:
         # Mock HTTP client
         mock_response = MagicMock()
         mock_response.status_code = 200
+        mock_response.json = MagicMock(return_value={"tools": {}})
 
-        with patch.object(
-            client._client, "get", return_value=mock_response
-        ) as mock_get:
+        # Patch the _ensure_client method to return a mock
+        mock_http_client = MagicMock()
+        mock_http_client.get = AsyncMock(return_value=mock_response)
+
+        with patch.object(client, "_ensure_client", return_value=mock_http_client):
             await client.discover_servers()
 
-        # Verify health checks were made
-        assert mock_get.call_count == 2
-        mock_get.assert_any_call("http://localhost:50051/health")
-        mock_get.assert_any_call("http://localhost:50052/health")
+        # Verify health checks and tool discovery were made
+        assert mock_http_client.get.call_count == 4  # 2 health + 2 tools
+        mock_http_client.get.assert_any_call("http://localhost:50051/health")
+        mock_http_client.get.assert_any_call("http://localhost:50052/health")
+        mock_http_client.get.assert_any_call("http://localhost:50051/tools")
+        mock_http_client.get.assert_any_call("http://localhost:50052/tools")
 
         # Verify server status
         assert client.servers["tools-server"].status == MCPServerStatus.CONNECTED
@@ -170,11 +175,16 @@ class TestMCPClient:
             if "50051" in url:
                 response = MagicMock()
                 response.status_code = 200
+                response.json = MagicMock(return_value={"tools": {}})
                 return response
             else:
                 raise Exception("Connection refused")
 
-        with patch.object(client._client, "get", side_effect=mock_get):
+        # Mock HTTP client
+        mock_http_client = MagicMock()
+        mock_http_client.get = AsyncMock(side_effect=mock_get)
+
+        with patch.object(client, "_ensure_client", return_value=mock_http_client):
             await client.discover_servers()
 
         # Verify status
@@ -198,13 +208,15 @@ class TestMCPClient:
             "metadata": {"execution_time": 2.5},
         }
 
-        with patch.object(
-            client._client, "post", return_value=mock_response
-        ) as mock_post:
+        # Mock HTTP client
+        mock_http_client = MagicMock()
+        mock_http_client.post = AsyncMock(return_value=mock_response)
+
+        with patch.object(client, "_ensure_client", return_value=mock_http_client):
             result = await client.call_tool(tool_call)
 
         # Verify request
-        mock_post.assert_called_once_with(
+        mock_http_client.post.assert_called_once_with(
             "http://localhost:50051/tools/nmap_scan", json=tool_call.model_dump()
         )
 
@@ -250,7 +262,11 @@ class TestMCPClient:
         mock_response.status_code = 500
         mock_response.text = "Internal server error"
 
-        with patch.object(client._client, "post", return_value=mock_response):
+        # Mock HTTP client
+        mock_http_client = MagicMock()
+        mock_http_client.post = AsyncMock(return_value=mock_response)
+
+        with patch.object(client, "_ensure_client", return_value=mock_http_client):
             result = await client.call_tool(tool_call)
 
         assert result.status == "error"
@@ -265,9 +281,11 @@ class TestMCPClient:
 
         tool_call = MCPToolCall(tool="nmap_scan")
 
-        with patch.object(
-            client._client, "post", side_effect=Exception("Network error")
-        ):
+        # Mock HTTP client
+        mock_http_client = MagicMock()
+        mock_http_client.post = AsyncMock(side_effect=Exception("Network error"))
+
+        with patch.object(client, "_ensure_client", return_value=mock_http_client):
             result = await client.call_tool(tool_call)
 
         assert result.status == "error"
@@ -281,9 +299,17 @@ class TestMCPClient:
         tools = client.get_available_tools()
         assert len(tools) == 0
 
-        # Mark servers as connected
+        # Mark servers as connected and add tool metadata
         client.servers["tools-server"].status = MCPServerStatus.CONNECTED
+        client.servers["tools-server"].tool_metadata = {
+            "nmap_scan": {"category": "Network", "description": "Port scanner"},
+            "nikto_scan": {"category": "Web", "description": "Web scanner"},
+        }
         client.servers["fuzzing-server"].status = MCPServerStatus.CONNECTED
+        client.servers["fuzzing-server"].tool_metadata = {
+            "ffuf_dir": {"category": "Web", "description": "Directory fuzzer"},
+            "ffuf_vhost": {"category": "Web", "description": "Vhost fuzzer"},
+        }
 
         tools = client.get_available_tools()
         assert len(tools) == 4
@@ -304,12 +330,17 @@ class TestMCPClient:
         """Test client cleanup."""
         client = MCPClient()
 
-        # Mock the HTTP client's aclose method
-        client._client.aclose = AsyncMock()
+        # Mock HTTP client with aclose method
+        mock_http_client = MagicMock()
+        mock_http_client.aclose = AsyncMock()
+        mock_http_client.is_closed = False
+
+        # Set the client
+        client._client = mock_http_client
 
         await client.close()
 
-        client._client.aclose.assert_called_once()
+        mock_http_client.aclose.assert_called_once()
 
     @pytest.mark.asyncio
     async def test_concurrent_tool_calls(self, mock_servers):
@@ -336,7 +367,11 @@ class TestMCPClient:
                     json=lambda: {"result": {"tool": "nikto"}, "metadata": {}},
                 )
 
-        with patch.object(client._client, "post", side_effect=mock_post):
+        # Mock HTTP client
+        mock_http_client = MagicMock()
+        mock_http_client.post = AsyncMock(side_effect=mock_post)
+
+        with patch.object(client, "_ensure_client", return_value=mock_http_client):
             # Execute tools concurrently
             results = await asyncio.gather(*[client.call_tool(tc) for tc in tool_calls])
 

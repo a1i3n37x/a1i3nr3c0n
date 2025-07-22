@@ -1,0 +1,11 @@
+* Rebuilt URL to: https://localhost:8443/
+*   Trying 127.0.0.1...
+* TCP_NODELAY set
+* connect to 127.0.0.1 port 8443 failed: Connection refused
+*   Trying ::1...
+* TCP_NODELAY set
+* Immediate connect fail for ::1: Cannot assign requested address
+* connect to ::1 port 8443 failed: Connection refused
+* Failed to connect to localhost port 8443: Connection refused
+* Closing connection 0
+curl: (7) Failed to connect to localhost port 8443: Connection refused

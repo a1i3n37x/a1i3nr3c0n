@@ -1,0 +1,82 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Poetry
+poetry.lock.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+!README.md
+docs/
+
+# Tests
+tests/
+test_*.py
+*_test.py
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Session and cache files
+.alienrecon_session.json
+*.cache
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Development files
+.env
+.env.local
+.env.*.local
+docker-compose.override.yml
+
+# Mission data (should be mounted as volume)
+a37_missions/
+
+# Cursor
+.cursor-context/
+
+# Local development
+*.local

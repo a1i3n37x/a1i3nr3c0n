@@ -10,7 +10,7 @@ import logging
 import threading
 from typing import Optional
 
-from .mcp_client import MCPClient, MCPToolCall, MCPToolResult, create_mcp_client
+from .mcp_client import MCPClient, MCPToolCall, MCPToolResult
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +57,24 @@ class MCPSyncWrapper:
 
     async def _async_initialize(self):
         """Async initialization logic."""
-        self._client = create_mcp_client()
+        from .mcp_client import MCPClient, MCPServer
+        from .mcp_server_manager import get_server_manager
+
+        # Get the actual port from server manager
+        server_manager = get_server_manager()
+        port = server_manager.get_server_port("alienrecon-mcp")
+
+        # Create client with dynamic port
+        self._client = MCPClient(
+            servers=[
+                MCPServer(
+                    name="alienrecon-mcp",
+                    url=f"http://localhost:{port}",
+                    description="Unified AlienRecon MCP server with all tools",
+                    tools=[],
+                )
+            ]
+        )
         await self._client.discover_servers()
 
     def call_tool(self, tool_call: MCPToolCall) -> MCPToolResult:

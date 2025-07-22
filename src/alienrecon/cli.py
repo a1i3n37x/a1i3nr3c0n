@@ -434,6 +434,12 @@ def recon(
         "--novice/--expert",
         help=("Guidance level: --novice (more prompts) or --expert (fewer prompts)."),
     ),
+    auto_confirm: bool = typer.Option(
+        False,
+        "--yes",
+        "-y",
+        help="Automatically confirm execution of safe tools (nmap, ssl-inspect, etc.)",
+    ),
     ctx: typer.Context = typer.Option(None, hidden=True),
 ) -> None:
     """Start reconnaissance on the specified target."""
@@ -446,7 +452,7 @@ def recon(
     )
 
     # Always load session to get the last saved target if needed
-    sc = SessionController(dry_run=dry_run)
+    sc = SessionController(dry_run=dry_run, auto_confirm=auto_confirm)
     session_target = sc.get_target()
 
     # If --target is provided, use it and update session

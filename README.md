@@ -363,4 +363,3 @@ Alien Recon exists to help you think like an operator.
 Not a script kiddie. Not a drone. A **hunter**.
 
 **Stay weird. Stay free. H4ck th3 pl4n3t.**
-# a1i3nr3c0n

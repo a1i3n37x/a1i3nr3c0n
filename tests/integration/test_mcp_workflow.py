@@ -14,7 +14,15 @@ from alienrecon.config import Config, set_config
 from alienrecon.core.mcp_server_manager import get_server_manager
 from alienrecon.core.refactored_session_controller import RefactoredSessionController
 
-from ..test_utils import TEST_CONFIG, create_mock_openai_response
+from ..test_utils import TEST_CONFIG
+
+
+def create_mock_openai_response(content: str, tool_calls=None):
+    """Create a mock OpenAI chat response."""
+    mock_message = MagicMock()
+    mock_message.content = content
+    mock_message.tool_calls = tool_calls
+    return mock_message
 
 
 class TestMCPWorkflowIntegration:

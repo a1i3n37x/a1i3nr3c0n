@@ -1,0 +1,43 @@
+* Rebuilt URL to: https://support.futurevera.thm/
+*   Trying 10.10.10.10...
+* TCP_NODELAY set
+* Connected to support.futurevera.thm (10.10.10.10) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: /etc/ssl/certs/ca-certificates.crt
+  CApath: /etc/ssl/certs
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS handshake, Unknown (8):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Client hello (1):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+* ALPN, server did not agree to a protocol
+* server certificate subject: C=US; ST=Some-State; L=City; O=Organization; CN=futurevera.thm
+* server certificate issuer: C=US; ST=Some-State; L=City; O=Organization; CN=futurevera.thm
+* start date: Mar  1 12:00:00 2023 GMT
+* expire date: Mar  1 12:00:00 2024 GMT
+* subjectAltName: DNS:futurevera.thm, DNS:www.futurevera.thm, DNS:portal.futurevera.thm
+* SSL certificate verify result: self signed certificate (18), continuing anyway.
+* SSL certificate problem: self signed certificate
+* Closing connection 0
+* TLSv1.3 (OUT), TLS Unknown, Unknown (21):
+* TLSv1.3 (OUT), TLS alert, Client hello (1):
+curl: (60) SSL certificate problem: self signed certificate
+More details here: https://curl.haxx.se/docs/sslcerts.html
+
+curl performs SSL certificate verification by default, using a "bundle"
+ of Certificate Authority (CA) public keys (CA certs). If the default
+ bundle file isn't adequate, you can specify an alternate file
+ using the --cacert option.
+If this HTTPS server uses a certificate signed by a CA represented in
+ the bundle, the certificate verification probably failed due to a
+ problem with the certificate (it might be expired, or the name might
+ not match the domain name in the URL).
+If you'd like to turn off curl's verification of the certificate, use
+ the -k (or --insecure) option.
+SSL certificate subject name 'futurevera.thm' does not match target host name 'support.futurevera.thm'

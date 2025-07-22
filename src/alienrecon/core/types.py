@@ -29,6 +29,14 @@ class ErrorSeverity(Enum):
     INFO = "info"
 
 
+class InteractionMode(Enum):
+    """User interaction modes for tool execution."""
+
+    GUIDED = "guided"  # Always ask before execution (default)
+    ASSISTED = "assisted"  # Ask for dangerous operations only
+    AUTOMATIC = "automatic"  # Execute approved tool types automatically
+
+
 class ToolResult(TypedDict, total=False):
     tool_name: str
     status: Literal["success", "failure", "partial"]

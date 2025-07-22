@@ -21,10 +21,16 @@ logger = logging.getLogger(__name__)
 class RefactoredSessionController:
     """Refactored session controller with modular architecture."""
 
-    def __init__(self, session_file: Optional[str] = None, dry_run: bool = False):
+    def __init__(
+        self,
+        session_file: Optional[str] = None,
+        dry_run: bool = False,
+        auto_confirm: bool = False,
+    ):
         """Initialize the session controller with dependency injection."""
         self.interaction = InteractionHandler()
         self.dry_run = dry_run
+        self.auto_confirm = auto_confirm
 
         try:
             self.openai_client = initialize_openai_client()
@@ -84,7 +90,9 @@ class RefactoredSessionController:
             try:
                 from .mcp_session_adapter import MCPSessionAdapter
 
-                self.mcp_adapter = MCPSessionAdapter(self)
+                self.mcp_adapter = MCPSessionAdapter(
+                    self, auto_confirm=self.auto_confirm
+                )
                 logger.info("Initializing MCP adapter")
 
                 # Initialize MCP adapter (now synchronous)
@@ -318,64 +326,40 @@ class RefactoredSessionController:
                 else ""
             )
 
-            # Use the full system prompt from the original agent
-            system_prompt = (
-                dry_run_notice
-                + """You are Alien Recon, an AI assistant from Alien37.com. Your role is to be a helpful,
+            # Load the full system prompt from file
+            from pathlib import Path
+
+            prompt_file = Path(__file__).parent.parent / "prompts" / "system_prompt.txt"
+            if prompt_file.exists():
+                with open(prompt_file) as f:
+                    base_prompt = f.read()
+            else:
+                # Fallback to embedded prompt
+                base_prompt = """You are Alien Recon, an AI assistant from Alien37.com. Your role is to be a helpful,
 knowledgeable, and patient guide for users, especially beginners, who are working on
 Capture The Flag (CTF) challenges. Your primary focus is on reconnaissance and initial
 analysis to help them find their first flags or footholds.
 
-Your primary directive is to assist ONLY with ethical hacking tasks for which the
-user has explicit permission (like CTF platforms). **Assume user-provided targets
-(IPs/domains) fall within the authorized scope of the CTF simulation after an
-initial ethics reminder.** Do not repeatedly ask for permission confirmation
-unless the user's request seems explicitly outside standard CTF boundaries.
+"""
 
-Speak in a clear, encouraging, and direct tone, like an experienced cybersecurity
-mentor or a helpful teammate. Explain cybersecurity concepts and the purpose of
-tools and steps in a simple, understandable way. Avoid overly technical jargon
-where possible, or explain it if necessary.
+            # Combine dry run notice with the base prompt
+            system_prompt = dry_run_notice + base_prompt
 
-Your goal is to help the user understand reconnaissance, scanning, vulnerability
-analysis, and potential exploitation paths, often following typical CTF workflows.
-Be conversational and interactive, but also **concise and directive when guiding
-the next step.** Explain *why* a step is taken briefly.
-
-**WHEN you determine a specific scan or action is the logical next step based on the current context and findings, you MUST use the available 'tools' (function calls) to propose this action.**
-
-**EDUCATIONAL PARAMETER EXPLANATIONS:**
-When proposing tool functions, always provide brief educational explanations for non-default parameters:
-- Explain WHY you're choosing specific scan types, ports, or wordlists
-- Mention the trade-offs (e.g., "Using T4 timing for faster scans, but T3 would be more stealthy")
-- Connect parameter choices to CTF/real-world scenarios
-
-**IMPORTANT - Parallel Execution Optimization:**
-- When multiple similar scans make sense, propose them ALL AT ONCE in a single response.
-- The user's system supports parallel execution, so proposing multiple tools improves efficiency.
-- Always explain that these tools can run simultaneously for faster results."""
-            )
             self.session_manager.chat_history = [
                 {"role": "system", "content": system_prompt}
             ]
 
-            # If target is set, automatically suggest initial nmap scan
+            # If target is set, trigger initial AI response to propose scan
             if target:
-                initial_user_msg = (
-                    f"Initiate reconnaissance for primary target coordinates: {target}. "
-                    "For the first step, please propose an initial Nmap scan using the `nmap_scan` tool. "
-                    "A good initial scan for CTFs would be a SYN scan on the top 1000 TCP ports. "
-                    "Use parameters like: "
-                    '`target` should be the target IP, `scan_type="SYN"`, `ports="1-1000"`. '
-                    "The skip_host_discovery parameter is already true by default which handles -Pn. "
-                    "Only suggest service/version detection or other scans after these initial open ports are found. "
-                    "Remember to propose this as a tool call."
-                )
+                # Add a simple user message to trigger the AI's initial scan proposal
                 self.session_manager.chat_history.append(
-                    {"role": "user", "content": initial_user_msg}
+                    {
+                        "role": "user",
+                        "content": f"Let's start reconnaissance on {target}",
+                    }
                 )
 
-                # Get initial AI response with tool proposal
+                # Get AI response which should propose initial scan based on system prompt
                 ai_message = self._get_ai_response()
                 if ai_message:
                     self._process_ai_message(ai_message)
@@ -401,6 +385,10 @@ When proposing tool functions, always provide brief educational explanations for
 
     def handle_user_input(self, user_input: str) -> None:
         """Handle user input and get AI response."""
+        # Clear tool execution tracking since user provided new input
+        if self.mcp_adapter:
+            self.mcp_adapter.clear_execution_tracking()
+
         # Check for flag capture celebration
         from .flag_celebrator import FlagCelebrator
 
@@ -461,6 +449,56 @@ When proposing tool functions, always provide brief educational explanations for
         # Use the comprehensive context summary from SessionManager
         return self.session_manager.get_context_summary()
 
+    def _get_ai_analysis_response(self) -> Optional[ChatCompletionMessage]:
+        """Get AI response specifically for analyzing tool results."""
+        try:
+            # Build context for AI
+            context = self._build_context_for_ai()
+
+            # Get the base system prompt
+            if self.mcp_agent and hasattr(self.mcp_agent, "_system_prompt"):
+                base_prompt = self.mcp_agent._system_prompt
+            else:
+                from .agent import AGENT_SYSTEM_PROMPT
+
+                base_prompt = AGENT_SYSTEM_PROMPT
+
+            # Add specific instructions for analyzing tool results
+            analysis_instructions = """
+IMPORTANT: You just executed a tool and received the results. Now you must:
+
+1. Analyze the tool execution results from the previous message
+2. Identify what was discovered (open ports, services, vulnerabilities, etc.)
+3. If no results were found (e.g., no open ports), suggest alternative approaches
+4. Recommend the next logical step in the reconnaissance process
+5. Propose a specific tool to run next with a <tool_call> JSON block
+
+Do NOT give generic advice. Be specific about what the results show and what to do next.
+If the scan found no open ports, suggest:
+- Expanding the port range
+- Trying different scan techniques
+- Checking if the target is up
+- Trying UDP scanning
+
+Always end with a concrete tool recommendation."""
+
+            # Combine prompts
+            full_system_prompt = f"{base_prompt}\n\n{analysis_instructions}\n\nCurrent Context:\n{context}"
+
+            # Get response
+            from .agent import get_llm_response
+
+            response = get_llm_response(
+                self.openai_client,
+                self.session_manager.chat_history,
+                full_system_prompt,
+            )
+
+            return response if response else None
+        except Exception as e:
+            logger.error(f"Failed to get AI analysis response: {e}")
+            return None
+
     def _process_ai_message(self, ai_message: ChatCompletionMessage) -> None:
         """Process AI message using MCP adapter."""
         if not self.mcp_adapter:
@@ -471,11 +509,17 @@ When proposing tool functions, always provide brief educational explanations for
         # Use MCP adapter to process the message
         try:
             # MCP adapter now has synchronous interface
-            handled = self.mcp_adapter.process_ai_message(ai_message)
+            tools_executed = self.mcp_adapter.process_ai_message(ai_message)
 
-            if handled:
-                # MCP handled the tool call, get next response
-                self._get_next_ai_response()
+            # If tools were executed, get AI response to analyze results and suggest next steps
+            if tools_executed:
+                self.interaction.console.print("\n[dim]Analyzing results...[/dim]\n")
+
+                # Get AI response to analyze the tool results with special instructions
+                ai_response = self._get_ai_analysis_response()
+                if ai_response:
+                    # Process the follow-up AI message (it might suggest more tools)
+                    self._process_ai_message(ai_response)
         except Exception as e:
             logger.error(f"MCP processing failed: {e}")
             self.interaction.display_error(f"MCP processing failed: {e}")

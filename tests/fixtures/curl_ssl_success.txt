@@ -1,0 +1,56 @@
+* Rebuilt URL to: https://example.com/
+*   Trying 93.184.216.34...
+* TCP_NODELAY set
+* Connected to example.com (93.184.216.34) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: /etc/ssl/certs/ca-certificates.crt
+  CApath: /etc/ssl/certs
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (IN), TLS handshake, Unknown (8):
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+* TLSv1.3 (OUT), TLS change cipher, Client hello (1):
+* TLSv1.3 (OUT), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+* ALPN, server accepted to use h2
+* server certificate subject: C=US; ST=California; L=Los Angeles; O=Internet Corporation for Assigned Names and Numbers; CN=www.example.org
+* server certificate issuer: C=US; O=DigiCert Inc; CN=DigiCert TLS RSA SHA256 2020 CA1
+* start date: Nov 24 00:00:00 2023 GMT
+* expire date: Dec 25 23:59:59 2024 GMT
+* subjectAltName: host "example.com" matched cert's "example.com"
+* SSL certificate verify ok.
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+* Using Stream ID: 1 (easy handle 0x5630c4f3e260)
+* TLSv1.3 (OUT), TLS Unknown, Unknown (23):
+> GET / HTTP/2
+> Host: example.com
+> User-Agent: Mozilla/5.0 (compatible; ssl-probe)
+> Accept: */*
+>
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS Unknown, Certificate Status (22):
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+* TLSv1.3 (IN), TLS Unknown, Unknown (23):
+* Connection state changed (MAX_CONCURRENT_STREAMS updated)!
+* TLSv1.3 (IN), TLS Unknown, Unknown (23):
+< HTTP/2 200
+< content-encoding: gzip
+< cache-control: max-age=604800
+< content-type: text/html; charset=UTF-8
+< date: Mon, 24 Nov 2023 12:00:00 GMT
+< server: nginx/1.21.0
