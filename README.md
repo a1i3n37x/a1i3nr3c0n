@@ -1,4 +1,5 @@
-# 👽 a37 - Alien Recon #
+# 👽 a37 - Alien Recon 
+#
 
 [![CI](https://github.com/a1i3n37x/a37/actions/workflows/ci.yml/badge.svg)](https://github.com/a1i3n37x/a37/actions/workflows/ci.yml)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
