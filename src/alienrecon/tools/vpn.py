@@ -1,6 +1,7 @@
 """OpenVPN management for THM/HTB connections."""
 
 import logging
+import os
 import subprocess
 import time
 from pathlib import Path
@@ -64,63 +65,23 @@ def get_vpn_ip() -> Optional[str]:
     return None
 
 
-def _ovpn_needs_auth(ovpn_path: Path) -> bool:
-    """Check if the .ovpn file requires username/password auth."""
-    try:
-        content = ovpn_path.read_text()
-        return "auth-user-pass" in content
-    except Exception:
-        return False
-
-
-def _create_auth_file(ovpn_path: Path) -> Optional[Path]:
-    """Prompt for creds and create a temp auth file for openvpn."""
-    auth_file = VPN_DIR / f".auth-{ovpn_path.stem}"
-    if auth_file.exists():
-        console.print(f"[dim]Using saved credentials from {auth_file}[/dim]")
-        return auth_file
-
-    console.print("[yellow]This VPN config requires a username and password.[/yellow]")
-    username = console.input("[green]  > [/green]Username: ").strip()
-    if not username:
-        return None
-    password = console.input("[green]  > [/green]Password: ").strip()
-    if not password:
-        return None
-
-    VPN_DIR.mkdir(parents=True, exist_ok=True)
-    auth_file.write_text(f"{username}\n{password}\n")
-    auth_file.chmod(0o600)
-    console.print(f"[dim]Credentials saved to {auth_file} (chmod 600)[/dim]")
-    return auth_file
-
-
 def connect_vpn(ovpn_path: Path) -> bool:
-    """Start OpenVPN connection in the background."""
+    """Start OpenVPN connection. Runs sudo in foreground so password prompt works."""
     try:
         console.print(f"[cyan]Connecting VPN:[/cyan] {ovpn_path.name}")
+        console.print("[dim]You may be prompted for your sudo password.[/dim]")
 
-        cmd = ["sudo", "openvpn", "--config", str(ovpn_path),
-               "--daemon", "--log", "/tmp/alienrecon-vpn.log"]
-
-        # Handle auth-user-pass configs
-        if _ovpn_needs_auth(ovpn_path):
-            auth_file = _create_auth_file(ovpn_path)
-            if auth_file:
-                cmd.extend(["--auth-user-pass", str(auth_file)])
-            else:
-                console.print("[red]No credentials provided. Skipping VPN.[/red]")
-                return False
-
-        # Run with stdin closed so openvpn can't block on it
-        subprocess.Popen(
-            cmd,
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+        # Run in foreground so sudo can prompt for password on the real terminal.
+        # Use os.system so it inherits stdin/stdout/stderr directly.
+        ret = os.system(
+            f"sudo openvpn --config {ovpn_path} --daemon --log /tmp/alienrecon-vpn.log"
         )
 
-        # Wait for tunnel
+        if ret != 0:
+            console.print("[red]OpenVPN failed to start. Check your sudo password.[/red]")
+            return False
+
+        # Wait for tunnel to come up
         for i in range(15):
             time.sleep(1)
             if is_vpn_connected():
