@@ -14,6 +14,7 @@ from ..core.flag_celebrator import FlagCelebrator
 from ..curriculum.profile import StudentProfile
 from ..curriculum.rooms import Phase, Room, RoomDatabase, Step
 from . import brain
+from ..tools.vpn import ensure_vpn
 
 logger = logging.getLogger(__name__)
 console = Console()
@@ -154,6 +155,9 @@ class Instructor:
             title="Room Assignment",
             border_style="green",
         ))
+
+        # Ensure VPN is connected
+        ensure_vpn(platform=room.platform)
 
         target = self._ask("Target IP")
         if not target:

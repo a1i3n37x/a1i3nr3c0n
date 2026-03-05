@@ -13,6 +13,7 @@ REQUIRED_TOOLS = [
     ("hydra", "Password brute-forcer"),
     ("searchsploit", "Exploit database search"),
     ("curl", "HTTP requests"),
+    ("openvpn", "VPN client for THM/HTB connections"),
 ]
 
 OPTIONAL_TOOLS = [
