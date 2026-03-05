@@ -6,7 +6,6 @@ import time
 from typing import Optional
 
 from rich.console import Console
-from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.table import Table
 
@@ -63,20 +62,17 @@ class Instructor:
         return response
 
     def start_next(self):
-        """Pick the next room from curriculum and start teaching."""
         room = self.rooms.get_next_room(self.profile)
         if not room:
             console.print(Panel(
                 "[green]You've completed all available rooms![/green]\n"
                 "Check back for new rooms or try free mode: [cyan]alienrecon recon --target <IP>[/cyan]",
-                title="Curriculum Complete",
-                border_style="green",
+                title="Curriculum Complete", border_style="green",
             ))
             return
         self._begin_room(room)
 
     def start_room(self, room_id: str):
-        """Start a specific room by ID."""
         room = self.rooms.get_room(room_id)
         if not room:
             console.print(f"[red]Room '{room_id}' not found.[/red]")
@@ -89,7 +85,6 @@ class Instructor:
         self._begin_room(room)
 
     def resume_room(self):
-        """Resume the current room in progress."""
         if not self.profile.current_room:
             console.print("[yellow]No room in progress. Starting next...[/yellow]")
             self.start_next()
@@ -109,11 +104,9 @@ class Instructor:
             f"[green]Resuming:[/green] {room.name}\n"
             f"Phase: [cyan]{self.profile.current_room.phase}[/cyan] | "
             f"Step: [cyan]{self.profile.current_room.step}[/cyan]",
-            title="Welcome Back",
-            border_style="green",
+            title="Welcome Back", border_style="green",
         ))
 
-        # Get target again
         self.target = self._ask("What was the target IP?") or ""
         if not self.target:
             return
@@ -136,7 +129,6 @@ class Instructor:
         self._room_complete()
 
     def _begin_room(self, room: Room):
-        """Display room intro and start walking through it."""
         self.current_room = room
         self.start_time = time.time()
         self.hints_used = 0
@@ -155,11 +147,9 @@ class Instructor:
             f"[dim]{room.url}[/dim]\n\n"
             f"Connect to {room.platform} and start the machine.\n"
             f"When it's up, give me the target IP.",
-            title="Room Assignment",
-            border_style="green",
+            title="Room Assignment", border_style="green",
         ))
 
-        # Ensure VPN is connected
         ensure_vpn(platform=room.platform)
 
         self.target = self._ask("Target IP") or ""
@@ -169,7 +159,6 @@ class Instructor:
         console.print(f"\n[green]Target set:[/green] {self.target}\n")
         self.profile.set_current_room(room.id, phase="", step="")
 
-        # Let Claude introduce if available
         intro = self._chat(
             f"Starting {room.name} on {room.platform}. Target: {self.target}. "
             f"Difficulty: {room.difficulty}. Skills: {skills_str}. "
@@ -178,21 +167,18 @@ class Instructor:
         if intro:
             console.print(f"\n{intro}\n")
         else:
-            console.print(f"\nAlright, let's get into it. {room.name} — {room.difficulty} difficulty.\n")
+            console.print(f"\nLet's get into it. {room.name} — {room.difficulty} difficulty.\n")
 
-        # Walk through phases
         for phase in room.phases:
             self._teach_phase(phase)
 
         self._room_complete()
 
     def _teach_phase(self, phase: Phase):
-        """Walk through a phase."""
         console.print()
         console.print(Panel(
             f"[bold]Objective:[/bold] {phase.objective}",
-            title=f"Phase: {phase.name}",
-            border_style="cyan",
+            title=f"Phase: {phase.name}", border_style="cyan",
         ))
 
         for step in phase.steps:
@@ -204,14 +190,13 @@ class Instructor:
         self._phase_complete(phase)
 
     def _teach_step(self, phase: Phase, step: Step):
-        """Walk through a single step — narrate, run, explain, discuss."""
+        """Walk through a single step — narrate, run, analyze real output, discuss."""
 
         # 1. NARRATE — what we're about to do and why
         console.print()
         console.print(Panel(
             step.narration.strip(),
-            title=f"[bold]{step.id}[/bold]",
-            border_style="green",
+            title=f"[bold]{step.id}[/bold]", border_style="green",
         ))
 
         # 2. EXPLAIN — the technical details
@@ -219,8 +204,7 @@ class Instructor:
             console.print()
             console.print(Panel(
                 step.explanation.strip(),
-                title="How this works",
-                border_style="dim",
+                title="How this works", border_style="dim",
             ))
 
         # 3. RUN — execute the command (or manual step)
@@ -228,7 +212,7 @@ class Instructor:
             cmd = step.command.replace("{target}", self.target)
             console.print(f"\n[cyan]Command:[/cyan] [bold]{cmd}[/bold]\n")
 
-            response = self._ask("Ready? (y/run it / n/skip / or type your own command)")
+            response = self._ask("Ready? (y / skip / or type your own command)")
             if not response:
                 response = "y"
 
@@ -236,20 +220,21 @@ class Instructor:
 
             if response_lower in ("n", "no", "skip"):
                 console.print("[yellow]Skipped.[/yellow]")
+                return
             elif response_lower in ("y", "yes", "yeah", "go", "run", "run it", "do it"):
                 output = self._execute_command(cmd)
-                self._post_execution(step, phase, output)
             else:
-                # Student typed their own command — run it instead
-                console.print(f"[dim]Running your command instead: {response}[/dim]")
+                # Student typed their own command
+                console.print(f"[dim]Running your command: {response}[/dim]")
                 output = self._execute_command(response)
-                self._post_execution(step, phase, output)
+
+            self._analyze_output(step, phase, cmd, output)
         else:
-            # Manual step (no command) — just the narration and explanation
+            # Manual step (no command)
             self._wait_for_student(step, phase)
 
-    def _post_execution(self, step: Step, phase: Phase, output: Optional[str]):
-        """After running a command — teach and discuss."""
+    def _analyze_output(self, step: Step, phase: Phase, cmd: str, output: Optional[str]):
+        """Analyze REAL command output — use Claude if available, fall back to scripted."""
         if not output:
             return
 
@@ -259,43 +244,89 @@ class Instructor:
             FlagCelebrator.celebrate(flag)
             self.flags_found += 1
 
-        # 4. TEACH — explain what we found
-        if step.teach_after:
-            console.print()
-            console.print(Panel(
-                step.teach_after.strip(),
-                title="What this means",
-                border_style="green",
-            ))
+        output_trimmed = output.strip()[:3000]
 
-        # 5. DISCUSS — conversational question/comment
-        if step.conversation:
+        # Check if the output looks like a failure (no results, errors, 0 hosts)
+        looks_empty = any(indicator in output.lower() for indicator in [
+            "0 hosts up", "0 ip addresses", "no results", "connection refused",
+            "host seems down", "timed out", "unreachable",
+        ])
+
+        if self.ai_mode:
+            # Claude analyzes the REAL output
+            if looks_empty:
+                analysis = self._chat(
+                    f"I ran: {cmd}\n\n"
+                    f"But the output looks like it failed or returned nothing:\n{output_trimmed}\n\n"
+                    f"Help me troubleshoot. What might be wrong? Is the target up? "
+                    f"Should I try a different approach?",
+                    phase=phase, step=step,
+                )
+            else:
+                # Give Claude the room context so it knows what to highlight,
+                # but make it analyze the ACTUAL output
+                analysis = self._chat(
+                    f"I ran: {cmd}\n\n"
+                    f"Here's the actual output:\n{output_trimmed}\n\n"
+                    f"Walk me through what you see. What's interesting? What should I note? "
+                    f"What does this tell us about the target and what our next move should be?",
+                    phase=phase, step=step,
+                )
+
+            if analysis:
+                console.print()
+                console.print(Panel(
+                    analysis,
+                    title="Analysis", border_style="green",
+                ))
+        else:
+            # Scripted fallback — use teach_after but ONLY if output doesn't look empty
+            if looks_empty:
+                console.print()
+                console.print(Panel(
+                    "The scan didn't return results. Check:\n"
+                    "- Is the target machine running?\n"
+                    "- Is your VPN connected? (check with: ip a show tun0)\n"
+                    "- Can you ping the target? (ping -c 1 <target>)\n"
+                    "- Try the command again or with different flags.",
+                    title="Troubleshoot", border_style="yellow",
+                ))
+                return
+            elif step.teach_after:
+                console.print()
+                console.print(Panel(
+                    step.teach_after.strip(),
+                    title="What to look for", border_style="green",
+                ))
+
+        # Conversation — let student ask questions
+        if step.conversation and not looks_empty:
             console.print(f"\n[cyan]{step.conversation}[/cyan]\n")
             student_response = self._ask("")
             if student_response and self.ai_mode:
-                # Let Claude respond naturally to whatever the student says
-                ai_response = self._chat(
-                    student_response, phase=phase, step=step
-                )
+                ai_response = self._chat(student_response, phase=phase, step=step)
                 if ai_response:
                     console.print(f"\n{ai_response}\n")
-        elif self.ai_mode and output:
-            # Even without a scripted conversation, let the student ask questions
-            console.print("[dim]Any questions? (press Enter to continue)[/dim]")
+        else:
+            # Always give the student a chance to ask
+            console.print("\n[dim]Any questions? (press Enter to continue)[/dim]")
             student_q = self._ask("")
             if student_q:
-                ai_response = self._chat(
-                    f"After running: {step.command}\nOutput: {output[:1000]}\n\nStudent asks: {student_q}",
-                    phase=phase, step=step,
-                )
-                if ai_response:
-                    console.print(f"\n{ai_response}\n")
+                if self.ai_mode:
+                    ai_response = self._chat(
+                        f"After running: {cmd}\nStudent asks: {student_q}",
+                        phase=phase, step=step,
+                    )
+                    if ai_response:
+                        console.print(f"\n{ai_response}\n")
+                else:
+                    console.print("[dim]Moving on...[/dim]")
 
     def _wait_for_student(self, step: Step, phase: Phase):
         """For manual steps — wait for the student to complete something."""
         console.print()
         console.print("[cyan]This is a manual step.[/cyan] Follow the instructions above.")
-        console.print("Type [green]done[/green] when you've completed it, or ask a question.\n")
+        console.print("Type [green]done[/green] when ready, or ask a question.\n")
 
         while True:
             response = self._ask("")
@@ -303,29 +334,19 @@ class Instructor:
                 continue
             if response.lower() in ("done", "next", "continue", "ok"):
                 break
-            # Student is asking a question — use Claude if available
             if self.ai_mode:
                 ai_response = self._chat(response, phase=phase, step=step)
                 if ai_response:
                     console.print(f"\n{ai_response}\n")
             else:
-                console.print("[dim]Complete the step above and type 'done' to continue.[/dim]")
+                console.print("[dim]Complete the step above and type 'done'.[/dim]")
 
         if step.teach_after:
             console.print()
             console.print(Panel(
                 step.teach_after.strip(),
-                title="What this means",
-                border_style="green",
+                title="What this means", border_style="green",
             ))
-
-        if step.conversation:
-            console.print(f"\n[cyan]{step.conversation}[/cyan]\n")
-            student_response = self._ask("")
-            if student_response and self.ai_mode:
-                ai_response = self._chat(student_response, phase=phase, step=step)
-                if ai_response:
-                    console.print(f"\n{ai_response}\n")
 
     def _execute_command(self, cmd: str) -> Optional[str]:
         """Execute a shell command and display output."""
@@ -336,7 +357,6 @@ class Instructor:
             )
             output = result.stdout + result.stderr
             if output.strip():
-                # Show output in a panel, truncate if huge
                 display = output.strip()
                 if len(display) > 5000:
                     display = display[:5000] + "\n\n[dim]... (output truncated)[/dim]"
@@ -355,7 +375,6 @@ class Instructor:
         console.print(f"\n[green]✓ Phase complete:[/green] {phase.name}\n")
 
     def _room_complete(self):
-        """Room done — stats, debrief, next room."""
         if not self.current_room:
             return
 
@@ -382,7 +401,6 @@ class Instructor:
         console.print()
         console.print(table)
 
-        # Claude debrief
         debrief = self._chat(
             f"Room complete: {room.name}. {self.flags_found} flags, "
             f"{self.hints_used} hints, {elapsed} min. "
@@ -398,7 +416,6 @@ class Instructor:
             console.print(f"Run [green]alienrecon start[/green] when you're ready.\n")
 
     def _ask(self, prompt: str) -> Optional[str]:
-        """Ask the student for input."""
         try:
             if prompt:
                 response = console.input(f"[green]  > [/green]{prompt} ")
