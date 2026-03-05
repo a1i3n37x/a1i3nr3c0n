@@ -1,0 +1,175 @@
+id: thm-lazyadmin
+platform: tryhackme
+name: "LazyAdmin"
+url: https://tryhackme.com/room/lazyadmin
+difficulty: easy
+estimated_time: 60
+
+skills:
+  - nmap-basics
+  - web-enumeration
+  - directory-fuzzing
+  - cms-exploitation
+  - sudo-privesc
+
+prerequisites:
+  rooms: []
+  skills: []
+
+phases:
+  - id: recon
+    name: "Initial Reconnaissance"
+    objective: "Discover open ports and services on the target"
+    steps:
+      - id: port-scan
+        instruction: "Start by scanning the target to discover what's running."
+        expected_tool: nmap
+        expected_flags: ["-sV", "-sC"]
+        discoveries:
+          - port: 22
+            service: ssh
+            version: "OpenSSH 7.2p2"
+          - port: 80
+            service: http
+            version: "Apache httpd 2.4.18"
+        questions:
+          - prompt: "What's the first thing you do when you get a target IP?"
+            accept: ["scan", "nmap", "enumerate", "recon", "port"]
+            teaching_point: "Always start with enumeration. nmap tells you what doors are open."
+          - prompt: "You see port 80 is open. What does that tell you?"
+            accept: ["web", "http", "website", "browser", "apache"]
+            teaching_point: "Port 80 = web server. Always investigate web servers — they're the most common entry point."
+        hints:
+          - level: 1
+            text: "What tool maps out open ports on a network?"
+          - level: 2
+            text: "nmap is your go-to. Try nmap -sV -sC <target>"
+          - level: 3
+            text: "Run: nmap -sV -sC <target>. -sV detects service versions, -sC runs default scripts."
+
+  - id: web-enum
+    name: "Web Enumeration"
+    objective: "Find hidden directories and identify the CMS"
+    steps:
+      - id: check-web
+        instruction: "Check what's on the web server."
+        expected_tool: curl
+        discoveries:
+          - finding: "Default Apache page"
+        questions:
+          - prompt: "The homepage is just a default Apache page. What does that usually mean?"
+            accept: ["hidden", "directory", "fuzz", "gobuster", "dirbust", "content"]
+            teaching_point: "Default pages mean the real content is in a subdirectory. Time to fuzz."
+        hints:
+          - level: 1
+            text: "If there's nothing on the surface, what's hiding underneath?"
+          - level: 2
+            text: "Try directory brute-forcing with gobuster or ffuf"
+          - level: 3
+            text: "Run: gobuster dir -u http://<target> -w /usr/share/wordlists/dirb/common.txt"
+
+      - id: find-cms
+        instruction: "Run a directory scan to find hidden content."
+        expected_tool: gobuster
+        discoveries:
+          - finding: "/content/ — SweetRice CMS"
+        questions:
+          - prompt: "You found /content/ running SweetRice CMS. What would you do next?"
+            accept: ["searchsploit", "exploit", "version", "vulnerability", "search"]
+            teaching_point: "When you find a CMS, check for known vulnerabilities. searchsploit is your friend."
+        hints:
+          - level: 1
+            text: "You found a CMS. What database tracks exploits for known software?"
+          - level: 2
+            text: "searchsploit can find exploits for SweetRice"
+          - level: 3
+            text: "Run: searchsploit sweetrice"
+
+  - id: exploitation
+    name: "Exploitation"
+    objective: "Gain initial access to the system"
+    steps:
+      - id: find-creds
+        instruction: "Dig deeper into the SweetRice CMS directories for useful information."
+        expected_tool: gobuster
+        discoveries:
+          - finding: "MySQL backup with admin credentials in /content/inc/mysql_backup/"
+        questions:
+          - prompt: "You found a MySQL backup file. Why is that interesting?"
+            accept: ["password", "credentials", "creds", "database", "login", "hash"]
+            teaching_point: "Database backups often contain usernames and password hashes. Always check backup files."
+        hints:
+          - level: 1
+            text: "What kind of sensitive information might be in a database backup?"
+          - level: 2
+            text: "Download and read the backup file — look for usernames and passwords"
+          - level: 3
+            text: "curl http://<target>/content/inc/mysql_backup/ and download the .sql file"
+
+      - id: get-shell
+        instruction: "Use the credentials you found to log in and get a shell."
+        questions:
+          - prompt: "You have admin creds for SweetRice. How do you turn CMS access into a shell?"
+            accept: ["upload", "reverse shell", "php", "code", "exploit", "plugin"]
+            teaching_point: "CMS admin panels usually let you upload files or edit code. Upload a PHP reverse shell."
+        hints:
+          - level: 1
+            text: "What can an admin do that a regular user can't?"
+          - level: 2
+            text: "Look for file upload or code editing features in the CMS admin panel"
+          - level: 3
+            text: "Upload a PHP reverse shell through the CMS. Use pentest-monkey's php-reverse-shell."
+
+  - id: privesc
+    name: "Privilege Escalation"
+    objective: "Escalate from www-data to root"
+    steps:
+      - id: check-sudo
+        instruction: "You have a shell as www-data. Find a way to escalate to root."
+        questions:
+          - prompt: "First thing to check for privilege escalation on Linux?"
+            accept: ["sudo", "sudo -l", "suid", "permissions", "cron"]
+            teaching_point: "sudo -l shows what commands you can run as root. Always check this first."
+        hints:
+          - level: 1
+            text: "What command shows you your special permissions?"
+          - level: 2
+            text: "Try: sudo -l"
+          - level: 3
+            text: "Run sudo -l — it shows commands you can run without a password as another user."
+
+      - id: escalate
+        instruction: "Exploit what sudo -l reveals to get root."
+        discoveries:
+          - finding: "www-data can run /usr/bin/perl and a backup script as sudo with no password"
+        questions:
+          - prompt: "sudo -l shows you can run perl as root. How do you use that?"
+            accept: ["perl", "shell", "exec", "system", "reverse", "spawn"]
+            teaching_point: "If you can run an interpreter (perl, python, etc.) as root, you can spawn a root shell."
+        hints:
+          - level: 1
+            text: "If you can run a programming language as root..."
+          - level: 2
+            text: "Perl can execute system commands. Look up perl reverse shell or perl -e 'exec'"
+          - level: 3
+            text: "Run: sudo perl -e 'exec \"/bin/bash\"' — instant root shell."
+
+completion:
+  flags:
+    - name: "user.txt"
+      location: "/home/itguy/user.txt"
+    - name: "root.txt"
+      location: "/root/root.txt"
+  skills_earned:
+    - nmap-basics
+    - web-enumeration
+    - directory-fuzzing
+    - cms-exploitation
+    - sudo-privesc
+
+walkthrough_notes: |
+  Easy THM room. Good for teaching enumeration -> directory fuzzing -> CMS exploitation -> sudo privesc pipeline.
+  SweetRice CMS has MySQL backup with plaintext admin creds.
+  Admin panel allows PHP file upload -> reverse shell as www-data.
+  sudo -l reveals perl can run as root -> sudo perl -e 'exec "/bin/bash"' -> root.
+  Clean linear path, no rabbit holes. Perfect first room.

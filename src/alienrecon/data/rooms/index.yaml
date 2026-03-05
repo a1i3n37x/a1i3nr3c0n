@@ -1,0 +1,57 @@
+# AlienRecon Curriculum Index
+curriculum:
+  - name: "Foundations"
+    description: "Learn to enumerate and think like a hacker"
+    rooms:
+      - thm-basic-pentesting
+      - thm-lazyadmin
+
+  - name: "Web Exploitation"
+    description: "Master web application attacks"
+    rooms:
+      - thm-blog
+
+skills:
+  nmap-basics:
+    description: "Port scanning and service enumeration"
+    taught_by: [thm-basic-pentesting]
+    unlocks: [web-enumeration, smb-enumeration]
+
+  web-enumeration:
+    description: "Discovering web content and technologies"
+    requires: [nmap-basics]
+    taught_by: [thm-basic-pentesting, thm-lazyadmin]
+    unlocks: [wordpress-enumeration, directory-fuzzing]
+
+  smb-enumeration:
+    description: "SMB/Samba service enumeration"
+    requires: [nmap-basics]
+    taught_by: [thm-basic-pentesting]
+
+  directory-fuzzing:
+    description: "Brute-forcing web directories and files"
+    requires: [web-enumeration]
+    taught_by: [thm-lazyadmin]
+
+  cms-exploitation:
+    description: "Exploiting content management systems"
+    requires: [web-enumeration]
+    taught_by: [thm-lazyadmin, thm-blog]
+
+  sudo-privesc:
+    description: "Privilege escalation via sudo misconfigurations"
+    taught_by: [thm-lazyadmin]
+
+  wordpress-enumeration:
+    description: "WordPress-specific scanning and exploitation"
+    requires: [web-enumeration]
+    taught_by: [thm-blog]
+
+  cve-research:
+    description: "Researching and exploiting known CVEs"
+    requires: [web-enumeration]
+    taught_by: [thm-blog]
+
+  suid-privesc:
+    description: "Privilege escalation via SUID binaries"
+    taught_by: [thm-blog]
