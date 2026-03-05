@@ -1,38 +1,37 @@
-"""Instructor agent — the AI teaching loop."""
+"""Instructor agent — AI mentor that walks you through rooms."""
 
 import logging
-import shlex
 import subprocess
 import time
 from typing import Optional
 
 from rich.console import Console
+from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.table import Table
 
 from ..core.flag_celebrator import FlagCelebrator
 from ..curriculum.profile import StudentProfile
 from ..curriculum.rooms import Phase, Room, RoomDatabase, Step
-from . import brain
 from ..tools.vpn import ensure_vpn
+from . import brain
 
 logger = logging.getLogger(__name__)
 console = Console()
 
 
 class Instructor:
-    """AI cybersecurity instructor that guides students through rooms."""
-
-    MAX_ATTEMPTS_BEFORE_HINT = 2
+    """AI cybersecurity mentor that walks students through rooms."""
 
     def __init__(self, profile: StudentProfile, rooms: RoomDatabase):
         self.profile = profile
         self.rooms = rooms
         self.current_room: Optional[Room] = None
+        self.target: str = ""
         self.hints_used = 0
         self.start_time = 0.0
         self.flags_found = 0
-        self.conversation: list[dict] = []  # Chat history for Claude
+        self.conversation: list[dict] = []
         self.ai_mode = brain.is_available()
 
         if self.ai_mode:
@@ -40,26 +39,25 @@ class Instructor:
         else:
             console.print("[dim]AI brain: scripted mode (set ANTHROPIC_API_KEY for AI)[/dim]")
 
-    def _chat(self, student_input: str, phase: Optional[Phase] = None,
+    def _chat(self, message: str, phase: Optional[Phase] = None,
               step: Optional[Step] = None) -> Optional[str]:
-        """Get a response from Claude, or None if unavailable."""
+        """Get a response from Claude."""
         if not self.ai_mode:
             return None
 
         response = brain.ask_claude(
-            student_input=student_input,
+            student_input=message,
             room_name=self.current_room.name if self.current_room else "",
             phase_name=phase.name if phase else "",
             phase_objective=phase.objective if phase else "",
-            step_instruction=step.instruction if step else "",
+            step_instruction=step.narration if step else "",
             skill_level=self.profile.current_tier,
             hints_used=self.hints_used,
             conversation_history=self.conversation,
         )
 
         if response:
-            # Track conversation
-            self.conversation.append({"role": "user", "content": student_input})
+            self.conversation.append({"role": "user", "content": message})
             self.conversation.append({"role": "assistant", "content": response})
 
         return response
@@ -70,7 +68,7 @@ class Instructor:
         if not room:
             console.print(Panel(
                 "[green]You've completed all available rooms![/green]\n"
-                "Check back for new rooms or try free mode with [cyan]alienrecon recon --target <IP>[/cyan]",
+                "Check back for new rooms or try free mode: [cyan]alienrecon recon --target <IP>[/cyan]",
                 title="Curriculum Complete",
                 border_style="green",
             ))
@@ -93,7 +91,7 @@ class Instructor:
     def resume_room(self):
         """Resume the current room in progress."""
         if not self.profile.current_room:
-            console.print("[yellow]No room in progress. Starting next room...[/yellow]")
+            console.print("[yellow]No room in progress. Starting next...[/yellow]")
             self.start_next()
             return
 
@@ -115,6 +113,11 @@ class Instructor:
             border_style="green",
         ))
 
+        # Get target again
+        self.target = self._ask("What was the target IP?") or ""
+        if not self.target:
+            return
+
         resume_phase = self.profile.current_room.phase
         resume_step = self.profile.current_room.step
         resuming = True
@@ -127,11 +130,13 @@ class Instructor:
                     continue
                 resuming = False
                 self._teach_step(phase, step)
+            if not resuming:
+                self._phase_complete(phase)
 
         self._room_complete()
 
     def _begin_room(self, room: Room):
-        """Display room intro and start teaching."""
+        """Display room intro and start walking through it."""
         self.current_room = room
         self.start_time = time.time()
         self.hints_used = 0
@@ -139,7 +144,6 @@ class Instructor:
         self.conversation = []
 
         skills_str = ", ".join(room.skills) if room.skills else "General"
-        prereqs = ", ".join(room.required_rooms) if room.required_rooms else "None"
 
         console.print()
         console.print(Panel(
@@ -147,8 +151,7 @@ class Instructor:
             f"Platform: [cyan]{room.platform}[/cyan] | "
             f"Difficulty: [yellow]{room.difficulty}[/yellow] | "
             f"Est. time: [cyan]{room.estimated_time} min[/cyan]\n"
-            f"Skills: [green]{skills_str}[/green]\n"
-            f"Prerequisites: {prereqs}\n\n"
+            f"Skills: [green]{skills_str}[/green]\n\n"
             f"[dim]{room.url}[/dim]\n\n"
             f"Connect to {room.platform} and start the machine.\n"
             f"When it's up, give me the target IP.",
@@ -159,30 +162,32 @@ class Instructor:
         # Ensure VPN is connected
         ensure_vpn(platform=room.platform)
 
-        target = self._ask("Target IP")
-        if not target:
+        self.target = self._ask("Target IP") or ""
+        if not self.target:
             return
 
-        console.print(f"\n[green]Target set:[/green] {target}\n")
+        console.print(f"\n[green]Target set:[/green] {self.target}\n")
+        self.profile.set_current_room(room.id, phase="", step="")
 
-        # Let Claude set the stage if available
+        # Let Claude introduce if available
         intro = self._chat(
-            f"I've started the {room.name} room on {room.platform}. Target is {target}. "
-            f"This is a {room.difficulty} room teaching: {skills_str}. "
-            f"Give me a brief welcome and ask what I'd do first.",
+            f"Starting {room.name} on {room.platform}. Target: {self.target}. "
+            f"Difficulty: {room.difficulty}. Skills: {skills_str}. "
+            f"Give a brief 2-sentence intro — what kind of box this is and what we'll learn."
         )
         if intro:
             console.print(f"\n{intro}\n")
+        else:
+            console.print(f"\nAlright, let's get into it. {room.name} — {room.difficulty} difficulty.\n")
 
-        self.profile.set_current_room(room.id, phase="", step="")
-
+        # Walk through phases
         for phase in room.phases:
             self._teach_phase(phase)
 
         self._room_complete()
 
     def _teach_phase(self, phase: Phase):
-        """Teach a single phase of the room."""
+        """Walk through a phase."""
         console.print()
         console.print(Panel(
             f"[bold]Objective:[/bold] {phase.objective}",
@@ -196,127 +201,148 @@ class Instructor:
             )
             self._teach_step(phase, step)
 
+        self._phase_complete(phase)
+
     def _teach_step(self, phase: Phase, step: Step):
-        """Teach a single step — ask questions, run tools, explain."""
-        console.print(f"\n[bold cyan]{step.instruction}[/bold cyan]\n")
+        """Walk through a single step — narrate, run, explain, discuss."""
 
-        for question in step.questions:
-            self._ask_question(question, step, phase)
+        # 1. NARRATE — what we're about to do and why
+        console.print()
+        console.print(Panel(
+            step.narration.strip(),
+            title=f"[bold]{step.id}[/bold]",
+            border_style="green",
+        ))
 
-        if step.expected_tool:
-            self._prompt_tool_execution(step, phase)
+        # 2. EXPLAIN — the technical details
+        if step.explanation:
+            console.print()
+            console.print(Panel(
+                step.explanation.strip(),
+                title="How this works",
+                border_style="dim",
+            ))
 
-    def _ask_question(self, question, step: Step, phase: Phase):
-        """Ask a question with AI evaluation or keyword fallback."""
-        attempts = 0
-        hint_level = 0
+        # 3. RUN — execute the command (or manual step)
+        if step.command:
+            cmd = step.command.replace("{target}", self.target)
+            console.print(f"\n[cyan]Command:[/cyan] [bold]{cmd}[/bold]\n")
 
-        while True:
-            response = self._ask(question.prompt)
+            response = self._ask("Ready? (y/run it / n/skip / or type your own command)")
             if not response:
-                continue
+                response = "y"
 
-            attempts += 1
+            response_lower = response.lower().strip()
 
-            # Use Claude to evaluate if available, otherwise keyword match
-            if self.ai_mode:
-                result = brain.evaluate_response(
-                    student_input=response,
-                    question_prompt=question.prompt,
-                    accepted_keywords=question.accept,
-                    teaching_point=question.teaching_point,
-                    room_context=f"{self.current_room.name} - {phase.name}" if self.current_room else "",
-                )
-                if result["correct"]:
-                    console.print(f"\n[green]{result['feedback']}[/green]\n")
-                    self.conversation.append({"role": "user", "content": response})
-                    self.conversation.append({"role": "assistant", "content": result["feedback"]})
-                    return
-                elif result["feedback"]:
-                    console.print(f"\n{result['feedback']}\n")
-                    self.conversation.append({"role": "user", "content": response})
-                    self.conversation.append({"role": "assistant", "content": result["feedback"]})
-            else:
-                # Scripted keyword matching
-                response_lower = response.lower().strip()
-                matched = any(kw.lower() in response_lower for kw in question.accept)
-                if matched:
-                    console.print(f"\n[green]Correct.[/green] {question.teaching_point}\n")
-                    return
-
-            # Hint escalation
-            if attempts >= self.MAX_ATTEMPTS_BEFORE_HINT and step.hints:
-                hint_level = min(hint_level + 1, len(step.hints))
-                hint = next((h for h in step.hints if h.level == hint_level), None)
-                if hint:
-                    console.print(f"\n[yellow]Hint:[/yellow] {hint.text}\n")
-                    self.hints_used += 1
-                    if self.profile.current_room:
-                        self.profile.current_room.hints_used = self.hints_used
-                elif not self.ai_mode:
-                    # No more scripted hints, give the answer
-                    console.print(f"\n[yellow]Here's what you need to know:[/yellow] {question.teaching_point}\n")
-                    return
-            elif not self.ai_mode:
-                console.print("[dim]Not quite. Think about it...[/dim]\n")
-
-    def _prompt_tool_execution(self, step: Step, phase: Phase):
-        """Ask student to construct and run a tool command."""
-        tool = step.expected_tool
-        console.print(f"[cyan]Time to run {tool}.[/cyan] Enter your command (or 'skip'):\n")
-
-        while True:
-            cmd = self._ask("$")
-            if not cmd:
-                continue
-            if cmd.lower() == "skip":
+            if response_lower in ("n", "no", "skip"):
                 console.print("[yellow]Skipped.[/yellow]")
-                return
+            elif response_lower in ("y", "yes", "yeah", "go", "run", "run it", "do it"):
+                output = self._execute_command(cmd)
+                self._post_execution(step, phase, output)
+            else:
+                # Student typed their own command — run it instead
+                console.print(f"[dim]Running your command instead: {response}[/dim]")
+                output = self._execute_command(response)
+                self._post_execution(step, phase, output)
+        else:
+            # Manual step (no command) — just the narration and explanation
+            self._wait_for_student(step, phase)
 
-            cmd_parts = shlex.split(cmd) if cmd else []
-            if cmd_parts and cmd_parts[0] != tool:
-                # Use Claude to help if available
-                help_msg = self._chat(
-                    f"I tried to run '{cmd}' but the expected tool is {tool}. "
-                    f"Help me construct the right command.",
+    def _post_execution(self, step: Step, phase: Phase, output: Optional[str]):
+        """After running a command — teach and discuss."""
+        if not output:
+            return
+
+        # Check for flags
+        flag = FlagCelebrator.check_for_flag(output)
+        if flag:
+            FlagCelebrator.celebrate(flag)
+            self.flags_found += 1
+
+        # 4. TEACH — explain what we found
+        if step.teach_after:
+            console.print()
+            console.print(Panel(
+                step.teach_after.strip(),
+                title="What this means",
+                border_style="green",
+            ))
+
+        # 5. DISCUSS — conversational question/comment
+        if step.conversation:
+            console.print(f"\n[cyan]{step.conversation}[/cyan]\n")
+            student_response = self._ask("")
+            if student_response and self.ai_mode:
+                # Let Claude respond naturally to whatever the student says
+                ai_response = self._chat(
+                    student_response, phase=phase, step=step
+                )
+                if ai_response:
+                    console.print(f"\n{ai_response}\n")
+        elif self.ai_mode and output:
+            # Even without a scripted conversation, let the student ask questions
+            console.print("[dim]Any questions? (press Enter to continue)[/dim]")
+            student_q = self._ask("")
+            if student_q:
+                ai_response = self._chat(
+                    f"After running: {step.command}\nOutput: {output[:1000]}\n\nStudent asks: {student_q}",
                     phase=phase, step=step,
                 )
-                if help_msg:
-                    console.print(f"\n{help_msg}\n")
-                else:
-                    console.print(f"[yellow]Expected a {tool} command. Try again.[/yellow]\n")
+                if ai_response:
+                    console.print(f"\n{ai_response}\n")
+
+    def _wait_for_student(self, step: Step, phase: Phase):
+        """For manual steps — wait for the student to complete something."""
+        console.print()
+        console.print("[cyan]This is a manual step.[/cyan] Follow the instructions above.")
+        console.print("Type [green]done[/green] when you've completed it, or ask a question.\n")
+
+        while True:
+            response = self._ask("")
+            if not response:
                 continue
-
-            run = self._ask("Run this command? (y/n)")
-            if run and run.lower() in ("y", "yes"):
-                output = self._execute_command(cmd)
-                if output:
-                    # Let Claude analyze the output if available
-                    analysis = self._chat(
-                        f"I ran: {cmd}\n\nOutput:\n{output[:2000]}\n\nWhat should I notice here?",
-                        phase=phase, step=step,
-                    )
-                    if analysis:
-                        console.print(f"\n{analysis}\n")
-
-                    flag = FlagCelebrator.check_for_flag(output)
-                    if flag:
-                        FlagCelebrator.celebrate(flag)
-                        self.flags_found += 1
-                return
+            if response.lower() in ("done", "next", "continue", "ok"):
+                break
+            # Student is asking a question — use Claude if available
+            if self.ai_mode:
+                ai_response = self._chat(response, phase=phase, step=step)
+                if ai_response:
+                    console.print(f"\n{ai_response}\n")
             else:
-                console.print("[dim]Command not executed. Try again or type 'skip'.[/dim]\n")
+                console.print("[dim]Complete the step above and type 'done' to continue.[/dim]")
+
+        if step.teach_after:
+            console.print()
+            console.print(Panel(
+                step.teach_after.strip(),
+                title="What this means",
+                border_style="green",
+            ))
+
+        if step.conversation:
+            console.print(f"\n[cyan]{step.conversation}[/cyan]\n")
+            student_response = self._ask("")
+            if student_response and self.ai_mode:
+                ai_response = self._chat(student_response, phase=phase, step=step)
+                if ai_response:
+                    console.print(f"\n{ai_response}\n")
 
     def _execute_command(self, cmd: str) -> Optional[str]:
         """Execute a shell command and display output."""
         try:
-            console.print(f"\n[dim]Executing: {cmd}[/dim]\n")
+            console.print(f"[dim]Running...[/dim]\n")
             result = subprocess.run(
                 cmd, shell=True, capture_output=True, text=True, timeout=300,
             )
             output = result.stdout + result.stderr
             if output.strip():
-                console.print(Panel(output.strip()[:5000], title="Output", border_style="dim"))
+                # Show output in a panel, truncate if huge
+                display = output.strip()
+                if len(display) > 5000:
+                    display = display[:5000] + "\n\n[dim]... (output truncated)[/dim]"
+                console.print(Panel(display, title="Output", border_style="dim"))
+            else:
+                console.print("[dim]No output.[/dim]")
             return output
         except subprocess.TimeoutExpired:
             console.print("[red]Command timed out (5 min limit).[/red]")
@@ -325,8 +351,11 @@ class Instructor:
             console.print(f"[red]Error: {e}[/red]")
             return None
 
+    def _phase_complete(self, phase: Phase):
+        console.print(f"\n[green]✓ Phase complete:[/green] {phase.name}\n")
+
     def _room_complete(self):
-        """Handle room completion."""
+        """Room done — stats, debrief, next room."""
         if not self.current_room:
             return
 
@@ -350,32 +379,31 @@ class Instructor:
         table.add_row("Flags Found", str(self.flags_found))
         table.add_row("Skills Earned", ", ".join(room.skills_earned))
         table.add_row("Total Rooms", str(self.profile.total_rooms))
-
         console.print()
         console.print(table)
 
         # Claude debrief
         debrief = self._chat(
-            f"I just completed {room.name}. {self.flags_found} flags found, "
-            f"{self.hints_used} hints used, took {elapsed} minutes. "
-            f"Skills earned: {', '.join(room.skills_earned)}. "
-            f"Give me a brief debrief — what I did well and what to focus on next.",
+            f"Room complete: {room.name}. {self.flags_found} flags, "
+            f"{self.hints_used} hints, {elapsed} min. "
+            f"Skills: {', '.join(room.skills_earned)}. "
+            f"Brief debrief — what we covered and what to focus on next."
         )
         if debrief:
             console.print(f"\n{debrief}\n")
 
         next_room = self.rooms.get_next_room(self.profile)
         if next_room:
-            console.print(f"\n[cyan]Next up:[/cyan] {next_room.name} ({next_room.difficulty})")
+            console.print(f"[cyan]Next up:[/cyan] {next_room.name} ({next_room.difficulty})")
             console.print(f"Run [green]alienrecon start[/green] when you're ready.\n")
 
     def _ask(self, prompt: str) -> Optional[str]:
         """Ask the student for input."""
         try:
-            if prompt == "$":
-                response = console.input("[green]  $ [/green]")
-            else:
+            if prompt:
                 response = console.input(f"[green]  > [/green]{prompt} ")
+            else:
+                response = console.input("[green]  > [/green]")
             return response.strip() if response else None
         except (KeyboardInterrupt, EOFError):
             console.print("\n[yellow]Session ended. Progress saved.[/yellow]")

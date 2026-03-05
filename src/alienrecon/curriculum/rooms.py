@@ -13,35 +13,14 @@ ROOMS_DIR = Path(__file__).parent.parent / "data" / "rooms"
 
 
 @dataclass
-class Hint:
-    level: int  # 1=nudge, 2=hint, 3=explain
-    text: str
-
-
-@dataclass
-class Question:
-    prompt: str
-    accept: list[str]  # keywords that indicate correct answer
-    teaching_point: str
-
-
-@dataclass
-class Discovery:
-    port: Optional[int] = None
-    service: Optional[str] = None
-    version: Optional[str] = None
-    finding: Optional[str] = None
-
-
-@dataclass
 class Step:
     id: str
-    instruction: str
-    expected_tool: Optional[str] = None
-    expected_flags: list[str] = field(default_factory=list)
-    discoveries: list[Discovery] = field(default_factory=list)
-    questions: list[Question] = field(default_factory=list)
-    hints: list[Hint] = field(default_factory=list)
+    narration: str  # What the agent says before running the command
+    command: Optional[str]  # Shell command to run ({target} gets replaced)
+    explanation: str  # Why we're running this / how it works
+    expect_output: list[str] = field(default_factory=list)  # Patterns to look for
+    teach_after: str = ""  # What the agent explains after seeing results
+    conversation: str = ""  # Optional conversational question/comment
 
 
 @dataclass
@@ -61,15 +40,15 @@ class Flag:
 @dataclass
 class Room:
     id: str
-    platform: str  # tryhackme, hackthebox
+    platform: str
     name: str
     url: str
     difficulty: str
-    estimated_time: int  # minutes
+    estimated_time: int
     skills: list[str] = field(default_factory=list)
-    prerequisites: dict = field(default_factory=dict)  # {rooms: [], skills: []}
+    prerequisites: dict = field(default_factory=dict)
     phases: list[Phase] = field(default_factory=list)
-    completion: dict = field(default_factory=dict)  # {flags: [], skills_earned: []}
+    completion: dict = field(default_factory=dict)
     walkthrough_notes: str = ""
 
     @property
@@ -90,20 +69,12 @@ class Room:
                 return phase
         return None
 
-    def get_step(self, phase_id: str, step_id: str) -> Optional[Step]:
-        phase = self.get_phase(phase_id)
-        if phase:
-            for step in phase.steps:
-                if step.id == step_id:
-                    return step
-        return None
-
 
 @dataclass
 class CurriculumTier:
     name: str
     description: str
-    rooms: list[str]  # room IDs
+    rooms: list[str]
 
 
 @dataclass
@@ -126,8 +97,6 @@ class RoomDatabase:
         self._load()
 
     def _load(self):
-        """Load all room files and the curriculum index."""
-        # Load index
         index_path = self.rooms_dir / "index.yaml"
         if index_path.exists():
             with open(index_path) as f:
@@ -149,7 +118,6 @@ class RoomDatabase:
                     unlocks=skill_data.get("unlocks", []),
                 )
 
-        # Load individual room files
         for room_file in self.rooms_dir.glob("*.yaml"):
             if room_file.name == "index.yaml":
                 continue
@@ -160,7 +128,6 @@ class RoomDatabase:
                 logger.warning(f"Failed to load room {room_file}: {e}")
 
     def _load_room(self, path: Path) -> Room:
-        """Parse a room YAML file into a Room object."""
         with open(path) as f:
             data = yaml.safe_load(f)
 
@@ -170,18 +137,12 @@ class RoomDatabase:
             for step_data in phase_data.get("steps", []):
                 steps.append(Step(
                     id=step_data["id"],
-                    instruction=step_data.get("instruction", ""),
-                    expected_tool=step_data.get("expected_tool"),
-                    expected_flags=step_data.get("expected_flags", []),
-                    discoveries=[
-                        Discovery(**d) for d in step_data.get("discoveries", [])
-                    ],
-                    questions=[
-                        Question(**q) for q in step_data.get("questions", [])
-                    ],
-                    hints=[
-                        Hint(**h) for h in step_data.get("hints", [])
-                    ],
+                    narration=step_data.get("narration", ""),
+                    command=step_data.get("command"),
+                    explanation=step_data.get("explanation", ""),
+                    expect_output=step_data.get("expect_output", []),
+                    teach_after=step_data.get("teach_after", ""),
+                    conversation=step_data.get("conversation", ""),
                 ))
             phases.append(Phase(
                 id=phase_data["id"],
@@ -218,32 +179,12 @@ class RoomDatabase:
     def skills(self) -> dict[str, SkillNode]:
         return self._skills
 
-    def get_available_rooms(self, profile) -> list[Room]:
-        """Get rooms the student is ready for based on prerequisites."""
-        available = []
-        for room in self._rooms.values():
-            if profile.has_completed(room.id):
-                continue
-            # Check room prerequisites
-            prereq_met = all(
-                profile.has_completed(r) for r in room.required_rooms
-            )
-            skill_met = all(
-                profile.has_skill(s) for s in room.required_skills
-            )
-            if prereq_met and skill_met:
-                available.append(room)
-        return available
-
     def get_next_room(self, profile) -> Optional[Room]:
-        """Get the next recommended room from the curriculum."""
-        # Walk curriculum tiers in order
         for tier in self._tiers:
             for room_id in tier.rooms:
                 if not profile.has_completed(room_id):
                     room = self.get_room(room_id)
                     if room:
-                        # Check prerequisites
                         prereq_met = all(
                             profile.has_completed(r) for r in room.required_rooms
                         )

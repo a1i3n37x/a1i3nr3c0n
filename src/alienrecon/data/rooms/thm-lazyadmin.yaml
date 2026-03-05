@@ -16,143 +16,195 @@ prerequisites:
   rooms: []
   skills: []
 
+# Each step: the agent proposes an action, explains why, runs it, then explains what happened.
+# The student watches, asks questions, and learns by seeing the workflow.
+
 phases:
   - id: recon
     name: "Initial Reconnaissance"
-    objective: "Discover open ports and services on the target"
+    objective: "Discover what's running on the target"
     steps:
       - id: port-scan
-        instruction: "Start by scanning the target to discover what's running."
-        expected_tool: nmap
-        expected_flags: ["-sV", "-sC"]
-        discoveries:
-          - port: 22
-            service: ssh
-            version: "OpenSSH 7.2p2"
-          - port: 80
-            service: http
-            version: "Apache httpd 2.4.18"
-        questions:
-          - prompt: "What's the first thing you do when you get a target IP?"
-            accept: ["scan", "nmap", "enumerate", "recon", "port"]
-            teaching_point: "Always start with enumeration. nmap tells you what doors are open."
-          - prompt: "You see port 80 is open. What does that tell you?"
-            accept: ["web", "http", "website", "browser", "apache"]
-            teaching_point: "Port 80 = web server. Always investigate web servers — they're the most common entry point."
-        hints:
-          - level: 1
-            text: "What tool maps out open ports on a network?"
-          - level: 2
-            text: "nmap is your go-to. Try nmap -sV -sC <target>"
-          - level: 3
-            text: "Run: nmap -sV -sC <target>. -sV detects service versions, -sC runs default scripts."
+        narration: |
+          First thing we always do — figure out what's running on this box.
+          I'm going to run an nmap scan with version detection and default scripts.
+        command: "nmap -sV -sC {target}"
+        explanation: |
+          -sV detects service versions (what software and what version).
+          -sC runs nmap's default scripts — they check for common misconfigs and info leaks.
+          This is your bread and butter scan. You'll run this on every single target.
+        expect_output:
+          - "22/tcp.*ssh.*OpenSSH 7.2p2"
+          - "80/tcp.*http.*Apache httpd 2.4.18"
+        teach_after: |
+          Two ports open. Port 22 is SSH — we might need that later if we find credentials.
+          Port 80 is Apache 2.4.18 — that's a web server and it's our way in.
+          Web servers are almost always the entry point in CTF boxes.
+          When you see port 80, think: what's on this website?
+        conversation: "What do you notice about those two services? Anything jump out?"
 
   - id: web-enum
     name: "Web Enumeration"
-    objective: "Find hidden directories and identify the CMS"
+    objective: "Find what's hiding on the web server"
     steps:
-      - id: check-web
-        instruction: "Check what's on the web server."
-        expected_tool: curl
-        discoveries:
-          - finding: "Default Apache page"
-        questions:
-          - prompt: "The homepage is just a default Apache page. What does that usually mean?"
-            accept: ["hidden", "directory", "fuzz", "gobuster", "dirbust", "content"]
-            teaching_point: "Default pages mean the real content is in a subdirectory. Time to fuzz."
-        hints:
-          - level: 1
-            text: "If there's nothing on the surface, what's hiding underneath?"
-          - level: 2
-            text: "Try directory brute-forcing with gobuster or ffuf"
-          - level: 3
-            text: "Run: gobuster dir -u http://<target> -w /usr/share/wordlists/dirb/common.txt"
+      - id: check-homepage
+        narration: |
+          Let's see what's on the web server. Quick curl to grab the homepage.
+        command: "curl -s http://{target}/ | head -20"
+        explanation: |
+          curl fetches web pages from the command line. The -s flag is silent mode (no progress bar).
+          We pipe to head -20 to just see the first 20 lines — enough to get a feel for what's there.
+        teach_after: |
+          It's just the default Apache "It works!" page. That means the real content
+          isn't at the root — it's hiding in a subdirectory. This happens all the time.
+          When you see a default page, your next move is always directory brute-forcing.
 
-      - id: find-cms
-        instruction: "Run a directory scan to find hidden content."
-        expected_tool: gobuster
-        discoveries:
-          - finding: "/content/ — SweetRice CMS"
-        questions:
-          - prompt: "You found /content/ running SweetRice CMS. What would you do next?"
-            accept: ["searchsploit", "exploit", "version", "vulnerability", "search"]
-            teaching_point: "When you find a CMS, check for known vulnerabilities. searchsploit is your friend."
-        hints:
-          - level: 1
-            text: "You found a CMS. What database tracks exploits for known software?"
-          - level: 2
-            text: "searchsploit can find exploits for SweetRice"
-          - level: 3
-            text: "Run: searchsploit sweetrice"
+      - id: dir-fuzz
+        narration: |
+          Default page means hidden directories. Let's brute-force with gobuster.
+          This throws a wordlist of common directory names at the server to see what exists.
+        command: "gobuster dir -u http://{target}/ -w /usr/share/wordlists/dirb/common.txt -q"
+        explanation: |
+          gobuster dir = directory mode.
+          -u is the target URL.
+          -w is the wordlist — dirb/common.txt has ~4600 common directory names.
+          -q is quiet mode so we just see the hits.
+          Other tools that do this: ffuf, dirbuster, feroxbuster. They all work.
+        teach_after: |
+          We found /content/ — let's check that out. When gobuster finds directories,
+          always investigate them. Each one could be an attack surface.
+        conversation: "See how the default page was a dead end but gobuster found /content/? This is why enumeration matters — the surface doesn't show you everything."
+
+      - id: identify-cms
+        narration: |
+          Let's look at /content/ and figure out what CMS is running.
+        command: "curl -s http://{target}/content/ | head -30"
+        explanation: |
+          We're just reading the HTML source. CMS software usually identifies itself
+          in the page source — look for generator meta tags, CSS paths, or JavaScript includes.
+        teach_after: |
+          This is SweetRice CMS. Never heard of it? Good — that means it's probably
+          not well-maintained, which means it probably has vulnerabilities.
+          When you find a CMS, your next move is always: check for known exploits.
+
+      - id: searchsploit
+        narration: |
+          Found a CMS — let's check if it has known vulnerabilities.
+          searchsploit searches the Exploit-DB database offline.
+        command: "searchsploit sweetrice"
+        explanation: |
+          searchsploit is a command-line search for Exploit-DB. It works offline
+          (the database is local). Always check this when you find named software.
+          You can also search on exploit-db.com or Google "sweetrice exploit".
+        teach_after: |
+          Multiple exploits for SweetRice. We can see backup disclosure, arbitrary file upload,
+          and code execution. That backup disclosure one is interesting — let's dig deeper
+          into the CMS directory structure first.
 
   - id: exploitation
     name: "Exploitation"
-    objective: "Gain initial access to the system"
+    objective: "Find credentials and get a shell"
     steps:
-      - id: find-creds
-        instruction: "Dig deeper into the SweetRice CMS directories for useful information."
-        expected_tool: gobuster
-        discoveries:
-          - finding: "MySQL backup with admin credentials in /content/inc/mysql_backup/"
-        questions:
-          - prompt: "You found a MySQL backup file. Why is that interesting?"
-            accept: ["password", "credentials", "creds", "database", "login", "hash"]
-            teaching_point: "Database backups often contain usernames and password hashes. Always check backup files."
-        hints:
-          - level: 1
-            text: "What kind of sensitive information might be in a database backup?"
-          - level: 2
-            text: "Download and read the backup file — look for usernames and passwords"
-          - level: 3
-            text: "curl http://<target>/content/inc/mysql_backup/ and download the .sql file"
+      - id: deeper-enum
+        narration: |
+          Let's fuzz deeper inside /content/ to find CMS internals.
+        command: "gobuster dir -u http://{target}/content/ -w /usr/share/wordlists/dirb/common.txt -q"
+        explanation: |
+          Same technique, but now we're fuzzing inside /content/ instead of the root.
+          Always fuzz recursively — directories inside directories.
+        teach_after: |
+          Found /content/inc/ among others. The 'inc' directory usually holds includes,
+          configs, and sometimes backups. Let's check it.
+
+      - id: find-backup
+        narration: |
+          Let's check that /content/inc/ directory — CMS internals often have juicy files.
+        command: "curl -s http://{target}/content/inc/"
+        explanation: |
+          Directory listings are gold. If the server shows you the file listing
+          instead of blocking access, you can browse everything inside.
+        teach_after: |
+          There's a mysql_backup/ directory. Database backups are a jackpot —
+          they often contain usernames and passwords. Let's grab it.
+        conversation: "Database backups in a web-accessible directory — that's a serious misconfiguration. In real pentests, this kind of thing gets you credentials fast."
+
+      - id: grab-creds
+        narration: |
+          Let's download and read that MySQL backup.
+        command: "curl -s http://{target}/content/inc/mysql_backup/ && echo '---' && curl -s http://{target}/content/inc/mysql_backup/*.sql | grep -i 'pass\\|admin'"
+        explanation: |
+          We're listing the backup directory then grepping the SQL dump for passwords.
+          grep -i makes it case-insensitive. We're looking for 'pass' or 'admin' strings.
+          In a real engagement, you'd download the whole file and read it carefully.
+        teach_after: |
+          Found admin credentials. The password might be hashed — if so, try cracking it
+          with john or hashcat first. Or try it as-is in case it's plaintext or a simple hash.
+          Now we have creds for the SweetRice admin panel. Time to get a shell.
 
       - id: get-shell
-        instruction: "Use the credentials you found to log in and get a shell."
-        questions:
-          - prompt: "You have admin creds for SweetRice. How do you turn CMS access into a shell?"
-            accept: ["upload", "reverse shell", "php", "code", "exploit", "plugin"]
-            teaching_point: "CMS admin panels usually let you upload files or edit code. Upload a PHP reverse shell."
-        hints:
-          - level: 1
-            text: "What can an admin do that a regular user can't?"
-          - level: 2
-            text: "Look for file upload or code editing features in the CMS admin panel"
-          - level: 3
-            text: "Upload a PHP reverse shell through the CMS. Use pentest-monkey's php-reverse-shell."
+        narration: |
+          We have admin access to SweetRice. CMS admin panels almost always let you
+          upload files or edit code. We're going to upload a PHP reverse shell.
+          
+          First, set up a listener to catch the shell. Open another terminal and run:
+          nc -lvnp 4444
+          
+          Then we'll upload a PHP reverse shell through the CMS.
+        command: null
+        explanation: |
+          A reverse shell connects BACK to your machine — the target calls you.
+          nc -lvnp 4444 listens on port 4444 for incoming connections.
+          The PHP reverse shell (from pentestmonkey) is a file we upload to the web server.
+          When we visit it in the browser, it executes and connects back to our listener.
+          
+          Steps:
+          1. Log into SweetRice at /content/as/
+          2. Find the file upload or ad code section
+          3. Upload a PHP reverse shell (edit the IP and port first)
+          4. Trigger it by visiting the uploaded file
+        teach_after: |
+          We've got a shell as www-data. That's the web server user — low privilege.
+          We need to escalate to root. Let's enumerate what we can do from here.
+        conversation: "This upload-to-shell pattern works on tons of CMS platforms — WordPress, Joomla, Drupal, and obscure ones like SweetRice. If you can upload a file and execute it, you've got a shell."
 
   - id: privesc
     name: "Privilege Escalation"
-    objective: "Escalate from www-data to root"
+    objective: "Go from www-data to root"
     steps:
       - id: check-sudo
-        instruction: "You have a shell as www-data. Find a way to escalate to root."
-        questions:
-          - prompt: "First thing to check for privilege escalation on Linux?"
-            accept: ["sudo", "sudo -l", "suid", "permissions", "cron"]
-            teaching_point: "sudo -l shows what commands you can run as root. Always check this first."
-        hints:
-          - level: 1
-            text: "What command shows you your special permissions?"
-          - level: 2
-            text: "Try: sudo -l"
-          - level: 3
-            text: "Run sudo -l — it shows commands you can run without a password as another user."
+        narration: |
+          First thing after getting a shell — check what we can run with sudo.
+          This is always step one for Linux privilege escalation.
+        command: "sudo -l"
+        explanation: |
+          sudo -l lists what commands the current user can run as other users (usually root).
+          If you see NOPASSWD, that means no password required — instant win if the command
+          is exploitable. This should be muscle memory: get shell → sudo -l.
+        teach_after: |
+          We can run /usr/bin/perl and a backup script as root with no password.
+          Perl is an interpreter — if we can run an interpreter as root, we can spawn a root shell.
+          This is a classic GTFOBins technique.
+        conversation: "Check gtfobins.github.io — it lists how to exploit almost any binary if you can run it with elevated privileges. It's your cheat sheet for privesc."
 
-      - id: escalate
-        instruction: "Exploit what sudo -l reveals to get root."
-        discoveries:
-          - finding: "www-data can run /usr/bin/perl and a backup script as sudo with no password"
-        questions:
-          - prompt: "sudo -l shows you can run perl as root. How do you use that?"
-            accept: ["perl", "shell", "exec", "system", "reverse", "spawn"]
-            teaching_point: "If you can run an interpreter (perl, python, etc.) as root, you can spawn a root shell."
-        hints:
-          - level: 1
-            text: "If you can run a programming language as root..."
-          - level: 2
-            text: "Perl can execute system commands. Look up perl reverse shell or perl -e 'exec'"
-          - level: 3
-            text: "Run: sudo perl -e 'exec \"/bin/bash\"' — instant root shell."
+      - id: get-root
+        narration: |
+          Perl can execute system commands. Since we can run it as root, we just
+          tell it to spawn a bash shell. One command, instant root.
+        command: "sudo perl -e 'exec \"/bin/bash\"'"
+        explanation: |
+          perl -e runs a one-liner. exec() replaces the perl process with whatever you specify.
+          Since sudo runs perl as root, the bash shell it spawns is also root.
+          
+          Other ways this works with different interpreters:
+          - Python: sudo python -c 'import os; os.system("/bin/bash")'
+          - Ruby: sudo ruby -e 'exec "/bin/bash"'
+          - Vim: sudo vim -c '!bash'
+          
+          If you can run ANY interpreter as root, you can get a root shell.
+        teach_after: |
+          We're root. Now grab the flags.
+          cat /home/itguy/user.txt
+          cat /root/root.txt
 
 completion:
   flags:
@@ -168,8 +220,7 @@ completion:
     - sudo-privesc
 
 walkthrough_notes: |
-  Easy THM room. Good for teaching enumeration -> directory fuzzing -> CMS exploitation -> sudo privesc pipeline.
-  SweetRice CMS has MySQL backup with plaintext admin creds.
-  Admin panel allows PHP file upload -> reverse shell as www-data.
-  sudo -l reveals perl can run as root -> sudo perl -e 'exec "/bin/bash"' -> root.
-  Clean linear path, no rabbit holes. Perfect first room.
+  Linear easy room. Good first room for teaching the full pipeline:
+  nmap → curl → gobuster → searchsploit → find creds → upload shell → sudo privesc
+  No rabbit holes. SweetRice CMS with MySQL backup containing plaintext creds.
+  PHP file upload for shell. sudo perl for root. Clean path.
