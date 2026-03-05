@@ -16,8 +16,22 @@ prerequisites:
   rooms: []
   skills: []
 
-# Each step: the agent proposes an action, explains why, runs it, then explains what happened.
-# The student watches, asks questions, and learns by seeing the workflow.
+brief: |
+  Linear easy box. Apache web server on port 80 running SweetRice CMS.
+  Default Apache page at root — real content at /content/. MySQL backup
+  exposed at /content/inc/mysql_backup/ contains admin creds (manager/Password123).
+  Login at /content/as/, upload PHP reverse shell via ad code editor.
+  www-data shell. sudo -l reveals perl and a backup.pl script run as root
+  with NOPASSWD. sudo perl for root shell. Flags at /home/itguy/user.txt
+  and /root/root.txt. No rabbit holes, clean kill chain.
+
+questions:
+  - id: q1
+    text: "What is the user flag?"
+    answer_step: user-flag
+  - id: q2
+    text: "What is the root flag?"
+    answer_step: root-flag
 
 phases:
   - id: recon
@@ -33,14 +47,17 @@ phases:
           -sV detects service versions (what software and what version).
           -sC runs nmap's default scripts — they check for common misconfigs and info leaks.
           This is your bread and butter scan. You'll run this on every single target.
-        expect_output:
-          - "22/tcp.*ssh.*OpenSSH 7.2p2"
-          - "80/tcp.*http.*Apache httpd 2.4.18"
-        teach_after: |
-          Two ports open. Port 22 is SSH — we might need that later if we find credentials.
-          Port 80 is Apache 2.4.18 — that's a web server and it's our way in.
-          Web servers are almost always the entry point in CTF boxes.
-          When you see port 80, think: what's on this website?
+        look_for:
+          - "Port 22 SSH — note the OpenSSH version (tells us it's Ubuntu)"
+          - "Port 80 HTTP — Apache web server, this is our entry point"
+          - "Only 2 ports — simple attack surface, web server is the way in"
+        key_takeaway: |
+          Web servers on port 80/443 are almost always the entry point in CTF boxes.
+          When you see HTTP, your next thought should be: what's on this website?
+        if_fails: |
+          0 hosts up means VPN isn't connected or the target isn't running.
+          Check: ip a show tun0 (VPN up?), ping -c 1 {target} (reachable?).
+          If filtered, try: nmap -Pn {target} to skip host discovery.
         conversation: "What do you notice about those two services? Anything jump out?"
 
   - id: web-enum
@@ -52,40 +69,57 @@ phases:
           Let's see what's on the web server. Quick curl to grab the homepage.
         command: "curl -s http://{target}/ | head -20"
         explanation: |
-          curl fetches web pages from the command line. The -s flag is silent mode (no progress bar).
-          We pipe to head -20 to just see the first 20 lines — enough to get a feel for what's there.
-        teach_after: |
-          It's just the default Apache "It works!" page. That means the real content
-          isn't at the root — it's hiding in a subdirectory. This happens all the time.
-          When you see a default page, your next move is always directory brute-forcing.
+          curl fetches web pages from the command line. -s is silent mode (no progress bar).
+          We pipe to head -20 to see the first 20 lines — enough to get a feel.
+        look_for:
+          - "Default Apache 'It works!' page or Ubuntu default page"
+          - "No custom content at root — real app is in a subdirectory"
+        key_takeaway: |
+          Default pages mean the real content is hiding in subdirectories.
+          When you see a default page, your next move is directory brute-forcing.
+        if_fails: |
+          Connection refused means the web server isn't running or wrong port.
+          Try: curl -v http://{target}/ to see more details.
 
       - id: dir-fuzz
         narration: |
           Default page means hidden directories. Let's brute-force with gobuster.
-          This throws a wordlist of common directory names at the server to see what exists.
+          This throws a wordlist of common directory names at the server.
         command: "gobuster dir -u http://{target}/ -w /usr/share/wordlists/dirb/common.txt -q"
         explanation: |
           gobuster dir = directory mode.
-          -u is the target URL.
-          -w is the wordlist — dirb/common.txt has ~4600 common directory names.
+          -u is the target URL. -w is the wordlist (dirb/common.txt has ~4600 entries).
           -q is quiet mode so we just see the hits.
-          Other tools that do this: ffuf, dirbuster, feroxbuster. They all work.
-        teach_after: |
-          We found /content/ — let's check that out. When gobuster finds directories,
-          always investigate them. Each one could be an attack surface.
-        conversation: "See how the default page was a dead end but gobuster found /content/? This is why enumeration matters — the surface doesn't show you everything."
+          Other tools: ffuf, dirbuster, feroxbuster — they all do the same thing.
+        look_for:
+          - "/content/ directory — this is where the CMS lives"
+          - "Any other directories that might be interesting"
+        key_takeaway: |
+          Directory brute-forcing reveals what the surface doesn't show you.
+          This is why enumeration matters — the homepage told us nothing,
+          but gobuster found the actual application.
+        if_fails: |
+          If gobuster hangs or errors, check the URL is right (http not https).
+          Try a smaller wordlist first: /usr/share/wordlists/dirb/small.txt
+        conversation: "See how the default page was a dead end but gobuster found /content/? This is why enumeration matters."
 
       - id: identify-cms
         narration: |
           Let's look at /content/ and figure out what CMS is running.
         command: "curl -s http://{target}/content/ | head -30"
         explanation: |
-          We're just reading the HTML source. CMS software usually identifies itself
-          in the page source — look for generator meta tags, CSS paths, or JavaScript includes.
-        teach_after: |
-          This is SweetRice CMS. Never heard of it? Good — that means it's probably
-          not well-maintained, which means it probably has vulnerabilities.
-          When you find a CMS, your next move is always: check for known exploits.
+          We're reading the HTML source. CMS software usually identifies itself
+          in the page — look for generator meta tags, CSS paths, or JS includes.
+        look_for:
+          - "SweetRice — that's the CMS name"
+          - "Any version numbers in the source"
+          - "Links to /content/as/ (the admin panel)"
+        key_takeaway: |
+          When you find a CMS, always check for known exploits. Obscure CMS
+          software is often poorly maintained and full of vulnerabilities.
+        if_fails: |
+          If empty, try without head: curl -s http://{target}/content/
+          Or check in browser if curl isn't showing it right.
 
       - id: searchsploit
         narration: |
@@ -93,13 +127,16 @@ phases:
           searchsploit searches the Exploit-DB database offline.
         command: "searchsploit sweetrice"
         explanation: |
-          searchsploit is a command-line search for Exploit-DB. It works offline
-          (the database is local). Always check this when you find named software.
+          searchsploit is a command-line search for Exploit-DB. Works offline.
+          Always check this when you find named software with a version.
           You can also search on exploit-db.com or Google "sweetrice exploit".
-        teach_after: |
-          Multiple exploits for SweetRice. We can see backup disclosure, arbitrary file upload,
-          and code execution. That backup disclosure one is interesting — let's dig deeper
-          into the CMS directory structure first.
+        look_for:
+          - "Backup Disclosure — this lets us find database backups"
+          - "Arbitrary File Upload — this is how we'll get a shell later"
+          - "Multiple exploits — SweetRice is full of holes"
+        key_takeaway: |
+          searchsploit is muscle memory. Find software → searchsploit it.
+          Multiple exploit types means multiple attack paths.
 
   - id: exploitation
     name: "Exploitation"
@@ -110,62 +147,74 @@ phases:
           Let's fuzz deeper inside /content/ to find CMS internals.
         command: "gobuster dir -u http://{target}/content/ -w /usr/share/wordlists/dirb/common.txt -q"
         explanation: |
-          Same technique, but now we're fuzzing inside /content/ instead of the root.
+          Same technique, but now fuzzing inside /content/ instead of root.
           Always fuzz recursively — directories inside directories.
-        teach_after: |
-          Found /content/inc/ among others. The 'inc' directory usually holds includes,
-          configs, and sometimes backups. Let's check it.
+        look_for:
+          - "/content/inc/ — 'inc' usually holds includes, configs, backups"
+          - "/content/as/ — the admin login panel"
+          - "Any other directories worth investigating"
+        key_takeaway: |
+          Don't stop at the first level of fuzzing. Go deeper into
+          interesting directories. The juicy stuff is often nested.
 
       - id: find-backup
         narration: |
-          Let's check that /content/inc/ directory — CMS internals often have juicy files.
+          Let's check /content/inc/ — CMS internals often have exposed files.
         command: "curl -s http://{target}/content/inc/"
         explanation: |
-          Directory listings are gold. If the server shows you the file listing
-          instead of blocking access, you can browse everything inside.
-        teach_after: |
-          There's a mysql_backup/ directory. Database backups are a jackpot —
-          they often contain usernames and passwords. Let's grab it.
-        conversation: "Database backups in a web-accessible directory — that's a serious misconfiguration. In real pentests, this kind of thing gets you credentials fast."
+          If the server shows directory listings instead of blocking access,
+          you can browse everything inside. This is a misconfiguration.
+        look_for:
+          - "mysql_backup/ directory — database backups are a jackpot"
+          - "Directory listing enabled — server misconfiguration"
+          - "Any config files, .php files worth reading"
+        key_takeaway: |
+          Database backups in web-accessible directories are a critical
+          misconfiguration. In real pentests, this is how you get credentials fast.
+        conversation: "Database backups in a public directory — that's a serious finding. Why is this so dangerous?"
 
       - id: grab-creds
         narration: |
-          Let's download and read that MySQL backup.
+          Let's download and read that MySQL backup. Database dumps
+          almost always contain usernames and passwords.
         command: "curl -s http://{target}/content/inc/mysql_backup/ && echo '---' && curl -s http://{target}/content/inc/mysql_backup/*.sql | grep -i 'pass\\|admin'"
         explanation: |
           We're listing the backup directory then grepping the SQL dump for passwords.
-          grep -i makes it case-insensitive. We're looking for 'pass' or 'admin' strings.
-          In a real engagement, you'd download the whole file and read it carefully.
-        teach_after: |
-          Found admin credentials. The password might be hashed — if so, try cracking it
-          with john or hashcat first. Or try it as-is in case it's plaintext or a simple hash.
-          Now we have creds for the SweetRice admin panel. Time to get a shell.
+          grep -i makes it case-insensitive. Looking for 'pass' or 'admin' strings.
+          In a real engagement, download the whole file and read it carefully.
+        look_for:
+          - "Admin username — likely 'manager'"
+          - "Password hash or plaintext password"
+          - "The password might be a simple MD5 — try cracking or just try it raw"
+        key_takeaway: |
+          Always read database dumps carefully. Credentials, emails, and
+          configuration data are all valuable for the next phase of attack.
 
       - id: get-shell
         narration: |
-          We have admin access to SweetRice. CMS admin panels almost always let you
-          upload files or edit code. We're going to upload a PHP reverse shell.
-          
-          First, set up a listener to catch the shell. Open another terminal and run:
-          nc -lvnp 4444
-          
-          Then we'll upload a PHP reverse shell through the CMS.
+          We have admin access to SweetRice. CMS admin panels almost always
+          let you upload files or edit code. We're going to get a reverse shell.
+
+          Steps:
+          1. Set up a listener: nc -lvnp 4444
+          2. Log into SweetRice at /content/as/ with the creds we found
+          3. Go to the Ads section — it lets you add code
+          4. Paste a PHP reverse shell (edit IP to your VPN IP, port 4444)
+          5. Visit http://{target}/content/inc/ads/your_ad.php to trigger it
         command: null
         explanation: |
           A reverse shell connects BACK to your machine — the target calls you.
           nc -lvnp 4444 listens on port 4444 for incoming connections.
-          The PHP reverse shell (from pentestmonkey) is a file we upload to the web server.
-          When we visit it in the browser, it executes and connects back to our listener.
-          
-          Steps:
-          1. Log into SweetRice at /content/as/
-          2. Find the file upload or ad code section
-          3. Upload a PHP reverse shell (edit the IP and port first)
-          4. Trigger it by visiting the uploaded file
-        teach_after: |
-          We've got a shell as www-data. That's the web server user — low privilege.
-          We need to escalate to root. Let's enumerate what we can do from here.
-        conversation: "This upload-to-shell pattern works on tons of CMS platforms — WordPress, Joomla, Drupal, and obscure ones like SweetRice. If you can upload a file and execute it, you've got a shell."
+          The PHP reverse shell (pentestmonkey) executes on the web server
+          and connects back to your listener. Upload + trigger = shell.
+        look_for:
+          - "Connection received on nc listener"
+          - "Shell as www-data (the web server user)"
+        key_takeaway: |
+          CMS admin panel → file upload or code injection → reverse shell.
+          This pattern works on WordPress, Joomla, Drupal, and obscure
+          CMS platforms. If you can upload and execute, you've got a shell.
+        conversation: "This upload-to-shell pattern is one of the most common initial access methods. Where else might you find file upload functionality?"
 
   - id: privesc
     name: "Privilege Escalation"
@@ -177,34 +226,62 @@ phases:
           This is always step one for Linux privilege escalation.
         command: "sudo -l"
         explanation: |
-          sudo -l lists what commands the current user can run as other users (usually root).
-          If you see NOPASSWD, that means no password required — instant win if the command
-          is exploitable. This should be muscle memory: get shell → sudo -l.
-        teach_after: |
-          We can run /usr/bin/perl and a backup script as root with no password.
-          Perl is an interpreter — if we can run an interpreter as root, we can spawn a root shell.
-          This is a classic GTFOBins technique.
-        conversation: "Check gtfobins.github.io — it lists how to exploit almost any binary if you can run it with elevated privileges. It's your cheat sheet for privesc."
+          sudo -l lists what commands the current user can run as other users.
+          NOPASSWD means no password required — instant win if exploitable.
+          This should be muscle memory: get shell -> sudo -l.
+        look_for:
+          - "NOPASSWD entries — commands we can run as root without a password"
+          - "/usr/bin/perl — an interpreter we can run as root"
+          - "A backup script — might be writable or call something we control"
+        key_takeaway: |
+          sudo -l is THE first command after getting a shell. If you can
+          run an interpreter (perl, python, ruby, vim) as root, game over.
+        conversation: "Check gtfobins.github.io — it lists how to exploit almost any binary with elevated privileges."
 
       - id: get-root
         narration: |
-          Perl can execute system commands. Since we can run it as root, we just
-          tell it to spawn a bash shell. One command, instant root.
+          Perl can execute system commands. Since we can run it as root,
+          we just tell it to spawn a bash shell. One command, instant root.
         command: "sudo perl -e 'exec \"/bin/bash\"'"
         explanation: |
-          perl -e runs a one-liner. exec() replaces the perl process with whatever you specify.
-          Since sudo runs perl as root, the bash shell it spawns is also root.
-          
-          Other ways this works with different interpreters:
+          perl -e runs a one-liner. exec() replaces the perl process with bash.
+          Since sudo runs perl as root, the bash shell is also root.
+
+          Other interpreters that work the same way:
           - Python: sudo python -c 'import os; os.system("/bin/bash")'
           - Ruby: sudo ruby -e 'exec "/bin/bash"'
           - Vim: sudo vim -c '!bash'
-          
-          If you can run ANY interpreter as root, you can get a root shell.
-        teach_after: |
-          We're root. Now grab the flags.
-          cat /home/itguy/user.txt
-          cat /root/root.txt
+        look_for:
+          - "root@... prompt — we're root"
+          - "id command should show uid=0(root)"
+        key_takeaway: |
+          Any interpreter with sudo = root shell. Memorize the GTFOBins
+          entries for perl, python, ruby, vim, less, more, find, nmap.
+
+      - id: user-flag
+        narration: |
+          We're root. Let's grab the user flag first.
+        command: "cat /home/itguy/user.txt"
+        explanation: |
+          User flags are typically in the user's home directory.
+        look_for:
+          - "The flag hash — copy this for the THM question"
+        key_takeaway: |
+          Always grab both flags. User flag proves initial access,
+          root flag proves full compromise.
+        answers: ["q1"]
+
+      - id: root-flag
+        narration: |
+          And the root flag.
+        command: "cat /root/root.txt"
+        explanation: |
+          Root flag is in /root/ — only readable by root.
+        look_for:
+          - "The flag hash — this completes the room"
+        key_takeaway: |
+          Box owned. Full kill chain: recon -> enumerate -> exploit -> escalate.
+        answers: ["q2"]
 
 completion:
   flags:
@@ -221,6 +298,6 @@ completion:
 
 walkthrough_notes: |
   Linear easy room. Good first room for teaching the full pipeline:
-  nmap → curl → gobuster → searchsploit → find creds → upload shell → sudo privesc
+  nmap -> curl -> gobuster -> searchsploit -> find creds -> upload shell -> sudo privesc
   No rabbit holes. SweetRice CMS with MySQL backup containing plaintext creds.
   PHP file upload for shell. sudo perl for root. Clean path.

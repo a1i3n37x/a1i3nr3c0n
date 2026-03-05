@@ -15,12 +15,17 @@ ROOMS_DIR = Path(__file__).parent.parent / "data" / "rooms"
 @dataclass
 class Step:
     id: str
-    narration: str  # What the agent says before running the command
-    command: Optional[str]  # Shell command to run ({target} gets replaced)
-    explanation: str  # Why we're running this / how it works
-    expect_output: list[str] = field(default_factory=list)  # Patterns to look for
-    teach_after: str = ""  # What the agent explains after seeing results
-    conversation: str = ""  # Optional conversational question/comment
+    narration: str
+    command: Optional[str]
+    explanation: str
+    look_for: list[str] = field(default_factory=list)
+    key_takeaway: str = ""
+    if_fails: str = ""
+    answers: list[str] = field(default_factory=list)
+    conversation: str = ""
+    # Legacy fields (still loaded for backward compat)
+    expect_output: list[str] = field(default_factory=list)
+    teach_after: str = ""
 
 
 @dataclass
@@ -29,6 +34,13 @@ class Phase:
     name: str
     objective: str
     steps: list[Step] = field(default_factory=list)
+
+
+@dataclass
+class Question:
+    id: str
+    text: str
+    answer_step: str = ""
 
 
 @dataclass
@@ -45,9 +57,11 @@ class Room:
     url: str
     difficulty: str
     estimated_time: int
+    brief: str = ""
     skills: list[str] = field(default_factory=list)
     prerequisites: dict = field(default_factory=dict)
     phases: list[Phase] = field(default_factory=list)
+    questions: list[Question] = field(default_factory=list)
     completion: dict = field(default_factory=dict)
     walkthrough_notes: str = ""
 
@@ -140,15 +154,27 @@ class RoomDatabase:
                     narration=step_data.get("narration", ""),
                     command=step_data.get("command"),
                     explanation=step_data.get("explanation", ""),
+                    look_for=step_data.get("look_for", []),
+                    key_takeaway=step_data.get("key_takeaway", ""),
+                    if_fails=step_data.get("if_fails", ""),
+                    answers=step_data.get("answers", []),
+                    conversation=step_data.get("conversation", ""),
                     expect_output=step_data.get("expect_output", []),
                     teach_after=step_data.get("teach_after", ""),
-                    conversation=step_data.get("conversation", ""),
                 ))
             phases.append(Phase(
                 id=phase_data["id"],
                 name=phase_data["name"],
                 objective=phase_data.get("objective", ""),
                 steps=steps,
+            ))
+
+        questions = []
+        for q_data in data.get("questions", []):
+            questions.append(Question(
+                id=q_data["id"],
+                text=q_data["text"],
+                answer_step=q_data.get("answer_step", ""),
             ))
 
         return Room(
@@ -158,9 +184,11 @@ class RoomDatabase:
             url=data.get("url", ""),
             difficulty=data.get("difficulty", ""),
             estimated_time=data.get("estimated_time", 0),
+            brief=data.get("brief", data.get("walkthrough_notes", "")),
             skills=data.get("skills", []),
             prerequisites=data.get("prerequisites", {}),
             phases=phases,
+            questions=questions,
             completion=data.get("completion", {}),
             walkthrough_notes=data.get("walkthrough_notes", ""),
         )
