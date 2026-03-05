@@ -2,6 +2,7 @@
 
 import logging
 import subprocess
+import time
 from pathlib import Path
 from typing import Optional
 
@@ -12,35 +13,26 @@ console = Console()
 
 VPN_DIR = Path.home() / ".alienrecon" / "vpn"
 KNOWN_PATTERNS = [
-    # Common download locations
     Path.home() / "Downloads",
     Path.home() / "Desktop",
     Path("/tmp"),
-    # THM/HTB default filenames
 ]
 
 
 def find_ovpn_files() -> list[Path]:
     """Search for .ovpn files in common locations."""
     found = []
-    
-    # Check our saved VPN dir first
     if VPN_DIR.exists():
         found.extend(VPN_DIR.glob("*.ovpn"))
-    
-    # Check common download locations
     for search_dir in KNOWN_PATTERNS:
         if search_dir.exists():
             found.extend(search_dir.glob("*.ovpn"))
-    
-    # Deduplicate by filename
     seen = set()
     unique = []
     for f in found:
         if f.name not in seen:
             seen.add(f.name)
             unique.append(f)
-    
     return unique
 
 
@@ -72,27 +64,73 @@ def get_vpn_ip() -> Optional[str]:
     return None
 
 
+def _ovpn_needs_auth(ovpn_path: Path) -> bool:
+    """Check if the .ovpn file requires username/password auth."""
+    try:
+        content = ovpn_path.read_text()
+        return "auth-user-pass" in content
+    except Exception:
+        return False
+
+
+def _create_auth_file(ovpn_path: Path) -> Optional[Path]:
+    """Prompt for creds and create a temp auth file for openvpn."""
+    auth_file = VPN_DIR / f".auth-{ovpn_path.stem}"
+    if auth_file.exists():
+        console.print(f"[dim]Using saved credentials from {auth_file}[/dim]")
+        return auth_file
+
+    console.print("[yellow]This VPN config requires a username and password.[/yellow]")
+    username = console.input("[green]  > [/green]Username: ").strip()
+    if not username:
+        return None
+    password = console.input("[green]  > [/green]Password: ").strip()
+    if not password:
+        return None
+
+    VPN_DIR.mkdir(parents=True, exist_ok=True)
+    auth_file.write_text(f"{username}\n{password}\n")
+    auth_file.chmod(0o600)
+    console.print(f"[dim]Credentials saved to {auth_file} (chmod 600)[/dim]")
+    return auth_file
+
+
 def connect_vpn(ovpn_path: Path) -> bool:
     """Start OpenVPN connection in the background."""
     try:
         console.print(f"[cyan]Connecting VPN:[/cyan] {ovpn_path.name}")
+
+        cmd = ["sudo", "openvpn", "--config", str(ovpn_path),
+               "--daemon", "--log", "/tmp/alienrecon-vpn.log"]
+
+        # Handle auth-user-pass configs
+        if _ovpn_needs_auth(ovpn_path):
+            auth_file = _create_auth_file(ovpn_path)
+            if auth_file:
+                cmd.extend(["--auth-user-pass", str(auth_file)])
+            else:
+                console.print("[red]No credentials provided. Skipping VPN.[/red]")
+                return False
+
+        # Run with stdin closed so openvpn can't block on it
         subprocess.Popen(
-            ["sudo", "openvpn", "--config", str(ovpn_path), "--daemon", "--log", "/tmp/alienrecon-vpn.log"],
+            cmd,
+            stdin=subprocess.DEVNULL,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
-        
-        # Wait for tunnel to come up
-        import time
+
+        # Wait for tunnel
         for i in range(15):
             time.sleep(1)
             if is_vpn_connected():
                 ip = get_vpn_ip()
                 console.print(f"[green]VPN connected.[/green] Your IP: [cyan]{ip}[/cyan]")
                 return True
-            console.print("[dim]Waiting for tunnel...[/dim]", end="\r")
-        
-        console.print("[red]VPN connection timed out. Check /tmp/alienrecon-vpn.log[/red]")
+            console.print(f"[dim]Waiting for tunnel... ({i+1}/15)[/dim]")
+
+        console.print("[red]VPN connection timed out.[/red]")
+        console.print("[dim]Check logs: cat /tmp/alienrecon-vpn.log[/dim]")
         return False
     except Exception as e:
         console.print(f"[red]VPN error: {e}[/red]")
@@ -111,40 +149,31 @@ def save_ovpn(path: Path) -> Path:
 
 
 def ensure_vpn(platform: str = "") -> bool:
-    """Ensure VPN is connected. Returns True if ready, False if user bailed.
-    
-    Call this before starting a room. It will:
-    1. Check if VPN is already up -> skip
-    2. Look for saved .ovpn files -> offer to connect
-    3. Prompt user to provide a path if none found
-    """
-    # Already connected?
+    """Ensure VPN is connected. Returns True if ready."""
     if is_vpn_connected():
         ip = get_vpn_ip()
         console.print(f"[green]VPN active.[/green] Your IP: [cyan]{ip}[/cyan]")
         return True
-    
+
     console.print("[yellow]No VPN connection detected.[/yellow]")
-    
     if platform:
-        console.print(f"[dim]You need a VPN connection to reach {platform} machines.[/dim]")
-    
-    # Look for existing .ovpn files
+        console.print(f"[dim]You need a VPN to reach {platform} machines.[/dim]")
+
     ovpn_files = find_ovpn_files()
-    
+
     if ovpn_files:
         console.print("\nFound VPN configs:")
         for i, f in enumerate(ovpn_files, 1):
             console.print(f"  [cyan]{i}[/cyan]) {f.name} [dim]({f.parent})[/dim]")
         console.print(f"  [cyan]{len(ovpn_files) + 1}[/cyan]) Enter a different path")
         console.print(f"  [cyan]s[/cyan]) Skip (I'll connect manually)")
-        
+
         choice = console.input("\n[green]  > [/green]Pick one: ").strip()
-        
+
         if choice.lower() == "s":
-            console.print("[yellow]Skipping VPN. Make sure you connect before scanning.[/yellow]")
+            console.print("[yellow]Skipping VPN. Connect before scanning.[/yellow]")
             return True
-        
+
         try:
             idx = int(choice) - 1
             if 0 <= idx < len(ovpn_files):
@@ -153,23 +182,21 @@ def ensure_vpn(platform: str = "") -> bool:
                 return connect_vpn(selected)
         except ValueError:
             pass
-        
-        # Fall through to manual path entry
-    
+
     # No files found or user wants to enter path
     console.print(
         "\n[yellow]No .ovpn file found.[/yellow]\n"
         "Download your VPN config from TryHackMe or HackTheBox,\n"
         "then enter the path here (or 's' to skip):\n"
     )
-    
+
     while True:
         path_str = console.input("[green]  > [/green]Path to .ovpn file: ").strip()
-        
+
         if path_str.lower() == "s":
-            console.print("[yellow]Skipping VPN. Make sure you connect before scanning.[/yellow]")
+            console.print("[yellow]Skipping VPN. Connect before scanning.[/yellow]")
             return True
-        
+
         path = Path(path_str).expanduser()
         if path.exists() and path.suffix == ".ovpn":
             save_ovpn(path)
