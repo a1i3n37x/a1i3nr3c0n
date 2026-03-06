@@ -46,7 +46,7 @@ No fluff. No dashboards. Just pure, weaponized enumeration with an AI in your co
 - ✅ **CTF Mode**: Initialize CTF missions with `alienrecon init --ctf <box>`
 - ✅ **Quick-Recon Command**: Fast-track reconnaissance with `alienrecon quick-recon`
 - ✅ **Dry-Run Mode**: See exact tool commands without execution with `--dry-run` flag
-- ✅ **Stable Tool Cancellation**: Fixed OpenAI API errors when skipping tool suggestions
+- ✅ **Stable Tool Cancellation**: Smooth continuation when skipping tool suggestions
 - ✅ **Parallel Execution**: Run compatible tools simultaneously for faster reconnaissance
 - ✅ **Enhanced Session Management**: Robust state tracking and recovery
 - ✅ **Improved Error Handling**: Better validation and user feedback with AI-guided troubleshooting
@@ -330,7 +330,8 @@ Because recon isn't about information. It's about **momentum**.
 ## 📡 Under the Hood
 
 - 🐍 [Typer](https://typer.tiangolo.com/) — CLI with class
-- 🤖 OpenAI API — AI summaries, task flows, and support prompts
+- 🤖 Anthropic Claude — AI instructor, guided walkthroughs, and reconnaissance support
+- 🔌 MCP (Model Context Protocol) — standardized tool execution layer
 - 🧰 POSIX tools — because bash is still king
 
 ---

@@ -26,8 +26,8 @@ poetry shell
 # Install pre-commit hooks
 poetry run pre-commit install
 
-# Create .env file with OpenAI API key
-echo "OPENAI_API_KEY=your-api-key-here" > .env
+# Create .env file with Anthropic API key
+echo "ANTHROPIC_API_KEY=your-api-key-here" > .env
 ```
 
 ### Running the Application
@@ -120,7 +120,7 @@ docker-compose down                  # Stop containers
 ### Core Flow Pattern
 1. **CLI Entry** (`src/alienrecon/cli.py`) → Typer-based command routing
 2. **Session Management** (`src/alienrecon/core/refactored_session_controller.py`) → Central orchestrator maintaining state
-3. **AI Agent** (`src/alienrecon/core/agent.py`) → OpenAI API integration for conversational guidance
+3. **AI Agent** (`src/alienrecon/agent/brain.py`) → Anthropic Claude API for conversational guidance
 4. **Tool Execution** (`src/alienrecon/tools/`) → Security-validated tool wrappers
 5. **Results Processing** → Structured JSON + raw output preservation
 
@@ -281,7 +281,7 @@ python test_consolidated_tools.py
 
 - **Python 3.11+** (uses modern type hints and match statements)
 - **Poetry 1.7.1+** for dependency management
-- **OpenAI API Key** must be set as `OPENAI_API_KEY` environment variable
+- **Anthropic API Key** must be set as `ANTHROPIC_API_KEY` environment variable
 - External tools must be in PATH: `nmap`, `nikto`, `enum4linux-ng`, `hydra`, `ffuf`, `searchsploit`, `smbclient`, `openssl`
 - Optional: SecLists for comprehensive wordlists (`/usr/share/wordlists/seclists/`)
 - Optional: Redis for enhanced caching performance (included in Docker setup)
@@ -297,14 +297,13 @@ python test_consolidated_tools.py
 ## Key Dependencies
 
 - **Typer** (0.16.0+): CLI framework with rich formatting support
-- **OpenAI** (1.78.1+): AI agent integration
+- **Anthropic** (0.40.0+): Claude AI agent integration
 - **httpx** (0.27.0+): Modern async HTTP client
-- **python-nmap** (0.7.1+): Programmatic nmap interface
 - **impacket** (0.12.0+): SMB protocol implementation
 - **PyYAML** (6.0.1+): CTF box metadata parsing
-- **FastAPI** (0.104.1+): For MCP server implementation (future feature)
-- **uvicorn** (0.24.0+): For running MCP servers (future feature)
-- **pydantic** (2.5.0+): For data validation in MCP (future feature)
+- **FastAPI** (0.104.1+): MCP server implementation
+- **uvicorn** (0.24.0+): ASGI server for MCP
+- **pydantic** (2.5.0+): Data validation
 
 ## Development Configuration
 
