@@ -23,6 +23,7 @@ class Step:
     if_fails: str = ""
     answers: list[str] = field(default_factory=list)
     conversation: str = ""
+    resources: list[dict] = field(default_factory=list)
     # Legacy fields (still loaded for backward compat)
     expect_output: list[str] = field(default_factory=list)
     teach_after: str = ""
@@ -159,6 +160,7 @@ class RoomDatabase:
                     if_fails=step_data.get("if_fails", ""),
                     answers=step_data.get("answers", []),
                     conversation=step_data.get("conversation", ""),
+                    resources=step_data.get("resources", []),
                     expect_output=step_data.get("expect_output", []),
                     teach_after=step_data.get("teach_after", ""),
                 ))

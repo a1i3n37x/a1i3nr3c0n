@@ -323,28 +323,60 @@ class Instructor:
                         title="What to look for", border_style="green",
                     ))
 
-        # Discussion
+        # Show resources if any
+        self._show_resources(step)
+
+        # Discussion — loop so students can ask follow-up questions
         if step.conversation and not looks_empty:
-            console.print(f"\n[cyan]{step.conversation}[/cyan]\n")
-            student_response = self._ask("")
-            if student_response and self.ai_mode:
-                ai_response = self._chat(student_response, phase=phase, step=step)
-                if ai_response:
-                    console.print(f"\n{ai_response}\n")
+            console.print(f"\n[cyan]{step.conversation}[/cyan]")
+            console.print("[dim]Answer, ask a question, or press Enter to continue[/dim]\n")
         else:
-            console.print("\n[dim]Any questions? (press Enter to continue)[/dim]")
-            student_q = self._ask("")
-            if student_q:
-                if self.ai_mode:
-                    ai_response = self._chat(
-                        f"After running: {cmd}\nStudent asks: {student_q}",
-                        phase=phase, step=step,
-                    )
-                    if ai_response:
-                        console.print(f"\n{ai_response}\n")
+            console.print("\n[dim]Any questions? (press Enter to continue)[/dim]\n")
+
+        self._question_loop(phase, step, context=f"After running: {cmd}")
+
+    def _show_resources(self, step: Step):
+        """Display resource links for the current step."""
+        if not step.resources:
+            return
+        lines = []
+        for res in step.resources:
+            title = res.get("title", "")
+            url = res.get("url", "")
+            desc = res.get("description", "")
+            if title and url:
+                lines.append(f"[cyan]{title}[/cyan] — {url}")
+                if desc:
+                    lines.append(f"  [dim]{desc}[/dim]")
+            elif url:
+                lines.append(f"[cyan]{url}[/cyan]")
+        if lines:
+            console.print()
+            console.print(Panel(
+                "\n".join(lines),
+                title="Resources", border_style="blue",
+            ))
+
+    def _question_loop(self, phase: Phase, step: Step, context: str = ""):
+        """Let the student ask questions in a loop until they press Enter to continue."""
+        while True:
+            response = self._ask("")
+            if not response:
+                break
+            if response.lower() in ("done", "next", "continue", "ok"):
+                break
+            if self.ai_mode:
+                prompt = f"{context}\nStudent asks: {response}" if context else response
+                ai_response = self._chat(prompt, phase=phase, step=step)
+                if ai_response:
+                    console.print(f"\n{ai_response}")
+                    console.print("\n[dim]Follow-up question? (press Enter to continue)[/dim]\n")
+            else:
+                console.print("[dim]Press Enter to continue.[/dim]\n")
 
     def _wait_for_student(self, step: Step, phase: Phase):
         """For manual steps — wait for the student to complete something."""
+        self._show_resources(step)
         console.print()
         console.print("[cyan]This is a manual step.[/cyan] Follow the instructions above.")
         console.print("Type [green]done[/green] when ready, or ask a question.\n")

