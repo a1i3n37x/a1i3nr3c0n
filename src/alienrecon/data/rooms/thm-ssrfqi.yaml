@@ -1,0 +1,174 @@
+id: thm-ssrfqi
+platform: tryhackme
+name: Intro to SSRF
+url: https://tryhackme.com/room/ssrfqi
+difficulty: easy
+estimated_time: 30
+skills: &id001
+- ssrf
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn how to exploit Server-Side Request Forgery (SSRF) vulnerabilities, allowing you to access
+  internal server resources.
+questions:
+- id: t1-q1
+  text: What does SSRF stand for?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t1-q2
+  text: As opposed to a regular SSRF, what is the other type?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: What is the flag from the SSRF Examples site?
+  hint: Append &x= at the end to ignore the rest of the URL.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: 'Based on simple observation, which of the following URLs is more likely to be vulnerable to SSRF?
+
+    - `https://website.thm/index.php`
+
+    - `https://website.thm/list-products.php?categoryId=5325`
+
+    - `https://website.thm/fetch-file.php?fname=242533.pdf&srv=filestorage.cloud.thm&port=8001`
+
+    - `https://website.thm/buy-item.php?itemId=213&price=100&q=2`'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: What method can be used to bypass strict rules?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: What IP address may contain sensitive data in a cloud environment?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q3
+  text: What type of list is used to permit only certain input?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q4
+  text: What type of list is used to stop certain input?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What is the flag from the /private directory?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: What does SSRF stand for?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: As opposed to a regular SSRF, what is the other type?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: What is the flag from the SSRF Examples site?
+    answer: ''
+    hint: Append &x= at the end to ignore the rest of the URL.
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: 'Based on simple observation, which of the following URLs is more likely to be vulnerable
+      to SSRF?
+
+      - `https://website.thm/index.php`
+
+      - `https://website.thm/list-products.php?categoryId=5325`
+
+      - `https://website.thm/fetch-file.php?fname=242533.pdf&srv=filestorage.cloud.thm&port=8001`
+
+      - `https://website.thm/buy-item.php?itemId=213&price=100&q=2`'
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: What method can be used to bypass strict rules?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What IP address may contain sensitive data in a cloud environment?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What type of list is used to permit only certain input?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What type of list is used to stop certain input?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What is the flag from the /private directory?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

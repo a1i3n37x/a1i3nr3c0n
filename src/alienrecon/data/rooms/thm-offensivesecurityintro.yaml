@@ -1,0 +1,93 @@
+id: thm-offensivesecurityintro
+platform: tryhackme
+name: Offensive Security Intro
+url: https://tryhackme.com/room/offensivesecurityintro
+difficulty: easy
+estimated_time: 15
+skills: &id001 []
+prerequisites:
+  rooms: []
+  skills: []
+brief: Hack your first website (legally in a safe environment) and experience an ethical hacker's job.
+questions:
+- id: t1-q1
+  text: 'Which of the following options better represents the process where you simulate a hacker''s actions
+    to find vulnerabilities in a system?
+
+
+    - Offensive Security
+
+    - Defensive Security'
+  hint: It involves breaking into computer systems, exploiting software bugs, and finding loopholes in
+    applications to gain unauthorized access.
+  answer: Offensive Security
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: Above your account balance, you should now see a message indicating the answer to this question.
+    Can you find the answer you need?
+  hint: Make sure your new balance is a positive number. If your balance still shows a negative value
+    (even after refreshing the page), you may need to transfer more money.
+  answer: BANK-HACKED
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: Read the above, and continue with the next room!
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: 'Which of the following options better represents the process where you simulate a hacker''s
+      actions to find vulnerabilities in a system?
+
+
+      - Offensive Security
+
+      - Defensive Security'
+    answer: Offensive Security
+    hint: It involves breaking into computer systems, exploiting software bugs, and finding loopholes
+      in applications to gain unauthorized access.
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Above your account balance, you should now see a message indicating the answer to this question.
+      Can you find the answer you need?
+    answer: BANK-HACKED
+    hint: Make sure your new balance is a positive number. If your balance still shows a negative value
+      (even after refreshing the page), you may need to transfer more money.
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: Read the above, and continue with the next room!
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

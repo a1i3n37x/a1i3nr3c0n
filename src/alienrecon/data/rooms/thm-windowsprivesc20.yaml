@@ -1,0 +1,263 @@
+id: thm-windowsprivesc20
+platform: tryhackme
+name: Windows Privilege Escalation
+url: https://tryhackme.com/room/windowsprivesc20
+difficulty: medium
+estimated_time: 60
+skills: &id001
+- privilege-escalation
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn the fundamentals of Windows privilege escalation techniques.
+questions:
+- id: t1-q1
+  text: Click and continue learning!
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t2-q1
+  text: Users that can change system configurations are part of which group?
+  hint: ''
+  answer: Administrators
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: The SYSTEM account has more privileges than the Administrator user (aye/nay)
+  hint: ''
+  answer: aye
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: A password for the julia.jones user has been left on the Powershell history. What is the password?
+  hint: ''
+  answer: ZuperCkretPa5z
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: A web server is running on the remote host. Find any interesting password on web.config files
+    associated with IIS. What is the password of the db_admin user?
+  hint: ''
+  answer: 098n0x35skjD3
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: There is a saved password on your Windows credentials. Using cmdkey and runas, spawn a shell for
+    mike.katz and retrieve the flag from his desktop.
+  hint: ''
+  answer: THM{WHAT_IS_MY_PASSWORD}
+  no_answer: false
+  answer_format: ''
+- id: t3-q4
+  text: Retrieve the saved password stored in the saved PuTTY session under your profile. What is the
+    password for the thom.smith user?
+  hint: ''
+  answer: CoolPass2021
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: What is the taskusr1 flag?
+  hint: ''
+  answer: THM{TASK_COMPLETED}
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: Get the flag on svcusr1's desktop.
+  hint: ''
+  answer: THM{AT_YOUR_SERVICE}
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: Get the flag on svcusr2's desktop.
+  hint: ''
+  answer: THM{QUOTES_EVERYWHERE}
+  no_answer: false
+  answer_format: ''
+- id: t5-q3
+  text: Get the flag on the Administrator's desktop.
+  hint: ''
+  answer: THM{INSECURE_SVC_CONFIG}
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: Get the flag on the Administrator's desktop.
+  hint: ''
+  answer: THM{SEFLAGPRIVILEGE}
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: Get the flag on the Administrator's desktop.
+  hint: ''
+  answer: THM{EZ_DLL_PROXY_4ME}
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: Click and continue learning!
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t9-q1
+  text: Click and continue learning!
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Click and continue learning!
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Users that can change system configurations are part of which group?
+    answer: Administrators
+    hint: ''
+    no_answer: false
+  - question: The SYSTEM account has more privileges than the Administrator user (aye/nay)
+    answer: aye
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: A password for the julia.jones user has been left on the Powershell history. What is the
+      password?
+    answer: ZuperCkretPa5z
+    hint: ''
+    no_answer: false
+  - question: A web server is running on the remote host. Find any interesting password on web.config
+      files associated with IIS. What is the password of the db_admin user?
+    answer: 098n0x35skjD3
+    hint: ''
+    no_answer: false
+  - question: There is a saved password on your Windows credentials. Using cmdkey and runas, spawn a shell
+      for mike.katz and retrieve the flag from his desktop.
+    answer: THM{WHAT_IS_MY_PASSWORD}
+    hint: ''
+    no_answer: false
+  - question: Retrieve the saved password stored in the saved PuTTY session under your profile. What is
+      the password for the thom.smith user?
+    answer: CoolPass2021
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: What is the taskusr1 flag?
+    answer: THM{TASK_COMPLETED}
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: Get the flag on svcusr1's desktop.
+    answer: THM{AT_YOUR_SERVICE}
+    hint: ''
+    no_answer: false
+  - question: Get the flag on svcusr2's desktop.
+    answer: THM{QUOTES_EVERYWHERE}
+    hint: ''
+    no_answer: false
+  - question: Get the flag on the Administrator's desktop.
+    answer: THM{INSECURE_SVC_CONFIG}
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: Get the flag on the Administrator's desktop.
+    answer: THM{SEFLAGPRIVILEGE}
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: Get the flag on the Administrator's desktop.
+    answer: THM{EZ_DLL_PROXY_4ME}
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: Click and continue learning!
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: Click and continue learning!
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

@@ -1,0 +1,172 @@
+id: thm-walkinganapplication
+platform: tryhackme
+name: Walking An Application
+url: https://tryhackme.com/room/walkinganapplication
+difficulty: easy
+estimated_time: 35
+skills: &id001 []
+prerequisites:
+  rooms: []
+  skills: []
+brief: Manually review a web application for security issues using only your browsers developer tools.
+  Hacking with just your browser, no tools or scripts.
+questions:
+- id: t1-q1
+  text: I confirm that I have deployed the virtual machine and opened the website.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t2-q1
+  text: Read the above.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t3-q1
+  text: What is the flag from the HTML comment?
+  hint: Make sure you go to the link mentioned in the comment.
+  answer: THM{HTML_COMMENTS_ARE_DANGEROUS}
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: What is the flag from the secret link?
+  hint: Have a look a the secrete page in the welcome message
+  answer: THM{NOT_A_SECRET_ANYMORE}
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: What is the directory listing flag?
+  hint: Try to access the URL where all of the static files (CSS, JS and Images) are stored.
+  answer: THM{INVALID_DIRECTORY_PERMISSIONS}
+  no_answer: false
+  answer_format: ''
+- id: t3-q4
+  text: What is the framework flag?
+  hint: https%3A%2F%2FLAB_WEB_URL.p.thmlabs.com%2F%3Cfile.zip%3E%20-%20Find%20the%20file%20on%20the%20framework%20changelog%20page.
+  answer: THM{KEEP_YOUR_SOFTWARE_UPDATED}
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: What is the flag behind the paywall?
+  hint: https://assets.tryhackme.com/additional/walkinganapplication/updating-html-css.gif
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What is the flag in the red box?
+  hint: The debugger tools might work differently on FireFox/Chrome. Follow the steps in the task to find
+    the JavaScript flash.min.js file, prettifying it, finding the line with "flash[remove]" and adding
+    a JavaScript break point to stop the red message disappearing when the page loads.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: What is the flag shown on the contact-msg network request?
+  hint: When you find the contact-msg request, make sure you click on it to reveal the response of the
+    request (there might be a response tab shown when you click it).
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: I confirm that I have deployed the virtual machine and opened the website.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Read the above.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What is the flag from the HTML comment?
+    answer: THM{HTML_COMMENTS_ARE_DANGEROUS}
+    hint: Make sure you go to the link mentioned in the comment.
+    no_answer: false
+  - question: What is the flag from the secret link?
+    answer: THM{NOT_A_SECRET_ANYMORE}
+    hint: Have a look a the secrete page in the welcome message
+    no_answer: false
+  - question: What is the directory listing flag?
+    answer: THM{INVALID_DIRECTORY_PERMISSIONS}
+    hint: Try to access the URL where all of the static files (CSS, JS and Images) are stored.
+    no_answer: false
+  - question: What is the framework flag?
+    answer: THM{KEEP_YOUR_SOFTWARE_UPDATED}
+    hint: https%3A%2F%2FLAB_WEB_URL.p.thmlabs.com%2F%3Cfile.zip%3E%20-%20Find%20the%20file%20on%20the%20framework%20changelog%20page.
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: What is the flag behind the paywall?
+    answer: ''
+    hint: https://assets.tryhackme.com/additional/walkinganapplication/updating-html-css.gif
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What is the flag in the red box?
+    answer: ''
+    hint: The debugger tools might work differently on FireFox/Chrome. Follow the steps in the task to
+      find the JavaScript flash.min.js file, prettifying it, finding the line with "flash[remove]" and
+      adding a JavaScript break point to stop the red message disappearing when the page loads.
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: What is the flag shown on the contact-msg network request?
+    answer: ''
+    hint: When you find the contact-msg request, make sure you click on it to reveal the response of the
+      request (there might be a response tab shown when you click it).
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

@@ -1,0 +1,262 @@
+id: thm-fileinc
+platform: tryhackme
+name: File Inclusion
+url: https://tryhackme.com/room/fileinc
+difficulty: medium
+estimated_time: 60
+skills: &id001
+- burp-suite
+- file-inclusion
+prerequisites:
+  rooms: []
+  skills: []
+brief: This room introduces file inclusion vulnerabilities, including Local File Inclusion (LFI), Remote
+  File Inclusion (RFI), and directory traversal.
+questions:
+- id: t1-q1
+  text: Let's continue to the next section to deploy the attached VM.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: Once you've deployed the VM, please wait a few minutes for the webserver to start, then progress
+    to the next section!
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What function causes path traversal vulnerabilities in PHP?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: 'Give Lab #1 a try to read /etc/passwd. What would the request URI be?'
+  hint: 'example: /index.php?lang=EN.php'
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: 'In Lab #2, what is the directory specified in the include function?'
+  hint: Try to enter an invalid input to check the error messages!
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: 'Give Lab #3 a try to read /etc/passwd. What is the request look like?'
+  hint: Don't trust the input form. Insert into the browser address bar!
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: 'Which function is causing the directory traversal in Lab #4?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q3
+  text: 'Try out Lab #6 and check what is the directory that has to be in the input field?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q4
+  text: 'Try out Lab #6 and read /etc/os-release. What is the VERSION_ID value?'
+  hint: VERSION_ID="xx.xx"
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: We showed how to include PHP pages via RFI. Do research on how to get remote command execution
+    (RCE), and answer the question in the challenge section.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: Ready for the challenges?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: Capture Flag1 at /etc/flag1
+  hint: Change the form method to POST in the page source or use a tool like Burp to modify the method
+    of the request POST.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q2
+  text: Capture Flag2 at /etc/flag2
+  hint: Check your cookies!
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q3
+  text: Capture Flag3 at /etc/flag3
+  hint: '[Hint#1] Not everything is filtered!
+
+    [Hint #2] The website uses $_REQUESTS to accept HTTP requests. Do research to understand it and what
+    it accepts!'
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q4
+  text: 'Gain RCE in Lab #Playground /playground.php with RFI to execute the hostname command. What is
+    the output?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Let's continue to the next section to deploy the attached VM.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Once you've deployed the VM, please wait a few minutes for the webserver to start, then
+      progress to the next section!
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What function causes path traversal vulnerabilities in PHP?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: 'Give Lab #1 a try to read /etc/passwd. What would the request URI be?'
+    answer: ''
+    hint: 'example: /index.php?lang=EN.php'
+    no_answer: false
+  - question: 'In Lab #2, what is the directory specified in the include function?'
+    answer: ''
+    hint: Try to enter an invalid input to check the error messages!
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: 'Give Lab #3 a try to read /etc/passwd. What is the request look like?'
+    answer: ''
+    hint: Don't trust the input form. Insert into the browser address bar!
+    no_answer: false
+  - question: 'Which function is causing the directory traversal in Lab #4?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'Try out Lab #6 and check what is the directory that has to be in the input field?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'Try out Lab #6 and read /etc/os-release. What is the VERSION_ID value?'
+    answer: ''
+    hint: VERSION_ID="xx.xx"
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: We showed how to include PHP pages via RFI. Do research on how to get remote command execution
+      (RCE), and answer the question in the challenge section.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: Ready for the challenges?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: Capture Flag1 at /etc/flag1
+    answer: ''
+    hint: Change the form method to POST in the page source or use a tool like Burp to modify the method
+      of the request POST.
+    no_answer: false
+  - question: Capture Flag2 at /etc/flag2
+    answer: ''
+    hint: Check your cookies!
+    no_answer: false
+  - question: Capture Flag3 at /etc/flag3
+    answer: ''
+    hint: '[Hint#1] Not everything is filtered!
+
+      [Hint #2] The website uses $_REQUESTS to accept HTTP requests. Do research to understand it and
+      what it accepts!'
+    no_answer: false
+  - question: 'Gain RCE in Lab #Playground /playground.php with RFI to execute the hostname command. What
+      is the output?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

@@ -1,0 +1,246 @@
+id: thm-sqlinjectionlm
+platform: tryhackme
+name: SQL Injection
+url: https://tryhackme.com/room/sqlinjectionlm
+difficulty: medium
+estimated_time: 30
+skills: &id001
+- sql-injection
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn how to detect and exploit SQL Injection vulnerabilities
+questions:
+- id: t1-q1
+  text: What does SQL stand for?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: What is the acronym for the software that controls a database?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: What is the name of the grid-like structure which holds the data?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What SQL statement is used to retrieve data?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: What SQL clause can be used to retrieve data from multiple tables?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: What SQL statement is used to add data?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: What character signifies the end of an SQL query?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What is the flag after completing level 1?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: What is the flag after completing level two? (and moving to level 3)
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: What is the flag after completing level three?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: What is the final flag after completing level four?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q1
+  text: Name a protocol beginning with D that can be used to exfiltrate data from a database.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t10-q1
+  text: Name a method of protecting yourself from an SQL Injection exploit.
+  hint: Pxxxxxxx Sxxxxxxxxx
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: What does SQL stand for?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: What is the acronym for the software that controls a database?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the name of the grid-like structure which holds the data?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What SQL statement is used to retrieve data?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What SQL clause can be used to retrieve data from multiple tables?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What SQL statement is used to add data?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: What character signifies the end of an SQL query?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What is the flag after completing level 1?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: What is the flag after completing level two? (and moving to level 3)
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: What is the flag after completing level three?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: What is the final flag after completing level four?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: Name a protocol beginning with D that can be used to exfiltrate data from a database.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+- id: task-10
+  name: ''
+  objective: 'Complete Task 10: '
+  content: ''
+  questions:
+  - question: Name a method of protecting yourself from an SQL Injection exploit.
+    answer: ''
+    hint: Pxxxxxxx Sxxxxxxxxx
+    no_answer: false
+  steps:
+  - id: read-task-10
+    narration: 'Read through the material for Task 10: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

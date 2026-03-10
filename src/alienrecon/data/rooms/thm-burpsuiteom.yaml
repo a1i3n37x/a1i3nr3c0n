@@ -1,0 +1,354 @@
+id: thm-burpsuiteom
+platform: tryhackme
+name: 'Burp Suite: Other Modules'
+url: https://tryhackme.com/room/burpsuiteom
+difficulty: easy
+estimated_time: 45
+skills: &id001
+- burp-suite
+prerequisites:
+  rooms: []
+  skills: []
+brief: Take a dive into some of Burp Suite's lesser-known modules.
+questions:
+- id: t1-q1
+  text: Deploy the machine attached to the task by pressing the green Start Machine button, as well as
+    the AttackBox (using the Start AttackBox button at the top of the page) if you are not using your
+    own machine.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: Which feature attempts auto-decode of the input?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: 'Base64 encode the phrase: `Let''s Start Simple`.
+
+    What is the base64 encoded version of this text?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: 'URL Decode this data: `%4e%65%78%74%3a%20%44%65%63%6f%64%69%6e%67`.
+
+    What is the plaintext returned?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: 'Use Smart decode to decode this data: `%34%37`.
+
+    What is the decoded text?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q4
+  text: 'Encode this phrase: `Encoding Challenge`.
+
+    Start with base64 encoding. Take the output of this and convert it into ASCII Hex. Finally, encode
+    the hex string into octal.
+
+    What is the final string?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: 'Using Decoder, what is the SHA-256 hashsum of the phrase: `Let''s get Hashing!`?
+
+    Convert this into an ASCII Hex string for the answer to this question.'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: 'Generate an MD4 hashsum of the phrase: `Insecure Algorithms`.
+
+    Encode this as base64 (not ASCII Hex) before submitting.'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q3
+  text: 'Let''s look at an in-context example:
+
+
+    First, download the file attached to this task.
+
+    Note: This file can also be downloaded from the deployed VM with `wget http://MACHINE_IP:9999/AlteredKeys.zip` — you
+    may find this helpful if you are using the AttackBox.
+
+    Now read the problem specification below:
+
+
+    "Some joker has messed with my SSH key! There are four keys in the directory, and I have no idea which
+    is the real one. The MD5 hashsum for my key is `3166226048d6ad776370dc105d40d9f8` — could you find
+    it for me?"
+
+    What is the correct key name?'
+  hint: Copy and paste each of the keys into Decoder and hash them with the MD5 algorithm one by one.
+    You are looking for the key that has an MD5 hashsum equal to the one in the question. Ensure you don't
+    remove the final newline from the end of the keys!
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: Click me to proceed to the next task.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: Compare the two responses by word. Can you identify the main differences?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: What does Sequencer allow us to evaluate?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: What is the overall quality of randomness estimated to be?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q1
+  text: Click me to proceed to the next task.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t10-q1
+  text: Are saved requests read-only? (yea/nay)
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t11-q1
+  text: I understand how to use Organizer, Decoder, Sequencer, and Comparer!
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Deploy the machine attached to the task by pressing the green Start Machine button, as well
+      as the AttackBox (using the Start AttackBox button at the top of the page) if you are not using
+      your own machine.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Which feature attempts auto-decode of the input?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: 'Base64 encode the phrase: `Let''s Start Simple`.
+
+      What is the base64 encoded version of this text?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'URL Decode this data: `%4e%65%78%74%3a%20%44%65%63%6f%64%69%6e%67`.
+
+      What is the plaintext returned?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'Use Smart decode to decode this data: `%34%37`.
+
+      What is the decoded text?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'Encode this phrase: `Encoding Challenge`.
+
+      Start with base64 encoding. Take the output of this and convert it into ASCII Hex. Finally, encode
+      the hex string into octal.
+
+      What is the final string?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: 'Using Decoder, what is the SHA-256 hashsum of the phrase: `Let''s get Hashing!`?
+
+      Convert this into an ASCII Hex string for the answer to this question.'
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'Generate an MD4 hashsum of the phrase: `Insecure Algorithms`.
+
+      Encode this as base64 (not ASCII Hex) before submitting.'
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'Let''s look at an in-context example:
+
+
+      First, download the file attached to this task.
+
+      Note: This file can also be downloaded from the deployed VM with `wget http://MACHINE_IP:9999/AlteredKeys.zip` — you
+      may find this helpful if you are using the AttackBox.
+
+      Now read the problem specification below:
+
+
+      "Some joker has messed with my SSH key! There are four keys in the directory, and I have no idea
+      which is the real one. The MD5 hashsum for my key is `3166226048d6ad776370dc105d40d9f8` — could
+      you find it for me?"
+
+      What is the correct key name?'
+    answer: ''
+    hint: Copy and paste each of the keys into Decoder and hash them with the MD5 algorithm one by one.
+      You are looking for the key that has an MD5 hashsum equal to the one in the question. Ensure you
+      don't remove the final newline from the end of the keys!
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: Click me to proceed to the next task.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: Compare the two responses by word. Can you identify the main differences?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: What does Sequencer allow us to evaluate?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: What is the overall quality of randomness estimated to be?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: Click me to proceed to the next task.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+- id: task-10
+  name: ''
+  objective: 'Complete Task 10: '
+  content: ''
+  questions:
+  - question: Are saved requests read-only? (yea/nay)
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-10
+    narration: 'Read through the material for Task 10: .'
+    command: null
+    explanation: ''
+- id: task-11
+  name: ''
+  objective: 'Complete Task 11: '
+  content: ''
+  questions:
+  - question: I understand how to use Organizer, Decoder, Sequencer, and Comparer!
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-11
+    narration: 'Read through the material for Task 11: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

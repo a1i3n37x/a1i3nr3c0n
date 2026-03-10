@@ -1,0 +1,205 @@
+id: thm-raceconditionsattacks
+platform: tryhackme
+name: Race Conditions
+url: https://tryhackme.com/room/raceconditionsattacks
+difficulty: medium
+estimated_time: 60
+skills: &id001 []
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn about race conditions and how they affect web application security.
+questions:
+- id: t1-q1
+  text: I know all the prerequisites. Let the race begin!
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: You downloaded an instruction booklet on how to make an origami crane. What would this instruction
+    booklet resemble in computer terms?
+  hint: Program, process, or thread?
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: What is the name of the state where a process is waiting for an I/O event?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: Does the presented Python script guarantee which thread will reach 100% first? (Yea/Nay)
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: In the second execution of the Python script, what is the name of the thread that reached 100%
+    first?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: How many states did the original state diagram of “validating and conducting money transfer” have?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: How many states did the updated state diagram of “validating and conducting money transfer” have?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q3
+  text: How many states did the final state diagram of “validating coupon codes and applying discounts”
+    have?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: You need to get either of the accounts to get more than $100 of credit to get the flag. What is
+    the flag that you obtained?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: Make sure you have taken note of the above.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: What flag did you obtain after getting an account’s balance above $1000?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: I know all the prerequisites. Let the race begin!
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: You downloaded an instruction booklet on how to make an origami crane. What would this instruction
+      booklet resemble in computer terms?
+    answer: ''
+    hint: Program, process, or thread?
+    no_answer: false
+  - question: What is the name of the state where a process is waiting for an I/O event?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: Does the presented Python script guarantee which thread will reach 100% first? (Yea/Nay)
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: In the second execution of the Python script, what is the name of the thread that reached
+      100% first?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: How many states did the original state diagram of “validating and conducting money transfer”
+      have?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: How many states did the updated state diagram of “validating and conducting money transfer”
+      have?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: How many states did the final state diagram of “validating coupon codes and applying discounts”
+      have?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: You need to get either of the accounts to get more than $100 of credit to get the flag.
+      What is the flag that you obtained?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: Make sure you have taken note of the above.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: What flag did you obtain after getting an account’s balance above $1000?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

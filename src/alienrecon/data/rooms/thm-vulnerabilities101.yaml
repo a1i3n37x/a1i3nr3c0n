@@ -1,0 +1,215 @@
+id: thm-vulnerabilities101
+platform: tryhackme
+name: Vulnerabilities 101
+url: https://tryhackme.com/room/vulnerabilities101
+difficulty: easy
+estimated_time: 20
+skills: &id001 []
+prerequisites:
+  rooms: []
+  skills: []
+brief: Understand the flaws of an application and  apply your researching skills on some vulnerability
+  databases.
+questions:
+- id: t1-q1
+  text: Read this task!
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: An attacker has been able to upgrade the permissions of their system account from "user" to "administrator".
+    What type of vulnerability is this?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: You manage to bypass a login panel using cookies to authenticate. What type of vulnerability is
+    this?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What year was the first iteration of CVSS published?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: 'If you wanted to assess vulnerability based on the risk it poses to an organisation, what framework
+    would you use?
+
+    Note: We are looking for the acronym here.'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: 'If you wanted to use a framework that was free and open-source, what framework would that be?
+
+    Note: We are looking for the acronym here.'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: Using NVD, how many CVEs were published in July 2021?
+  hint: Change "Search Type" to Advanced, specify the proper Published Date Range, and hit Search.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: Who is the author of Exploit-DB?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What type of vulnerability did we use to find the name and version of the application in this
+    example?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: Follow along with the showcase of exploiting ACKme's application to the end to retrieve a flag.
+    What is this flag?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: Continue on your learning with the additional rooms in this module.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Read this task!
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: An attacker has been able to upgrade the permissions of their system account from "user"
+      to "administrator". What type of vulnerability is this?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: You manage to bypass a login panel using cookies to authenticate. What type of vulnerability
+      is this?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What year was the first iteration of CVSS published?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'If you wanted to assess vulnerability based on the risk it poses to an organisation, what
+      framework would you use?
+
+      Note: We are looking for the acronym here.'
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'If you wanted to use a framework that was free and open-source, what framework would that
+      be?
+
+      Note: We are looking for the acronym here.'
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: Using NVD, how many CVEs were published in July 2021?
+    answer: ''
+    hint: Change "Search Type" to Advanced, specify the proper Published Date Range, and hit Search.
+    no_answer: false
+  - question: Who is the author of Exploit-DB?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What type of vulnerability did we use to find the name and version of the application in
+      this example?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: Follow along with the showcase of exploiting ACKme's application to the end to retrieve
+      a flag. What is this flag?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: Continue on your learning with the additional rooms in this module.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

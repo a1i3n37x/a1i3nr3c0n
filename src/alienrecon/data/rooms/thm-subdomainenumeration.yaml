@@ -1,0 +1,167 @@
+id: thm-subdomainenumeration
+platform: tryhackme
+name: Subdomain Enumeration
+url: https://tryhackme.com/room/subdomainenumeration
+difficulty: easy
+estimated_time: 30
+skills: &id001
+- subdomain-enumeration
+- enumeration
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn the various ways of discovering subdomains to expand your attack surface of a target.
+questions:
+- id: t1-q1
+  text: What is a subdomain enumeration method beginning with B?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t1-q2
+  text: What is a subdomain enumeration method beginning with O?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t1-q3
+  text: What is a subdomain enumeration method beginning with V?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: What domain was logged on crt.sh at 2020-12-26?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What is the TryHackMe subdomain beginning with S discovered using the above Google search?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: What is the first subdomain found with the dnsrecon tool?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What is the first subdomain discovered by sublist3r?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: What is the first subdomain discovered?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q2
+  text: What is the second subdomain discovered?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: What is a subdomain enumeration method beginning with B?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is a subdomain enumeration method beginning with O?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is a subdomain enumeration method beginning with V?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: What domain was logged on crt.sh at 2020-12-26?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What is the TryHackMe subdomain beginning with S discovered using the above Google search?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: What is the first subdomain found with the dnsrecon tool?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What is the first subdomain discovered by sublist3r?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: What is the first subdomain discovered?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the second subdomain discovered?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

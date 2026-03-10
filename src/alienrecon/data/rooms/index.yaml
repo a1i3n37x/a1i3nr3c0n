@@ -1,57 +1,139 @@
 # AlienRecon Curriculum Index
-curriculum:
-  - name: "Foundations"
-    description: "Learn to enumerate and think like a hacker"
-    rooms:
-      - thm-basic-pentesting
-      - thm-lazyadmin
+# Jr Penetration Tester Path (TryHackMe)
 
-  - name: "Web Exploitation"
-    description: "Master web application attacks"
+curriculum:
+  - name: "Introduction to Cyber Security"
+    description: "Foundational concepts in offensive and defensive security"
     rooms:
-      - thm-blog
+      - thm-offensivesecurityintro
+      - thm-defensivesecurityintro
+      - thm-careersincyber
+
+  - name: "Introduction to Pentesting"
+    description: "Ethics, methodologies, and principles behind penetration testing"
+    rooms:
+      - thm-pentestingfundamentals
+      - thm-principlesofsecurity
+
+  - name: "Introduction to Web Hacking"
+    description: "Core web application attack techniques"
+    rooms:
+      - thm-walkinganapplication
+      - thm-contentdiscovery
+      - thm-subdomainenumeration
+      - thm-authenticationbypass
+      - thm-idor
+      - thm-fileinc
+      - thm-ssrfqi
+      - thm-xss
+      - thm-raceconditionsattacks
+      - thm-oscommandinjection
+      - thm-sqlinjectionlm
+
+  - name: "Burp Suite"
+    description: "Master the industry-standard web security testing tool"
+    rooms:
+      - thm-burpsuitebasics
+      - thm-burpsuiterepeater
+      - thm-burpsuiteintruder
+      - thm-burpsuiteom
+      - thm-burpsuiteextensions
+
+  - name: "Network Security"
+    description: "Reconnaissance, scanning, and network protocol analysis"
+    rooms:
+      - thm-passiverecon
+      - thm-activerecon
+      - thm-nmap01
+      - thm-nmap02
+      - thm-nmap03
+      - thm-nmap04
+      - thm-protocolsandservers
+      - thm-protocolsandservers2
+      - thm-netsecchallenge
+
+  - name: "Vulnerability Research"
+    description: "Finding and exploiting vulnerabilities"
+    rooms:
+      - thm-vulnerabilities101
+      - thm-exploitingavulnerabilityv2
+      - thm-vulnerabilitycapstone
+
+  - name: "Metasploit"
+    description: "The penetration testing framework"
+    rooms:
+      - thm-metasploitintro
+      - thm-metasploitexploitation
+      - thm-meterpreter
+
+  - name: "Privilege Escalation"
+    description: "Escalating access on Linux and Windows systems"
+    rooms:
+      - thm-introtoshells
+      - thm-linprivesc
+      - thm-windowsprivesc20
+
+  - name: "Standalone Rooms"
+    description: "Individual CTF rooms with full walkthroughs"
+    rooms:
+      - thm-lazyadmin
 
 skills:
   nmap-basics:
     description: "Port scanning and service enumeration"
-    taught_by: [thm-basic-pentesting]
-    unlocks: [web-enumeration, smb-enumeration]
+    taught_by: [thm-nmap01, thm-nmap02, thm-nmap03, thm-nmap04]
+    unlocks: [web-enumeration, network-analysis]
 
   web-enumeration:
     description: "Discovering web content and technologies"
     requires: [nmap-basics]
-    taught_by: [thm-basic-pentesting, thm-lazyadmin]
-    unlocks: [wordpress-enumeration, directory-fuzzing]
+    taught_by: [thm-contentdiscovery, thm-walkinganapplication, thm-subdomainenumeration]
+    unlocks: [web-exploitation]
 
-  smb-enumeration:
-    description: "SMB/Samba service enumeration"
-    requires: [nmap-basics]
-    taught_by: [thm-basic-pentesting]
+  web-exploitation:
+    description: "Exploiting web application vulnerabilities"
+    requires: [web-enumeration]
+    taught_by: [thm-xss, thm-sqlinjectionlm, thm-fileinc, thm-ssrfqi, thm-oscommandinjection, thm-idor, thm-authenticationbypass]
+
+  burp-suite:
+    description: "Web application security testing with Burp Suite"
+    requires: [web-enumeration]
+    taught_by: [thm-burpsuitebasics, thm-burpsuiterepeater, thm-burpsuiteintruder, thm-burpsuiteom, thm-burpsuiteextensions]
+
+  reconnaissance:
+    description: "Passive and active information gathering"
+    taught_by: [thm-passiverecon, thm-activerecon]
+    unlocks: [nmap-basics]
+
+  vulnerability-research:
+    description: "Finding and exploiting known vulnerabilities"
+    requires: [web-enumeration, nmap-basics]
+    taught_by: [thm-vulnerabilities101, thm-exploitingavulnerabilityv2, thm-vulnerabilitycapstone]
+
+  metasploit:
+    description: "Using Metasploit for exploitation"
+    requires: [nmap-basics, vulnerability-research]
+    taught_by: [thm-metasploitintro, thm-metasploitexploitation, thm-meterpreter]
+
+  privilege-escalation:
+    description: "Escalating privileges on compromised systems"
+    requires: [metasploit]
+    taught_by: [thm-introtoshells, thm-linprivesc, thm-windowsprivesc20]
 
   directory-fuzzing:
     description: "Brute-forcing web directories and files"
     requires: [web-enumeration]
-    taught_by: [thm-lazyadmin]
+    taught_by: [thm-contentdiscovery, thm-lazyadmin]
 
   cms-exploitation:
     description: "Exploiting content management systems"
     requires: [web-enumeration]
-    taught_by: [thm-lazyadmin, thm-blog]
+    taught_by: [thm-lazyadmin]
 
   sudo-privesc:
     description: "Privilege escalation via sudo misconfigurations"
-    taught_by: [thm-lazyadmin]
+    taught_by: [thm-lazyadmin, thm-linprivesc]
 
-  wordpress-enumeration:
-    description: "WordPress-specific scanning and exploitation"
-    requires: [web-enumeration]
-    taught_by: [thm-blog]
-
-  cve-research:
-    description: "Researching and exploiting known CVEs"
-    requires: [web-enumeration]
-    taught_by: [thm-blog]
-
-  suid-privesc:
-    description: "Privilege escalation via SUID binaries"
-    taught_by: [thm-blog]
+  reverse-shells:
+    description: "Creating and catching reverse shells"
+    taught_by: [thm-introtoshells, thm-lazyadmin]

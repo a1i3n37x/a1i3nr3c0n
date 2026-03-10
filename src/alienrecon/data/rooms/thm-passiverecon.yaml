@@ -1,0 +1,237 @@
+id: thm-passiverecon
+platform: tryhackme
+name: Passive Reconnaissance
+url: https://tryhackme.com/room/passiverecon
+difficulty: easy
+estimated_time: 60
+skills: &id001
+- reconnaissance
+- subdomain-enumeration
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn about the essential tools for passive reconnaissance, such as whois, nslookup, and dig.
+questions:
+- id: t1-q1
+  text: This room does not use a target virtual machine (VM) to demonstrate the discussed topics. Instead,
+    we will query public WHOIS servers and DNS servers for domains owned by TryHackMe. Start the AttackBox
+    and make sure it is ready. You will use the AttackBox to answer the questions in later tasks, especially
+    tasks 3 and 4.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t2-q1
+  text: You visit the Facebook page of the target company, hoping to get some of their employee names.
+    What kind of reconnaissance activity is this? (A for active, P for passive)
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: You ping the IP address of the company webserver to check if ICMP traffic is blocked. What kind
+    of reconnaissance activity is this? (A for active, P for passive)
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q3
+  text: You happen to meet the IT administrator of the target company at a party. You try to use social
+    engineering to get more information about their systems and network infrastructure. What kind of reconnaissance
+    activity is this? (A for active, P for passive)
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: When was TryHackMe.com registered?
+  hint: Use the format YYYYMMDD
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: What is the registrar of TryHackMe.com?
+  hint: Give its domain name
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: Which company is TryHackMe.com using for name servers?
+  hint: Give its domain name
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: Check the TXT records of thmlabs.com. What is the flag there?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: Lookup tryhackme.com on DNSDumpster. What is one interesting subdomain that you would discover
+    in addition to www and blog?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: According to Shodan.io, what is the first country in the world in terms of the number of publicly
+    accessible Apache servers?
+  hint: To find the answer, you can search for Apache on Shodan.io.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q2
+  text: Based on Shodan.io, what is the 3rd most common port used for Apache?
+  hint: To find the answer, you can search for Apache on Shodan.io.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q3
+  text: Based on Shodan.io, what is the most common port used for nginx?
+  hint: To find the answer, you can search for nginx on Shodan.io.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: Make sure you note all the points discussed in this room, especially the syntax for the command-line
+    tools.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: This room does not use a target virtual machine (VM) to demonstrate the discussed topics.
+      Instead, we will query public WHOIS servers and DNS servers for domains owned by TryHackMe. Start
+      the AttackBox and make sure it is ready. You will use the AttackBox to answer the questions in later
+      tasks, especially tasks 3 and 4.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: You visit the Facebook page of the target company, hoping to get some of their employee
+      names. What kind of reconnaissance activity is this? (A for active, P for passive)
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: You ping the IP address of the company webserver to check if ICMP traffic is blocked. What
+      kind of reconnaissance activity is this? (A for active, P for passive)
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: You happen to meet the IT administrator of the target company at a party. You try to use
+      social engineering to get more information about their systems and network infrastructure. What
+      kind of reconnaissance activity is this? (A for active, P for passive)
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: When was TryHackMe.com registered?
+    answer: ''
+    hint: Use the format YYYYMMDD
+    no_answer: false
+  - question: What is the registrar of TryHackMe.com?
+    answer: ''
+    hint: Give its domain name
+    no_answer: false
+  - question: Which company is TryHackMe.com using for name servers?
+    answer: ''
+    hint: Give its domain name
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: Check the TXT records of thmlabs.com. What is the flag there?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: Lookup tryhackme.com on DNSDumpster. What is one interesting subdomain that you would discover
+      in addition to www and blog?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: According to Shodan.io, what is the first country in the world in terms of the number of
+      publicly accessible Apache servers?
+    answer: ''
+    hint: To find the answer, you can search for Apache on Shodan.io.
+    no_answer: false
+  - question: Based on Shodan.io, what is the 3rd most common port used for Apache?
+    answer: ''
+    hint: To find the answer, you can search for Apache on Shodan.io.
+    no_answer: false
+  - question: Based on Shodan.io, what is the most common port used for nginx?
+    answer: ''
+    hint: To find the answer, you can search for nginx on Shodan.io.
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: Make sure you note all the points discussed in this room, especially the syntax for the
+      command-line tools.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

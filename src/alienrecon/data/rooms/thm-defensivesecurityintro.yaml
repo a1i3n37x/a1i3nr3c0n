@@ -1,0 +1,98 @@
+id: thm-defensivesecurityintro
+platform: tryhackme
+name: Defensive Security Intro
+url: https://tryhackme.com/room/defensivesecurityintro
+difficulty: easy
+estimated_time: 25
+skills: &id001 []
+prerequisites:
+  rooms: []
+  skills: []
+brief: Introducing defensive security and related topics, such as Threat Intelligence, SOC, DFIR, Malware
+  Analysis, and SIEM.
+questions:
+- id: t1-q1
+  text: Which team focuses on defensive security?
+  hint: ''
+  answer: Blue Team
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: What would you call a team of cyber security professionals that monitors a network and its systems
+    for malicious events?
+  hint: SOC
+  answer: Security Operations Center
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: What does DFIR stand for?
+  hint: ''
+  answer: Digital Forensics and Incident Response
+  no_answer: false
+  answer_format: ''
+- id: t2-q3
+  text: Which kind of malware requires the user to pay money to regain access to their files?
+  hint: ''
+  answer: ransomware
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What is the flag that you obtained by following along?
+  hint: ''
+  answer: THM{THREAT-BLOCKED}
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Which team focuses on defensive security?
+    answer: Blue Team
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: What would you call a team of cyber security professionals that monitors a network and its
+      systems for malicious events?
+    answer: Security Operations Center
+    hint: SOC
+    no_answer: false
+  - question: What does DFIR stand for?
+    answer: Digital Forensics and Incident Response
+    hint: ''
+    no_answer: false
+  - question: Which kind of malware requires the user to pay money to regain access to their files?
+    answer: ransomware
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What is the flag that you obtained by following along?
+    answer: THM{THREAT-BLOCKED}
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

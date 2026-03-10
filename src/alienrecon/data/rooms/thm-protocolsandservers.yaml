@@ -1,0 +1,204 @@
+id: thm-protocolsandservers
+platform: tryhackme
+name: Protocols and Servers
+url: https://tryhackme.com/room/protocolsandservers
+difficulty: easy
+estimated_time: 100
+skills: &id001 []
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn about common protocols such as HTTP, FTP, POP3, SMTP and IMAP, along with related insecurities.
+questions:
+- id: t1-q1
+  text: We suggest that you start the AttackBox and the virtual machine as you proceed to tackle the following
+    tasks. You can connect to the different services over Telnet for better practice and learning experience.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: To which port will the telnet` command with the default parameters try to connect?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: Launch the attached VM. From the AttackBox terminal, connect using Telnet to MACHINE_IP 80` and
+    retrieve the file flag.thm`. What does it contain?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: 'Using an FTP client, connect to the VM and try to recover the flag file. What is the flag?
+
+    - Username: frank
+
+    - Password: D2xc9CgD'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: Using the AttackBox terminal, connect to the SMTP port of the target VM. What is the flag that
+    you can get?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: Connect to the VM (MACHINE_IP`) at the POP3 port. Authenticate using the username frank` and password D2xc9CgD`.
+    What is the response you get to STAT`?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q2
+  text: How many email messages are available to download via POP3 on MACHINE_IP`?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: What is the default port used by IMAP?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: By this, you have completed the seventh room of the Network Security module. Please proceed to
+    the Protocols and Servers 2 room to learn about related attacks and mitigations.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: We suggest that you start the AttackBox and the virtual machine as you proceed to tackle
+      the following tasks. You can connect to the different services over Telnet for better practice and
+      learning experience.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: To which port will the telnet` command with the default parameters try to connect?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: Launch the attached VM. From the AttackBox terminal, connect using Telnet to MACHINE_IP
+      80` and retrieve the file flag.thm`. What does it contain?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: 'Using an FTP client, connect to the VM and try to recover the flag file. What is the flag?
+
+      - Username: frank
+
+      - Password: D2xc9CgD'
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: Using the AttackBox terminal, connect to the SMTP port of the target VM. What is the flag
+      that you can get?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: Connect to the VM (MACHINE_IP`) at the POP3 port. Authenticate using the username frank` and
+      password D2xc9CgD`. What is the response you get to STAT`?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: How many email messages are available to download via POP3 on MACHINE_IP`?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: What is the default port used by IMAP?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: By this, you have completed the seventh room of the Network Security module. Please proceed
+      to the Protocols and Servers 2 room to learn about related attacks and mitigations.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

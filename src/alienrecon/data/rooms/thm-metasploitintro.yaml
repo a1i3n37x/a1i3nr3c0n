@@ -1,0 +1,187 @@
+id: thm-metasploitintro
+platform: tryhackme
+name: 'Metasploit: Introduction '
+url: https://tryhackme.com/room/metasploitintro
+difficulty: easy
+estimated_time: 30
+skills: &id001
+- metasploit
+- exploitation
+prerequisites:
+  rooms: []
+  skills: []
+brief: 'An introduction to the main components of the Metasploit Framework. '
+questions:
+- id: t1-q1
+  text: No answer needed
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t2-q1
+  text: What is the name of the code taking advantage of a flaw on the target system?
+  hint: ''
+  answer: Exploit
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: What is the name of the code that runs on the target system to achieve the attacker's goal?
+  hint: ''
+  answer: Payload
+  no_answer: false
+  answer_format: ''
+- id: t2-q3
+  text: What are self-contained payloads called?
+  hint: ''
+  answer: Singles
+  no_answer: false
+  answer_format: ''
+- id: t2-q4
+  text: Is "windows/x64/pingback_reverse_tcp" among singles or staged payload?
+  hint: ''
+  answer: Singles
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: How would you search for a module related to Apache?
+  hint: ''
+  answer: search apache
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: Who provided the auxiliary/scanner/ssh/ssh_login module?
+  hint: Use the info command
+  answer: todb
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: How would you set the LPORT value to 6666?
+  hint: ''
+  answer: set LPORT 6666
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: How would you set the global value for RHOSTS  to 10.10.19.23 ?
+  hint: ''
+  answer: setg RHOSTS 10.10.19.23
+  no_answer: false
+  answer_format: ''
+- id: t4-q3
+  text: What command would you use to clear a set payload?
+  hint: ''
+  answer: unset PAYLOAD
+  no_answer: false
+  answer_format: ''
+- id: t4-q4
+  text: What command do you use to proceed with the exploitation phase?
+  hint: ''
+  answer: exploit
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: No answer needed.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: No answer needed
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: What is the name of the code taking advantage of a flaw on the target system?
+    answer: Exploit
+    hint: ''
+    no_answer: false
+  - question: What is the name of the code that runs on the target system to achieve the attacker's goal?
+    answer: Payload
+    hint: ''
+    no_answer: false
+  - question: What are self-contained payloads called?
+    answer: Singles
+    hint: ''
+    no_answer: false
+  - question: Is "windows/x64/pingback_reverse_tcp" among singles or staged payload?
+    answer: Singles
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: How would you search for a module related to Apache?
+    answer: search apache
+    hint: ''
+    no_answer: false
+  - question: Who provided the auxiliary/scanner/ssh/ssh_login module?
+    answer: todb
+    hint: Use the info command
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: How would you set the LPORT value to 6666?
+    answer: set LPORT 6666
+    hint: ''
+    no_answer: false
+  - question: How would you set the global value for RHOSTS  to 10.10.19.23 ?
+    answer: setg RHOSTS 10.10.19.23
+    hint: ''
+    no_answer: false
+  - question: What command would you use to clear a set payload?
+    answer: unset PAYLOAD
+    hint: ''
+    no_answer: false
+  - question: What command do you use to proceed with the exploitation phase?
+    answer: exploit
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: No answer needed.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

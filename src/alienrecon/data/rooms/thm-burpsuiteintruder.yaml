@@ -1,0 +1,360 @@
+id: thm-burpsuiteintruder
+platform: tryhackme
+name: 'Burp Suite: Intruder'
+url: https://tryhackme.com/room/burpsuiteintruder
+difficulty: medium
+estimated_time: 90
+skills: &id001
+- burp-suite
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn how to use Intruder to automate requests in Burp Suite.
+questions:
+- id: t1-q1
+  text: Let's get started!
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: In which Intruder tab can we define the "Attack type" for our planned attack?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What symbol defines the start and the end of a payload position?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: Which Payload processing rule could we use to add characters at the end of each payload in the
+    set?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What attack type cycles through the payloads inserting one payload at a time into each position
+    defined in the request?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: If you were using Sniper to fuzz three parameters in a request with a wordlist containing 100
+    words, how many requests would Burp Suite need to send to complete the attack?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q2
+  text: How many sets of payloads will Sniper accept for conducting an attack?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: 'As a hypothetical question: You need to perform a Battering ram Intruder attack on the example
+    request above.
+
+
+    If you have a wordlist with two words in it (`admin` and `Guest`) and the positions in the request
+    template look like this:
+
+    `username=§pentester§&password=§Expl01ted§`
+
+    What would the body parameters of the first request that Burp Suite sends be?'
+  hint: 'Submit your answer as: username=PAYLOAD&password=PAYLOAD'
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: What is the maximum number of payload sets we can load into Intruder in Pitchfork mode?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q1
+  text: 'We have three payload sets. The first set contains 100 lines, the second contains 2 lines, and
+    the third contains 30 lines.
+
+    How many requests will Intruder make using these payload sets in a Cluster bomb attack?'
+  hint: Multiply the number of lines in each payload set together. See how very small numbers can add
+    up fast?
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t10-q1
+  text: What username and password combination indicates a successful login attempt? The answer format
+    is "username:password".
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t11-q1
+  text: Which attack type is best suited for this task?
+  hint: You have a single position to fuzz.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t11-q2
+  text: 'Configure an appropriate position and payload (the tickets are stored at values between 1 and
+    100), then start the attack.
+
+
+    You should find that at least five tickets will be returned with a  status code 200, indicating that
+    they exist.'
+  hint: You will need one position (the numeric ticket endpoint). Your payload should be a list of numbers
+    between 1 and 100 -- look at the numbers payload type for this.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t11-q3
+  text: 'Either using the Response tab in the Attack Results window or by looking at each successful (i.e.
+    200 code) request manually in your browser, find the ticket that contains the flag.
+
+    What is the flag?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t12-q1
+  text: What username and password combination indicates a successful login attempt? The answer format
+    is "username:password".
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q1
+  text: I can use Intruder!
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Let's get started!
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: In which Intruder tab can we define the "Attack type" for our planned attack?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What symbol defines the start and the end of a payload position?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: Which Payload processing rule could we use to add characters at the end of each payload
+      in the set?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What attack type cycles through the payloads inserting one payload at a time into each position
+      defined in the request?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: If you were using Sniper to fuzz three parameters in a request with a wordlist containing
+      100 words, how many requests would Burp Suite need to send to complete the attack?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: How many sets of payloads will Sniper accept for conducting an attack?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: 'As a hypothetical question: You need to perform a Battering ram Intruder attack on the
+      example request above.
+
+
+      If you have a wordlist with two words in it (`admin` and `Guest`) and the positions in the request
+      template look like this:
+
+      `username=§pentester§&password=§Expl01ted§`
+
+      What would the body parameters of the first request that Burp Suite sends be?'
+    answer: ''
+    hint: 'Submit your answer as: username=PAYLOAD&password=PAYLOAD'
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: What is the maximum number of payload sets we can load into Intruder in Pitchfork mode?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: 'We have three payload sets. The first set contains 100 lines, the second contains 2 lines,
+      and the third contains 30 lines.
+
+      How many requests will Intruder make using these payload sets in a Cluster bomb attack?'
+    answer: ''
+    hint: Multiply the number of lines in each payload set together. See how very small numbers can add
+      up fast?
+    no_answer: false
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+- id: task-10
+  name: ''
+  objective: 'Complete Task 10: '
+  content: ''
+  questions:
+  - question: What username and password combination indicates a successful login attempt? The answer
+      format is "username:password".
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-10
+    narration: 'Read through the material for Task 10: .'
+    command: null
+    explanation: ''
+- id: task-11
+  name: ''
+  objective: 'Complete Task 11: '
+  content: ''
+  questions:
+  - question: Which attack type is best suited for this task?
+    answer: ''
+    hint: You have a single position to fuzz.
+    no_answer: false
+  - question: 'Configure an appropriate position and payload (the tickets are stored at values between
+      1 and 100), then start the attack.
+
+
+      You should find that at least five tickets will be returned with a  status code 200, indicating
+      that they exist.'
+    answer: ''
+    hint: You will need one position (the numeric ticket endpoint). Your payload should be a list of numbers
+      between 1 and 100 -- look at the numbers payload type for this.
+    no_answer: false
+  - question: 'Either using the Response tab in the Attack Results window or by looking at each successful
+      (i.e. 200 code) request manually in your browser, find the ticket that contains the flag.
+
+      What is the flag?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-11
+    narration: 'Read through the material for Task 11: .'
+    command: null
+    explanation: ''
+- id: task-12
+  name: ''
+  objective: 'Complete Task 12: '
+  content: ''
+  questions:
+  - question: What username and password combination indicates a successful login attempt? The answer
+      format is "username:password".
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-12
+    narration: 'Read through the material for Task 12: .'
+    command: null
+    explanation: ''
+- id: task-13
+  name: ''
+  objective: 'Complete Task 13: '
+  content: ''
+  questions:
+  - question: I can use Intruder!
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-13
+    narration: 'Read through the material for Task 13: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

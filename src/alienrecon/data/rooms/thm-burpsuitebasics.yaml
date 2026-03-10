@@ -1,0 +1,388 @@
+id: thm-burpsuitebasics
+platform: tryhackme
+name: 'Burp Suite: The Basics'
+url: https://tryhackme.com/room/burpsuitebasics
+difficulty: info
+estimated_time: 60
+skills: &id001
+- burp-suite
+prerequisites:
+  rooms: []
+  skills: []
+brief: An introduction to using Burp Suite for web application pentesting.
+questions:
+- id: t1-q1
+  text: Let us start!
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t2-q1
+  text: Which edition of Burp Suite runs on a server and provides constant scanning for target web apps?
+  hint: ''
+  answer: Burp Suite Enterprise
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: Burp Suite is frequently used when attacking web applications and ______ applications.
+  hint: Fill in the blank.
+  answer: Mobile
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: Which Burp Suite feature allows us to intercept requests between ourselves and the target?
+  hint: ''
+  answer: Proxy
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: Which Burp tool would we use to brute-force a login form?
+  hint: ''
+  answer: Intruder
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: If you have chosen not to use the AttackBox, ensure that you have a copy of Burp Suite installed
+    before proceeding.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t5-q1
+  text: What menu provides information about the actions performed by Burp Suite, such as starting the
+    proxy, and details about connections made through Burp?
+  hint: ''
+  answer: Event log
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: Which tab Ctrl + Shift + P will switch us to?
+  hint: ''
+  answer: Proxy tab
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: In which category can you find a reference to a "Cookie jar"?
+  hint: ''
+  answer: Sessions
+  no_answer: false
+  answer_format: ''
+- id: t7-q2
+  text: In which base category can you find the "Updates" sub-category, which controls the Burp Suite
+    update behaviour?
+  hint: If your answer to this question is "Misc", then you are using an outdated version of Burp Suite.
+    Update to the latest version, then search for the answer in the settings window.
+  answer: Suite
+  no_answer: false
+  answer_format: ''
+- id: t7-q3
+  text: What is the name of the sub-category which allows you to change the keybindings for shortcuts
+    in Burp Suite?
+  hint: ''
+  answer: Hotkeys
+  no_answer: false
+  answer_format: ''
+- id: t7-q4
+  text: If we have uploaded Client-Side TLS certificates, can we override these on a per-project basis
+    (yea/nay)?
+  hint: Search for "Client TLS Certificates", then look at the scopes provided to the right of the section
+    heading.
+  answer: yea
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: Click me to proceed to the next task.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t9-q1
+  text: Click me to proceed to the next task.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t10-q1
+  text: What is the flag you receive after visiting the unusual endpoint?
+  hint: You are looking for a suspicious page with a name made up of a series of random letters and numbers.
+  answer: THM{NmNlZTliNGE1MWU1ZTQzMzgzNmFiNWVk}
+  no_answer: false
+  answer_format: ''
+- id: t11-q1
+  text: Click me to proceed to the next task.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t12-q1
+  text: "Add `http://MACHINE_IP/` to your scope and change the proxy settings to only intercept traffic\
+    \ to in-scope targets. \nSee the difference between the amount of traffic getting caught by the proxy\
+    \ before and after limiting the scope."
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t13-q1
+  text: If you are not using the AttackBox, configure Firefox (or your browser of choice) to accept the
+    PortSwigger CA certificate for TLS communication through the Burp Proxy.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t14-q1
+  text: Click me to proceed to the next task.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t15-q1
+  text: I understand the fundamentals of using Burp Suite!
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Let us start!
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Which edition of Burp Suite runs on a server and provides constant scanning for target web
+      apps?
+    answer: Burp Suite Enterprise
+    hint: ''
+    no_answer: false
+  - question: Burp Suite is frequently used when attacking web applications and ______ applications.
+    answer: Mobile
+    hint: Fill in the blank.
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: Which Burp Suite feature allows us to intercept requests between ourselves and the target?
+    answer: Proxy
+    hint: ''
+    no_answer: false
+  - question: Which Burp tool would we use to brute-force a login form?
+    answer: Intruder
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: If you have chosen not to use the AttackBox, ensure that you have a copy of Burp Suite installed
+      before proceeding.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What menu provides information about the actions performed by Burp Suite, such as starting
+      the proxy, and details about connections made through Burp?
+    answer: Event log
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: Which tab Ctrl + Shift + P will switch us to?
+    answer: Proxy tab
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: In which category can you find a reference to a "Cookie jar"?
+    answer: Sessions
+    hint: ''
+    no_answer: false
+  - question: In which base category can you find the "Updates" sub-category, which controls the Burp
+      Suite update behaviour?
+    answer: Suite
+    hint: If your answer to this question is "Misc", then you are using an outdated version of Burp Suite.
+      Update to the latest version, then search for the answer in the settings window.
+    no_answer: false
+  - question: What is the name of the sub-category which allows you to change the keybindings for shortcuts
+      in Burp Suite?
+    answer: Hotkeys
+    hint: ''
+    no_answer: false
+  - question: If we have uploaded Client-Side TLS certificates, can we override these on a per-project
+      basis (yea/nay)?
+    answer: yea
+    hint: Search for "Client TLS Certificates", then look at the scopes provided to the right of the section
+      heading.
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: Click me to proceed to the next task.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: Click me to proceed to the next task.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+- id: task-10
+  name: ''
+  objective: 'Complete Task 10: '
+  content: ''
+  questions:
+  - question: What is the flag you receive after visiting the unusual endpoint?
+    answer: THM{NmNlZTliNGE1MWU1ZTQzMzgzNmFiNWVk}
+    hint: You are looking for a suspicious page with a name made up of a series of random letters and
+      numbers.
+    no_answer: false
+  steps:
+  - id: read-task-10
+    narration: 'Read through the material for Task 10: .'
+    command: null
+    explanation: ''
+- id: task-11
+  name: ''
+  objective: 'Complete Task 11: '
+  content: ''
+  questions:
+  - question: Click me to proceed to the next task.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-11
+    narration: 'Read through the material for Task 11: .'
+    command: null
+    explanation: ''
+- id: task-12
+  name: ''
+  objective: 'Complete Task 12: '
+  content: ''
+  questions:
+  - question: "Add `http://MACHINE_IP/` to your scope and change the proxy settings to only intercept\
+      \ traffic to in-scope targets. \nSee the difference between the amount of traffic getting caught\
+      \ by the proxy before and after limiting the scope."
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-12
+    narration: 'Read through the material for Task 12: .'
+    command: null
+    explanation: ''
+- id: task-13
+  name: ''
+  objective: 'Complete Task 13: '
+  content: ''
+  questions:
+  - question: If you are not using the AttackBox, configure Firefox (or your browser of choice) to accept
+      the PortSwigger CA certificate for TLS communication through the Burp Proxy.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-13
+    narration: 'Read through the material for Task 13: .'
+    command: null
+    explanation: ''
+- id: task-14
+  name: ''
+  objective: 'Complete Task 14: '
+  content: ''
+  questions:
+  - question: Click me to proceed to the next task.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-14
+    narration: 'Read through the material for Task 14: .'
+    command: null
+    explanation: ''
+- id: task-15
+  name: ''
+  objective: 'Complete Task 15: '
+  content: ''
+  questions:
+  - question: I understand the fundamentals of using Burp Suite!
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-15
+    narration: 'Read through the material for Task 15: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

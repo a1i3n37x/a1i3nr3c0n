@@ -1,0 +1,281 @@
+id: thm-nmap02
+platform: tryhackme
+name: Nmap Basic Port Scans
+url: https://tryhackme.com/room/nmap02
+difficulty: easy
+estimated_time: 120
+skills: &id001
+- nmap-basics
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn in-depth how nmap TCP connect scan, TCP SYN port scan, and UDP port scan work.
+questions:
+- id: t1-q1
+  text: Launch the AttackBox by using the Start AttackBox button. You will launch different types of scans
+    against the target VM to gain a solid knowledge of Nmap basic scan types.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: Which service uses UDP port 53 by default?
+  hint: Requires external research.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: Which service uses TCP port 22 by default?
+  hint: Requires external research.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q3
+  text: How many port states does Nmap consider?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q4
+  text: Which port state is the most interesting to discover as a pentester?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What 3 letters represent the Reset flag?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: Which flag needs to be set when you initiate a TCP connection (first packet of TCP 3-way handshake)?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: Launch the VM. Open the AttackBox and execute `nmap -sT MACHINE_IP` via the terminal. A new service
+    has been installed on this VM since our last scan, as shown in the terminal window above. Which port
+    number was closed in the scan above but is now open on this target VM?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: What is Nmap’s guess about the newly installed service?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: Launch the VM. Some new server software has been installed since the last time we scanned it.
+    On the AttackBox, use the terminal to execute nmap -sS MACHINE_IP`. What is the new open port?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: What is Nmap’s guess of the service name?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: Launch the VM. On the AttackBox, use the terminal to execute nmap -sU -F -v MACHINE_IP`. A new
+    service has been installed since the last scan. What is the UDP port that is now open?
+  hint: UDP port scan takes longer than TCP port scans. The -F flag was added to speed up the scan (scan
+    100 most common instead of 1000). We also added -v to get updates as the scan progresses.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q2
+  text: What is the service name according to Nmap?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: What is the option to scan all the TCP ports between 5000 and 5500?
+  hint: Construct your answer using the option -p to specify the port range.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q2
+  text: How can you ensure that Nmap will run at least 64 probes in parallel?
+  hint: You have to specify the option --min-parallelism followed by = to set the right value.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q3
+  text: What option would you add to make Nmap very slow and paranoid?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: Ensure you have taken note of all the scan options covered in this room. It is time to learn more
+    advanced port scanning techniques by joining the Nmap Advanced Port Scans room.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Launch the AttackBox by using the Start AttackBox button. You will launch different types
+      of scans against the target VM to gain a solid knowledge of Nmap basic scan types.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Which service uses UDP port 53 by default?
+    answer: ''
+    hint: Requires external research.
+    no_answer: false
+  - question: Which service uses TCP port 22 by default?
+    answer: ''
+    hint: Requires external research.
+    no_answer: false
+  - question: How many port states does Nmap consider?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Which port state is the most interesting to discover as a pentester?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What 3 letters represent the Reset flag?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Which flag needs to be set when you initiate a TCP connection (first packet of TCP 3-way
+      handshake)?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: Launch the VM. Open the AttackBox and execute `nmap -sT MACHINE_IP` via the terminal. A
+      new service has been installed on this VM since our last scan, as shown in the terminal window above.
+      Which port number was closed in the scan above but is now open on this target VM?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is Nmap’s guess about the newly installed service?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: Launch the VM. Some new server software has been installed since the last time we scanned
+      it. On the AttackBox, use the terminal to execute nmap -sS MACHINE_IP`. What is the new open port?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is Nmap’s guess of the service name?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: Launch the VM. On the AttackBox, use the terminal to execute nmap -sU -F -v MACHINE_IP`.
+      A new service has been installed since the last scan. What is the UDP port that is now open?
+    answer: ''
+    hint: UDP port scan takes longer than TCP port scans. The -F flag was added to speed up the scan (scan
+      100 most common instead of 1000). We also added -v to get updates as the scan progresses.
+    no_answer: false
+  - question: What is the service name according to Nmap?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: What is the option to scan all the TCP ports between 5000 and 5500?
+    answer: ''
+    hint: Construct your answer using the option -p to specify the port range.
+    no_answer: false
+  - question: How can you ensure that Nmap will run at least 64 probes in parallel?
+    answer: ''
+    hint: You have to specify the option --min-parallelism followed by = to set the right value.
+    no_answer: false
+  - question: What option would you add to make Nmap very slow and paranoid?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: Ensure you have taken note of all the scan options covered in this room. It is time to learn
+      more advanced port scanning techniques by joining the Nmap Advanced Port Scans room.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

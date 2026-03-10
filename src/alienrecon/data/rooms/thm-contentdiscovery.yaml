@@ -1,0 +1,288 @@
+id: thm-contentdiscovery
+platform: tryhackme
+name: Content Discovery
+url: https://tryhackme.com/room/contentdiscovery
+difficulty: easy
+estimated_time: 30
+skills: &id001 []
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn the various ways of discovering hidden or private content on a webserver that could lead
+  to new vulnerabilities.
+questions:
+- id: t1-q1
+  text: What is the Content Discovery method that begins with M?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t1-q2
+  text: What is the Content Discovery method that begins with A?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t1-q3
+  text: What is the Content Discovery method that begins with O?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: What is the directory in the robots.txt that isn't allowed to be viewed by web crawlers?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What framework did the favicon belong to?
+  hint: On the AttackBox open a terminal and type the command above.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: What is the path of the secret area that can be found in the sitemap.xml file?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What is the flag value from the X-FLAG header?
+  hint: Make sure you've started the AttackBox. The flag that starts with THM{ will show in the terminal
+    response from the curl command.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: What is the flag from the framework's administration portal?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: What Google dork operator can be used to only show results from a particular site?
+  hint: (format xxxx:)
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: What online tool can be used to identify what technologies a website is running?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q1
+  text: What is the website address for the Wayback Machine?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t10-q1
+  text: What is Git?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t11-q1
+  text: What URL format do Amazon S3 buckets end in?
+  hint: Make sure your answer starts with a . (period)
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t12-q1
+  text: What is the name of the directory beginning "/mo...." that was discovered?
+  hint: On the AttackBox open a terminal and run the commands shown above.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t12-q2
+  text: What is the name of the log file that was discovered?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: What is the Content Discovery method that begins with M?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the Content Discovery method that begins with A?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the Content Discovery method that begins with O?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: What is the directory in the robots.txt that isn't allowed to be viewed by web crawlers?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What framework did the favicon belong to?
+    answer: ''
+    hint: On the AttackBox open a terminal and type the command above.
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: What is the path of the secret area that can be found in the sitemap.xml file?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What is the flag value from the X-FLAG header?
+    answer: ''
+    hint: Make sure you've started the AttackBox. The flag that starts with THM{ will show in the terminal
+      response from the curl command.
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: What is the flag from the framework's administration portal?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: What Google dork operator can be used to only show results from a particular site?
+    answer: ''
+    hint: (format xxxx:)
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: What online tool can be used to identify what technologies a website is running?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: What is the website address for the Wayback Machine?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+- id: task-10
+  name: ''
+  objective: 'Complete Task 10: '
+  content: ''
+  questions:
+  - question: What is Git?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-10
+    narration: 'Read through the material for Task 10: .'
+    command: null
+    explanation: ''
+- id: task-11
+  name: ''
+  objective: 'Complete Task 11: '
+  content: ''
+  questions:
+  - question: What URL format do Amazon S3 buckets end in?
+    answer: ''
+    hint: Make sure your answer starts with a . (period)
+    no_answer: false
+  steps:
+  - id: read-task-11
+    narration: 'Read through the material for Task 11: .'
+    command: null
+    explanation: ''
+- id: task-12
+  name: ''
+  objective: 'Complete Task 12: '
+  content: ''
+  questions:
+  - question: What is the name of the directory beginning "/mo...." that was discovered?
+    answer: ''
+    hint: On the AttackBox open a terminal and run the commands shown above.
+    no_answer: false
+  - question: What is the name of the log file that was discovered?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-12
+    narration: 'Read through the material for Task 12: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

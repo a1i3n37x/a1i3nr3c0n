@@ -1,0 +1,471 @@
+id: thm-nmap01
+platform: tryhackme
+name: Nmap Live Host Discovery
+url: https://tryhackme.com/room/nmap01
+difficulty: medium
+estimated_time: 120
+skills: &id001
+- nmap-basics
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn how to use Nmap to discover live hosts using ARP scan, ICMP scan, and TCP/UDP ping scan.
+questions:
+- id: t1-q1
+  text: Some of these questions will require the use of a static site to answer the task questions, while
+    others require the use of the AttackBox.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t2-q1
+  text: 'Send a packet with the following:
+
+
+    - From computer1
+
+    To computer1 (to indicate it is broadcast)
+
+
+    - Packet Type: “ARP Request”
+
+
+    - Data: computer6 (because we are asking for computer6 MAC address using ARP Request)
+
+
+    How many devices can see the ARP Request?'
+  hint: Do not count the switch when counting devices.
+  answer: '4'
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: Did computer6 receive the ARP Request? (Y/N)
+  hint: ''
+  answer: N
+  no_answer: false
+  answer_format: ''
+- id: t2-q3
+  text: 'Send a packet with the following:
+
+
+    - From computer4
+
+
+    - To computer4 (to indicate it is broadcast)
+
+
+    - Packet Type: “ARP Request”
+
+
+    - Data: computer6 (because we are asking for computer6 MAC address using ARP Request)
+
+
+    How many devices can see the ARP Request?'
+  hint: Do not count the switch when counting devices.
+  answer: '4'
+  no_answer: false
+  answer_format: ''
+- id: t2-q4
+  text: Did computer6 reply to the ARP Request? (Yea/Nay)
+  hint: ''
+  answer: Yea
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What is the first IP address Nmap would scan if you provided 10.10.12.13/29` as your target?
+  hint: Run nmap -sL -n 10.10.12.13/29.
+  answer: 10.10.12.8
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: How many IP addresses will Nmap scan if you provide the following range 10.10.0-255.101-125`?
+  hint: Run nmap -sL -n 10.10.0-255.101-125.
+  answer: '6400'
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: 'Send a packet with the following:
+
+
+    - From computer1
+
+
+    - To computer3
+
+
+    - Packet Type: “Ping Request”
+
+
+    What type of packet did computer1 send before the ping?'
+  hint: ''
+  answer: ARP Request
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: What type of packet did computer1 receive before it was able to send the ping?
+  hint: ''
+  answer: ARP Response
+  no_answer: false
+  answer_format: ''
+- id: t4-q3
+  text: How many computers responded to the ping request?
+  hint: ''
+  answer: '1'
+  no_answer: false
+  answer_format: ''
+- id: t4-q4
+  text: 'Send a packet with the following:
+
+
+    - From computer2
+
+
+    - To computer5
+
+
+    - Packet Type: “Ping Request”
+
+
+    What is the name of the first device that responded to the first ARP Request?'
+  hint: ''
+  answer: router
+  no_answer: false
+  answer_format: ''
+- id: t4-q5
+  text: What is the name of the first device that responded to the second ARP Request?
+  hint: ''
+  answer: computer5
+  no_answer: false
+  answer_format: ''
+- id: t4-q6
+  text: Send another Ping Request. Did it require new ARP Requests? (yea/nay)
+  hint: ''
+  answer: nay
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: 'We will be sending broadcast ARP Request packets with the following options:
+
+
+    - From computer1
+
+
+    - To computer1 (to indicate it is broadcast)
+
+
+    - Packet Type: “ARP Request”
+
+
+    - Data: try all 8 devices (other than computer1) on the network: computer2, computer3, computer4,
+    computer5, computer6, switch1, switch2, and router.
+
+
+    How many devices can you discover using ARP requests?'
+  hint: ''
+  answer: '3'
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: What is the option required to tell Nmap to use ICMP Timestamp to discover live hosts?
+  hint: ''
+  answer: -PP
+  no_answer: false
+  answer_format: ''
+- id: t6-q2
+  text: What is the option required to tell Nmap to use ICMP Address Mask to discover live hosts?
+  hint: ''
+  answer: -PM
+  no_answer: false
+  answer_format: ''
+- id: t6-q3
+  text: What is the option required to tell Nmap to use ICMP Echo to discover live hosts?
+  hint: ''
+  answer: -PE
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: Which TCP ping scan does not require a privileged account?
+  hint: ''
+  answer: TCP SYN Ping
+  no_answer: false
+  answer_format: ''
+- id: t7-q2
+  text: Which TCP ping scan requires a privileged account?
+  hint: ''
+  answer: TCP ACK Ping
+  no_answer: false
+  answer_format: ''
+- id: t7-q3
+  text: What option do you need to add to Nmap to run a TCP SYN ping scan on the telnet port?
+  hint: Telnet uses port 23
+  answer: -PS23
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: We want Nmap to issue a reverse DNS lookup for all the possibles hosts on a subnet, hoping to
+    get some insights from the names. What option should we add?
+  hint: ''
+  answer: -R
+  no_answer: false
+  answer_format: ''
+- id: t9-q1
+  text: Ensure you have taken note of all the Nmap options explained in this room. To continue learning
+    about Nmap, please join the room Nmap Basic Port Scans, which introduces the basic types of port scans.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Some of these questions will require the use of a static site to answer the task questions,
+      while others require the use of the AttackBox.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: 'Send a packet with the following:
+
+
+      - From computer1
+
+      To computer1 (to indicate it is broadcast)
+
+
+      - Packet Type: “ARP Request”
+
+
+      - Data: computer6 (because we are asking for computer6 MAC address using ARP Request)
+
+
+      How many devices can see the ARP Request?'
+    answer: '4'
+    hint: Do not count the switch when counting devices.
+    no_answer: false
+  - question: Did computer6 receive the ARP Request? (Y/N)
+    answer: N
+    hint: ''
+    no_answer: false
+  - question: 'Send a packet with the following:
+
+
+      - From computer4
+
+
+      - To computer4 (to indicate it is broadcast)
+
+
+      - Packet Type: “ARP Request”
+
+
+      - Data: computer6 (because we are asking for computer6 MAC address using ARP Request)
+
+
+      How many devices can see the ARP Request?'
+    answer: '4'
+    hint: Do not count the switch when counting devices.
+    no_answer: false
+  - question: Did computer6 reply to the ARP Request? (Yea/Nay)
+    answer: Yea
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What is the first IP address Nmap would scan if you provided 10.10.12.13/29` as your target?
+    answer: 10.10.12.8
+    hint: Run nmap -sL -n 10.10.12.13/29.
+    no_answer: false
+  - question: How many IP addresses will Nmap scan if you provide the following range 10.10.0-255.101-125`?
+    answer: '6400'
+    hint: Run nmap -sL -n 10.10.0-255.101-125.
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: 'Send a packet with the following:
+
+
+      - From computer1
+
+
+      - To computer3
+
+
+      - Packet Type: “Ping Request”
+
+
+      What type of packet did computer1 send before the ping?'
+    answer: ARP Request
+    hint: ''
+    no_answer: false
+  - question: What type of packet did computer1 receive before it was able to send the ping?
+    answer: ARP Response
+    hint: ''
+    no_answer: false
+  - question: How many computers responded to the ping request?
+    answer: '1'
+    hint: ''
+    no_answer: false
+  - question: 'Send a packet with the following:
+
+
+      - From computer2
+
+
+      - To computer5
+
+
+      - Packet Type: “Ping Request”
+
+
+      What is the name of the first device that responded to the first ARP Request?'
+    answer: router
+    hint: ''
+    no_answer: false
+  - question: What is the name of the first device that responded to the second ARP Request?
+    answer: computer5
+    hint: ''
+    no_answer: false
+  - question: Send another Ping Request. Did it require new ARP Requests? (yea/nay)
+    answer: nay
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: 'We will be sending broadcast ARP Request packets with the following options:
+
+
+      - From computer1
+
+
+      - To computer1 (to indicate it is broadcast)
+
+
+      - Packet Type: “ARP Request”
+
+
+      - Data: try all 8 devices (other than computer1) on the network: computer2, computer3, computer4,
+      computer5, computer6, switch1, switch2, and router.
+
+
+      How many devices can you discover using ARP requests?'
+    answer: '3'
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: What is the option required to tell Nmap to use ICMP Timestamp to discover live hosts?
+    answer: -PP
+    hint: ''
+    no_answer: false
+  - question: What is the option required to tell Nmap to use ICMP Address Mask to discover live hosts?
+    answer: -PM
+    hint: ''
+    no_answer: false
+  - question: What is the option required to tell Nmap to use ICMP Echo to discover live hosts?
+    answer: -PE
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: Which TCP ping scan does not require a privileged account?
+    answer: TCP SYN Ping
+    hint: ''
+    no_answer: false
+  - question: Which TCP ping scan requires a privileged account?
+    answer: TCP ACK Ping
+    hint: ''
+    no_answer: false
+  - question: What option do you need to add to Nmap to run a TCP SYN ping scan on the telnet port?
+    answer: -PS23
+    hint: Telnet uses port 23
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: We want Nmap to issue a reverse DNS lookup for all the possibles hosts on a subnet, hoping
+      to get some insights from the names. What option should we add?
+    answer: -R
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: Ensure you have taken note of all the Nmap options explained in this room. To continue learning
+      about Nmap, please join the room Nmap Basic Port Scans, which introduces the basic types of port
+      scans.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

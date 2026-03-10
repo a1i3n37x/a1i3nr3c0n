@@ -1,0 +1,203 @@
+id: thm-meterpreter
+platform: tryhackme
+name: 'Metasploit: Meterpreter'
+url: https://tryhackme.com/room/meterpreter
+difficulty: easy
+estimated_time: 20
+skills: &id001
+- metasploit
+- exploitation
+prerequisites:
+  rooms: []
+  skills: []
+brief: Take a deep dive into Meterpreter, and see how in-memory payloads can be used for post-exploitation.
+questions:
+- id: t1-q1
+  text: No answer needed
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t2-q1
+  text: No answer needed.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t3-q1
+  text: No  answer needed
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t4-q1
+  text: No answer needed.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t5-q1
+  text: What is the computer name?
+  hint: Use the "sysinfo" command
+  answer: ACME-TEST
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: What is the target domain?
+  hint: 'Use the "post/windows/gather/enum_domain" module. You will need to background Meterpreter first
+    and set the SESSION parameter. '
+  answer: FLASH
+  no_answer: false
+  answer_format: ''
+- id: t5-q3
+  text: What is the name of the share likely created by the user?
+  hint: 'Use the "post/windows/gather/enum_shares" module. You will need to background Meterpreter first
+    and set the SESSION parameter. '
+  answer: speedster
+  no_answer: false
+  answer_format: ''
+- id: t5-q4
+  text: What is the NTLM hash of the jchambers user?
+  hint: 'In the Meterpreter prompt: You will need to migrate to the "lsass.exe" process first (ps will
+    list its PID), then run "hashdump".'
+  answer: 69596c7aa1e8daee17f8e78870e25a5c
+  no_answer: false
+  answer_format: ''
+- id: t5-q5
+  text: What is the cleartext password of the jchambers user?
+  hint: You can use an online hash checker like crackstation.net
+  answer: Trustno1
+  no_answer: false
+  answer_format: ''
+- id: t5-q6
+  text: Where is the "secrets.txt"  file located? (Full path of the file)
+  hint: "You can use any of these commands: \nsearch -f *.txt \nsearch -f secrets.txt"
+  answer: c:\Program Files (x86)\Windows Multimedia Platform\secrets.txt
+  no_answer: false
+  answer_format: ''
+- id: t5-q7
+  text: What is the Twitter password revealed in the "secrets.txt" file?
+  hint: 'Use the cat command to see the content of the file. '
+  answer: KDSvbsw3849!
+  no_answer: false
+  answer_format: ''
+- id: t5-q8
+  text: Where is the "realsecret.txt" file located? (Full path of the file)
+  hint: "You can use any of these commands: \nsearch -f *.txt \nsearch -f realsecret.txt"
+  answer: c:\inetpub\wwwroot\realsecret.txt
+  no_answer: false
+  answer_format: ''
+- id: t5-q9
+  text: What is the real secret?
+  hint: Use the cat command to see the content of the file
+  answer: The Flash is the fastest man alive
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: No answer needed
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: No answer needed.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: No  answer needed
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: No answer needed.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What is the computer name?
+    answer: ACME-TEST
+    hint: Use the "sysinfo" command
+    no_answer: false
+  - question: What is the target domain?
+    answer: FLASH
+    hint: 'Use the "post/windows/gather/enum_domain" module. You will need to background Meterpreter first
+      and set the SESSION parameter. '
+    no_answer: false
+  - question: What is the name of the share likely created by the user?
+    answer: speedster
+    hint: 'Use the "post/windows/gather/enum_shares" module. You will need to background Meterpreter first
+      and set the SESSION parameter. '
+    no_answer: false
+  - question: What is the NTLM hash of the jchambers user?
+    answer: 69596c7aa1e8daee17f8e78870e25a5c
+    hint: 'In the Meterpreter prompt: You will need to migrate to the "lsass.exe" process first (ps will
+      list its PID), then run "hashdump".'
+    no_answer: false
+  - question: What is the cleartext password of the jchambers user?
+    answer: Trustno1
+    hint: You can use an online hash checker like crackstation.net
+    no_answer: false
+  - question: Where is the "secrets.txt"  file located? (Full path of the file)
+    answer: c:\Program Files (x86)\Windows Multimedia Platform\secrets.txt
+    hint: "You can use any of these commands: \nsearch -f *.txt \nsearch -f secrets.txt"
+    no_answer: false
+  - question: What is the Twitter password revealed in the "secrets.txt" file?
+    answer: KDSvbsw3849!
+    hint: 'Use the cat command to see the content of the file. '
+    no_answer: false
+  - question: Where is the "realsecret.txt" file located? (Full path of the file)
+    answer: c:\inetpub\wwwroot\realsecret.txt
+    hint: "You can use any of these commands: \nsearch -f *.txt \nsearch -f realsecret.txt"
+    no_answer: false
+  - question: What is the real secret?
+    answer: The Flash is the fastest man alive
+    hint: Use the cat command to see the content of the file
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

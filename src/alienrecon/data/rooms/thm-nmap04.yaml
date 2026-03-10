@@ -1,0 +1,220 @@
+id: thm-nmap04
+platform: tryhackme
+name: Nmap Post Port Scans
+url: https://tryhackme.com/room/nmap04
+difficulty: medium
+estimated_time: 60
+skills: &id001
+- nmap-basics
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn how to leverage Nmap for service and OS detection, use Nmap Scripting Engine (NSE), and save
+  the results.
+questions:
+- id: t1-q1
+  text: Ensure you have a solid understanding of how the Nmap scan progresses and the steps and stages
+    it follows. Launch the AttackBox by using the Start AttackBox button, as you will need it to answer
+    the questions in later tasks.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: Start the target machine for this task and launch the AttackBox. Run nmap -sV --version-light
+    MACHINE_IP`via the AttackBox. What is the detected version for port 143?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: Which service did not have a version detected with --version-light`?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: Run nmap` with -O` option against MACHINE_IP`. What OS did Nmap detect?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: Knowing that Nmap scripts are saved in /usr/share/nmap/scripts` on the AttackBox. What does the
+    script http-robots.txt` check for?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: Can you figure out the name for the script that checks for the remote code execution vulnerability
+    MS15-034 (CVE2015-1635)?
+  hint: This script falls under HTTP.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q3
+  text: Launch the AttackBox if you haven't already. After you ensure you have terminated the VM from
+    Task 2, start the target machine for this task. On the AttackBox, run Nmap with the default scripts -sC` against MACHINE_IP`.
+    You will notice that there is a service listening on port 53. What is its full version value?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q4
+  text: Based on its description, the script ssh2-enum-algos` “reports the number of algorithms (for encryption,
+    compression, etc.) that the target SSH2 server offers.” What is the name of the server host key algorithm
+    that relies on SHA2-512 and is supported by `MACHINE_IP`?
+  hint: 'Run the command: nmap –script “ssh2-enum-algos” MACHINE_IP'
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: 'Terminate the target machine of the previous task and start the target machine for this task.
+    On the AttackBox terminal, issue the command scp pentester@MACHINE_IP:/home/pentester/* .` to download
+    the Nmap reports in normal and grepable formats from the target virtual machine.
+
+    Note that the username pentester` has the password THM17577`
+
+    Check the attached Nmap logs. How many systems are listening on the HTTPS port?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: What is the IP address of the system listening on port 8089?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: This room concludes the Nmap series of 4 rooms. Ensure you have taken note of all the Nmap options
+    explained in this room and previous ones.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Ensure you have a solid understanding of how the Nmap scan progresses and the steps and
+      stages it follows. Launch the AttackBox by using the Start AttackBox button, as you will need it
+      to answer the questions in later tasks.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Start the target machine for this task and launch the AttackBox. Run nmap -sV --version-light
+      MACHINE_IP`via the AttackBox. What is the detected version for port 143?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Which service did not have a version detected with --version-light`?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: Run nmap` with -O` option against MACHINE_IP`. What OS did Nmap detect?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: Knowing that Nmap scripts are saved in /usr/share/nmap/scripts` on the AttackBox. What does
+      the script http-robots.txt` check for?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Can you figure out the name for the script that checks for the remote code execution vulnerability
+      MS15-034 (CVE2015-1635)?
+    answer: ''
+    hint: This script falls under HTTP.
+    no_answer: false
+  - question: Launch the AttackBox if you haven't already. After you ensure you have terminated the VM
+      from Task 2, start the target machine for this task. On the AttackBox, run Nmap with the default
+      scripts -sC` against MACHINE_IP`. You will notice that there is a service listening on port 53.
+      What is its full version value?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Based on its description, the script ssh2-enum-algos` “reports the number of algorithms
+      (for encryption, compression, etc.) that the target SSH2 server offers.” What is the name of the
+      server host key algorithm that relies on SHA2-512 and is supported by `MACHINE_IP`?
+    answer: ''
+    hint: 'Run the command: nmap –script “ssh2-enum-algos” MACHINE_IP'
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: 'Terminate the target machine of the previous task and start the target machine for this
+      task. On the AttackBox terminal, issue the command scp pentester@MACHINE_IP:/home/pentester/* .` to
+      download the Nmap reports in normal and grepable formats from the target virtual machine.
+
+      Note that the username pentester` has the password THM17577`
+
+      Check the attached Nmap logs. How many systems are listening on the HTTPS port?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the IP address of the system listening on port 8089?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: This room concludes the Nmap series of 4 rooms. Ensure you have taken note of all the Nmap
+      options explained in this room and previous ones.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

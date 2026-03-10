@@ -1,0 +1,225 @@
+id: thm-burpsuiterepeater
+platform: tryhackme
+name: 'Burp Suite: Repeater'
+url: https://tryhackme.com/room/burpsuiterepeater
+difficulty: info
+estimated_time: 60
+skills: &id001
+- burp-suite
+- sql-injection
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn how to use Repeater to duplicate requests in Burp Suite.
+questions:
+- id: t1-q1
+  text: Let's get started!
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: Which sections gives us a more intuitive control over our requests?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: Which view will populate when sending a request from the Proxy module to Repeater?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: Which option allows us to visualize the page as it would appear in a web browser?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: Which section in Inspector is specific to POST requests?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: What is the flag you receive?
+  hint: Make sure you leave the two blank lines at the bottom of the request!
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: Enable intercept again and capture a request to one of the numeric products endpoints in the Proxy
+    module, then forward it to Repeater.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q2
+  text: 'See if you can get the server to error out with a "500 Internal Server Error" code by changing
+    the number at the end of the request to extreme inputs.
+
+    What is the flag you receive when you cause a 500 error in the endpoint?'
+  hint: The idea is to enter unexpected inputs to see how the server will react. For example, instead
+    of a number, you could enter a piece of text or a symbol. Alternatively, you could try entering a
+    number greater than the number of products available (e.g. 1000), or a number less than or equal to
+    0.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: 'Exploit the union SQL injection vulnerability in the site.
+
+    What is the flag?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q1
+  text: I can use Burp Suite Repeater!
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Let's get started!
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Which sections gives us a more intuitive control over our requests?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: Which view will populate when sending a request from the Proxy module to Repeater?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: Which option allows us to visualize the page as it would appear in a web browser?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: Which section in Inspector is specific to POST requests?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: What is the flag you receive?
+    answer: ''
+    hint: Make sure you leave the two blank lines at the bottom of the request!
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: Enable intercept again and capture a request to one of the numeric products endpoints in
+      the Proxy module, then forward it to Repeater.
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: 'See if you can get the server to error out with a "500 Internal Server Error" code by changing
+      the number at the end of the request to extreme inputs.
+
+      What is the flag you receive when you cause a 500 error in the endpoint?'
+    answer: ''
+    hint: The idea is to enter unexpected inputs to see how the server will react. For example, instead
+      of a number, you could enter a piece of text or a symbol. Alternatively, you could try entering
+      a number greater than the number of products available (e.g. 1000), or a number less than or equal
+      to 0.
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: 'Exploit the union SQL injection vulnerability in the site.
+
+      What is the flag?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: I can use Burp Suite Repeater!
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

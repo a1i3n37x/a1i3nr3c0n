@@ -1,0 +1,200 @@
+id: thm-protocolsandservers2
+platform: tryhackme
+name: Protocols and Servers 2
+url: https://tryhackme.com/room/protocolsandservers2
+difficulty: medium
+estimated_time: 100
+skills: &id001 []
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn about attacks against passwords and cleartext traffic; explore options for mitigation via
+  SSH and SSL/TLS.
+questions:
+- id: t1-q1
+  text: We suggest that you start the AttackBox and the virtual machine as you proceed to tackle the following
+    tasks. You can connect to the different services over Telnet or Netcat for better practice and learning
+    experience.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: What do you need to add to the command sudo tcpdump` to capture only Telnet traffic?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: What is the simplest display filter you can use with Wireshark to show only IMAP traffic?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: How many different interfaces does Ettercap offer?
+  hint: Refer to https://www.ettercap-project.org/about.html
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: In how many ways can you invoke Bettercap?
+  hint: Visit https://www.bettercap.org/usage/
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: DNS can also be secured using TLS. What is the three-letter acronym of the DNS protocol that uses
+    TLS?
+  hint: Requires research.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: Use SSH to connect to MACHINE_IP as mark` with the password XBtc49AB`. Using uname -r`, find the
+    Kernel release?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: Use SSH to download the file book.txt` from the remote system. How many KBs did scp` display as
+    download size?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: We learned that one of the email accounts is lazie`. What is the password used to access the IMAP
+    service on MACHINE_IP?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: By now, you have completed the eighth room of the Network Security module. Please proceed to the final
+    room of this module to test your skills.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: We suggest that you start the AttackBox and the virtual machine as you proceed to tackle
+      the following tasks. You can connect to the different services over Telnet or Netcat for better
+      practice and learning experience.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: What do you need to add to the command sudo tcpdump` to capture only Telnet traffic?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the simplest display filter you can use with Wireshark to show only IMAP traffic?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: How many different interfaces does Ettercap offer?
+    answer: ''
+    hint: Refer to https://www.ettercap-project.org/about.html
+    no_answer: false
+  - question: In how many ways can you invoke Bettercap?
+    answer: ''
+    hint: Visit https://www.bettercap.org/usage/
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: DNS can also be secured using TLS. What is the three-letter acronym of the DNS protocol
+      that uses TLS?
+    answer: ''
+    hint: Requires research.
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: Use SSH to connect to MACHINE_IP as mark` with the password XBtc49AB`. Using uname -r`,
+      find the Kernel release?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Use SSH to download the file book.txt` from the remote system. How many KBs did scp` display
+      as download size?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: We learned that one of the email accounts is lazie`. What is the password used to access
+      the IMAP service on MACHINE_IP?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: By now, you have completed the eighth room of the Network Security module. Please proceed
+      to the final room of this module to test your skills.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

@@ -1,0 +1,167 @@
+id: thm-authenticationbypass
+platform: tryhackme
+name: Authentication Bypass
+url: https://tryhackme.com/room/authenticationbypass
+difficulty: easy
+estimated_time: 30
+skills: &id001
+- authentication-bypass
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn how to defeat logins and other authentication mechanisms to allow you access to unpermitted
+  areas.
+questions:
+- id: t1-q1
+  text: I have started the machine.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: What is the username starting with si*** ?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: What is the username starting with st*** ?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q3
+  text: What is the username starting with ro**** ?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: 'What is the valid username and password (format: username/password)?'
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: What is the flag from Robert's support ticket?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What is the flag from changing the plain text cookie values?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: What is the value of the md5 hash 3b2a1053e3270077456a79192070aa78 ?
+  hint: crackstation.net can help with this.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q3
+  text: What is the base64 decoded value of VEhNe0JBU0U2NF9FTkNPRElOR30= ?
+  hint: base64decode.org can help with this.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q4
+  text: Encode the following value using base64 {"id":1,"admin":true}
+  hint: base64encode.org can help with this.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: I have started the machine.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: What is the username starting with si*** ?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the username starting with st*** ?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the username starting with ro**** ?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: 'What is the valid username and password (format: username/password)?'
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: What is the flag from Robert's support ticket?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What is the flag from changing the plain text cookie values?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the value of the md5 hash 3b2a1053e3270077456a79192070aa78 ?
+    answer: ''
+    hint: crackstation.net can help with this.
+    no_answer: false
+  - question: What is the base64 decoded value of VEhNe0JBU0U2NF9FTkNPRElOR30= ?
+    answer: ''
+    hint: base64decode.org can help with this.
+    no_answer: false
+  - question: Encode the following value using base64 {"id":1,"admin":true}
+    answer: ''
+    hint: base64encode.org can help with this.
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

@@ -1,0 +1,189 @@
+id: thm-oscommandinjection
+platform: tryhackme
+name: Command Injection
+url: https://tryhackme.com/room/oscommandinjection
+difficulty: easy
+estimated_time: 20
+skills: &id001
+- command-injection
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn about a vulnerability allowing you to execute commands through a vulnerable app, and its
+  remediations.
+questions:
+- id: t1-q1
+  text: Read me!
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: What variable stores the user's input in the PHP code snippet in this task?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: What HTTP method is used to retrieve data submitted by a user in the PHP code snippet?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q3
+  text: If I wanted to execute the `id` command in the Python code snippet, what route would I need to
+    visit?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What payload would I use if I wanted to determine what user the application is running as?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: What popular network tool would I use to test for blind command injection on a Linux machine?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: What payload would I use to test a Windows machine for blind command injection?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: What is the term for the process of "cleaning" user input that is provided to an application?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What user is this application running as?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: What are the contents of the flag located in /home/tryhackme/flag.txt?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: Terminate the vulnerable machine from task 5
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Read me!
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: What variable stores the user's input in the PHP code snippet in this task?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What HTTP method is used to retrieve data submitted by a user in the PHP code snippet?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: If I wanted to execute the `id` command in the Python code snippet, what route would I need
+      to visit?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What payload would I use if I wanted to determine what user the application is running as?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What popular network tool would I use to test for blind command injection on a Linux machine?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What payload would I use to test a Windows machine for blind command injection?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: What is the term for the process of "cleaning" user input that is provided to an application?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What user is this application running as?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What are the contents of the flag located in /home/tryhackme/flag.txt?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: Terminate the vulnerable machine from task 5
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

@@ -1,0 +1,248 @@
+id: thm-activerecon
+platform: tryhackme
+name: Active Reconnaissance
+url: https://tryhackme.com/room/activerecon
+difficulty: easy
+estimated_time: 60
+skills: &id001
+- reconnaissance
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn how to use simple tools such as traceroute, ping, telnet, and a web browser to gather information.
+questions:
+- id: t1-q1
+  text: Ensure that you understand why these tools fall under active reconnaissance. Launch your AttackBox
+    and ensure that it is ready. You will need it to answer the questions, especially in later tasks.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: Browse to the following website and ensure that you have opened your Developer Tools on AttackBox
+    Firefox, or the browser on your computer. Using the Developer Tools, figure out the total number of
+    questions.
+  hint: Locate the JavaScript file script.js. Inspect the file and figure out the total number of questions.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: Which option would you use to set the size of the data carried by the ICMP echo request?
+  hint: 'Use the "man ping" command on a Linux system to consult ping''s manual pages. Alternatively,
+    check the following extract from the manual page: ping [-c count] [-i interval] [-I interface] [-W
+    timeout] [-p pattern] [-s packetsize] [-t ttl] [-T timestamp option] [hop...] {destination} '
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: What is the size of the ICMP header in bytes?
+  hint: Use the "man ping" command to consult ping's manual pages.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: Does MS Windows Firewall block ping by default? (Y/N)
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q4
+  text: Deploy the VM for this task and using the AttackBox terminal, issue the command ping -c 10 MACHINE_IP`.
+    How many ping replies did you get back?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: In Traceroute A, what is the IP address of the last router/hop before reaching tryhackme.com?
+  hint: If there is more than one IP address, provide the first one that responded.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: In Traceroute B, what is the IP address of the last router/hop before reaching tryhackme.com?
+  hint: If there is more than one IP address, provide the first one that responded.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q3
+  text: In Traceroute B, how many routers are between the two systems?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q4
+  text: Start the attached VM from Task 3 if it is not already started. On the AttackBox, run traceroute
+    MACHINE_IP`. Check how many routers/hops are there between the AttackBox and the target VM.
+  hint: If traceroute is not installed, you can install it with apt install traceroute.
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: Start the attached VM from Task 3 if it is not already started. On the AttackBox, open the terminal
+    and use the telnet client to connect to the VM on port 80. What is the name of the running server?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: What is the version of the running server (on port 80 of the VM)?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: Start the VM and open the AttackBox. Once the AttackBox loads, use Netcat to connect to the VM
+    port 21. What is the version of the running server?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: Ensure that you gain mastery over the different basic yet essential tools we presented in this
+    room before moving on to more sophisticated tools.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Ensure that you understand why these tools fall under active reconnaissance. Launch your
+      AttackBox and ensure that it is ready. You will need it to answer the questions, especially in later
+      tasks.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Browse to the following website and ensure that you have opened your Developer Tools on
+      AttackBox Firefox, or the browser on your computer. Using the Developer Tools, figure out the total
+      number of questions.
+    answer: ''
+    hint: Locate the JavaScript file script.js. Inspect the file and figure out the total number of questions.
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: Which option would you use to set the size of the data carried by the ICMP echo request?
+    answer: ''
+    hint: 'Use the "man ping" command on a Linux system to consult ping''s manual pages. Alternatively,
+      check the following extract from the manual page: ping [-c count] [-i interval] [-I interface] [-W
+      timeout] [-p pattern] [-s packetsize] [-t ttl] [-T timestamp option] [hop...] {destination} '
+    no_answer: false
+  - question: What is the size of the ICMP header in bytes?
+    answer: ''
+    hint: Use the "man ping" command to consult ping's manual pages.
+    no_answer: false
+  - question: Does MS Windows Firewall block ping by default? (Y/N)
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Deploy the VM for this task and using the AttackBox terminal, issue the command ping -c
+      10 MACHINE_IP`. How many ping replies did you get back?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: In Traceroute A, what is the IP address of the last router/hop before reaching tryhackme.com?
+    answer: ''
+    hint: If there is more than one IP address, provide the first one that responded.
+    no_answer: false
+  - question: In Traceroute B, what is the IP address of the last router/hop before reaching tryhackme.com?
+    answer: ''
+    hint: If there is more than one IP address, provide the first one that responded.
+    no_answer: false
+  - question: In Traceroute B, how many routers are between the two systems?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Start the attached VM from Task 3 if it is not already started. On the AttackBox, run traceroute
+      MACHINE_IP`. Check how many routers/hops are there between the AttackBox and the target VM.
+    answer: ''
+    hint: If traceroute is not installed, you can install it with apt install traceroute.
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: Start the attached VM from Task 3 if it is not already started. On the AttackBox, open the
+      terminal and use the telnet client to connect to the VM on port 80. What is the name of the running
+      server?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the version of the running server (on port 80 of the VM)?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: Start the VM and open the AttackBox. Once the AttackBox loads, use Netcat to connect to
+      the VM port 21. What is the version of the running server?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: Ensure that you gain mastery over the different basic yet essential tools we presented in
+      this room before moving on to more sophisticated tools.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

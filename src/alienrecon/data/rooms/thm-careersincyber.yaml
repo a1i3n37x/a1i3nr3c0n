@@ -1,0 +1,195 @@
+id: thm-careersincyber
+platform: tryhackme
+name: Careers in Cyber
+url: https://tryhackme.com/room/careersincyber
+difficulty: info
+estimated_time: 30
+skills: &id001 []
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn about the different careers in cyber security.
+questions:
+- id: t1-q1
+  text: Let's start exploring the different roles in cyber security!
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t2-q1
+  text: Read about what a security analyst does.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t3-q1
+  text: Read about what a security engineer does.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t4-q1
+  text: Read about what an incident responder does.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t5-q1
+  text: Read about what a digital forensics examiner does.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t6-q1
+  text: Read about what a malware analyst does.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t7-q1
+  text: Read about what a penetration tester does.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t8-q1
+  text: Read about what a red teamer does.
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t9-q1
+  text: Complete the careers quiz and share your chosen job!
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Let's start exploring the different roles in cyber security!
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Read about what a security analyst does.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: Read about what a security engineer does.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: Read about what an incident responder does.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: Read about what a digital forensics examiner does.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: Read about what a malware analyst does.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: Read about what a penetration tester does.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: Read about what a red teamer does.
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: Complete the careers quiz and share your chosen job!
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

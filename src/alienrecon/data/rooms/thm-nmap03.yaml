@@ -1,0 +1,317 @@
+id: thm-nmap03
+platform: tryhackme
+name: Nmap Advanced Port Scans
+url: https://tryhackme.com/room/nmap03
+difficulty: medium
+estimated_time: 75
+skills: &id001
+- nmap-basics
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn advanced techniques such as null, FIN, Xmas, and idle (zombie) scans, spoofing, in addition
+  to FW and IDS evasion.
+questions:
+- id: t1-q1
+  text: Launch the AttackBox by using the Start AttackBox button and get ready to experiment with different
+    types of Nmap scans against different virtual machines.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: In a null scan, how many flags are set to 1?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: In a FIN scan, how many flags are set to 1?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q3
+  text: In a Xmas scan, how many flags are set to 1?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q4
+  text: Start the VM and load the AttackBox. Once both are ready, open the terminal on the AttackBox and
+    use nmap to launch a FIN scan against the target VM. How many ports appear as open|filtered?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q5
+  text: Repeat your scan launching a null scan against the target VM. How many ports appear as open|filtered?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: In the Maimon scan, how many flags are set?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: In TCP Window scan, how many flags are set?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: You decided to experiment with a custom TCP scan that has the reset flag set. What would you add
+    after --scanflags`?
+  hint: The reset flag is RST
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q3
+  text: The VM received an update to its firewall ruleset. A new port is now allowed by the firewall. After
+    you make sure that you have terminated the VM from Task 2, start the VM for this task. Launch the
+    AttackBox if you haven't done that already. Once both are ready, open the terminal on the AttackBox
+    and use Nmap to launch an ACK scan against the target VM. How many ports appear unfiltered?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q4
+  text: What is the new port number that appeared? To determine the new port you need to compare the scan
+    results of Task 2 to the ones of this task.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q5
+  text: Is there any service behind the newly discovered port number? (Y/N)
+  hint: Use Firefox browser on the AttackBox and browse to https://MACHINE_IP
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What do you need to add to the command sudo nmap MACHINE_IP` to make the scan appear as if coming
+    from the source IP address 10.10.10.11` instead of your IP address?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: What do you need to add to the command sudo nmap MACHINE_IP` to make the scan appear as if coming
+    from the source IP addresses 10.10.20.21` and 10.10.20.28` in addition to your IP address?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: If the TCP segment has a size of 64, and -ff` option is being used, how many IP fragments will
+    you get?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: You discovered a rarely-used network printer with the IP address 10.10.5.5`, and you decide to
+    use it as a zombie in your idle scan. What argument should you add to your Nmap command?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: Launch the AttackBox if you haven't done so already. After you make sure that you have terminated
+    the VM from Task 4, start the VM for this task. Wait for it to load completely, then open the terminal
+    on the AttackBox and use Nmap with nmap -sS -F --reason MACHINE_IP` to scan the VM. What is the reason
+    provided for the stated port(s) being open?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t9-q1
+  text: Ensure you have taken note of all the Nmap options explained in this room. Please join the Nmap
+    Post Port Scans room, the last room in this Nmap series.
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Launch the AttackBox by using the Start AttackBox button and get ready to experiment with
+      different types of Nmap scans against different virtual machines.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: In a null scan, how many flags are set to 1?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: In a FIN scan, how many flags are set to 1?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: In a Xmas scan, how many flags are set to 1?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Start the VM and load the AttackBox. Once both are ready, open the terminal on the AttackBox
+      and use nmap to launch a FIN scan against the target VM. How many ports appear as open|filtered?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Repeat your scan launching a null scan against the target VM. How many ports appear as open|filtered?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: In the Maimon scan, how many flags are set?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: In TCP Window scan, how many flags are set?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: You decided to experiment with a custom TCP scan that has the reset flag set. What would
+      you add after --scanflags`?
+    answer: ''
+    hint: The reset flag is RST
+    no_answer: false
+  - question: The VM received an update to its firewall ruleset. A new port is now allowed by the firewall. After
+      you make sure that you have terminated the VM from Task 2, start the VM for this task. Launch the
+      AttackBox if you haven't done that already. Once both are ready, open the terminal on the AttackBox
+      and use Nmap to launch an ACK scan against the target VM. How many ports appear unfiltered?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What is the new port number that appeared? To determine the new port you need to compare
+      the scan results of Task 2 to the ones of this task.
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: Is there any service behind the newly discovered port number? (Y/N)
+    answer: ''
+    hint: Use Firefox browser on the AttackBox and browse to https://MACHINE_IP
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What do you need to add to the command sudo nmap MACHINE_IP` to make the scan appear as
+      if coming from the source IP address 10.10.10.11` instead of your IP address?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What do you need to add to the command sudo nmap MACHINE_IP` to make the scan appear as
+      if coming from the source IP addresses 10.10.20.21` and 10.10.20.28` in addition to your IP address?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: If the TCP segment has a size of 64, and -ff` option is being used, how many IP fragments
+      will you get?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: You discovered a rarely-used network printer with the IP address 10.10.5.5`, and you decide
+      to use it as a zombie in your idle scan. What argument should you add to your Nmap command?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: Launch the AttackBox if you haven't done so already. After you make sure that you have terminated
+      the VM from Task 4, start the VM for this task. Wait for it to load completely, then open the terminal
+      on the AttackBox and use Nmap with nmap -sS -F --reason MACHINE_IP` to scan the VM. What is the
+      reason provided for the stated port(s) being open?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+- id: task-9
+  name: ''
+  objective: 'Complete Task 9: '
+  content: ''
+  questions:
+  - question: Ensure you have taken note of all the Nmap options explained in this room. Please join the Nmap
+      Post Port Scans room, the last room in this Nmap series.
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-9
+    narration: 'Read through the material for Task 9: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

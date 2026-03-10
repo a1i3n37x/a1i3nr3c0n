@@ -1,0 +1,260 @@
+id: thm-principlesofsecurity
+platform: tryhackme
+name: Principles of Security
+url: https://tryhackme.com/room/principlesofsecurity
+difficulty: info
+estimated_time: 30
+skills: &id001 []
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn the principles of information security that secures data and protects systems from abuse
+questions:
+- id: t1-q1
+  text: Let's proceed!
+  hint: ''
+  answer: ''
+  no_answer: true
+  answer_format: ''
+- id: t2-q1
+  text: What element of the CIA triad ensures that data cannot be altered by unauthorised people?
+  hint: ''
+  answer: integrity
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: What element of the CIA triad ensures that data is available?
+  hint: ''
+  answer: availability
+  no_answer: false
+  answer_format: ''
+- id: t2-q3
+  text: What element of the CIA triad ensures that data is only accessed by authorised people?
+  hint: ''
+  answer: confidentiality
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: What does the acronym "PIM" stand for?
+  hint: ''
+  answer: Privileged Identity Management
+  no_answer: false
+  answer_format: ''
+- id: t3-q2
+  text: What does the acronym "PAM" stand for?
+  hint: ''
+  answer: Privileged Access Management
+  no_answer: false
+  answer_format: ''
+- id: t3-q3
+  text: If you wanted to manage the privileges a system access role had, what methodology would you use?
+  hint: I'm looking for the short acronym here (PIM/PAM)
+  answer: PAM
+  no_answer: false
+  answer_format: ''
+- id: t3-q4
+  text: If you wanted to create a system role that is based on a users role/responsibilities with an organisation,
+    what methodology is this?
+  hint: I'm looking for the short acronym here (PIM/PAM)
+  answer: PIM
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: What is the name of the model that uses the rule "can't read up, can read down"?
+  hint: 'Formatting: The x Model
+
+
+    Look at the direction of the arrows and the text next to them to understand what directions can read
+    up/down depending upon the model.
+
+
+    Note: In some textbooks, it is described as "no read up" and "no write down."'
+  answer: The Bell-LaPadula Model
+  no_answer: false
+  answer_format: ''
+- id: t4-q2
+  text: What is the name of the model that uses the rule "can read up, can't read down"?
+  hint: 'Formatting: The x Model
+
+
+    Look at the direction of the arrows and the text next to them to understand what directions can read
+    up/down depending upon the model.
+
+
+    Note: In some textbooks, it is described as "no read down" and "no write up."'
+  answer: The Biba Model
+  no_answer: false
+  answer_format: ''
+- id: t4-q3
+  text: If you were a military, what security model would you use?
+  hint: 'Formatting: The x Model'
+  answer: The Bell-LaPadula Model
+  no_answer: false
+  answer_format: ''
+- id: t4-q4
+  text: If you were a software developer, what security model would the company perhaps use?
+  hint: 'Formatting: The x Model'
+  answer: The Biba Model
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What model outlines "Spoofing"?
+  hint: ''
+  answer: STRIDE
+  no_answer: false
+  answer_format: ''
+- id: t5-q2
+  text: What does the acronym "IR" stand for?
+  hint: ''
+  answer: Incident Response
+  no_answer: false
+  answer_format: ''
+- id: t5-q3
+  text: You are tasked with adding some measures to an application to improve the integrity of data, what
+    STRIDE principle is this?
+  hint: ''
+  answer: Tampering
+  no_answer: false
+  answer_format: ''
+- id: t5-q4
+  text: An attacker has penetrated your organisation's security and stolen data. It is your task to return
+    the organisation to business as usual. What incident response stage is this?
+  hint: ''
+  answer: Recovery
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: Let's proceed!
+    answer: ''
+    hint: ''
+    no_answer: true
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: What element of the CIA triad ensures that data cannot be altered by unauthorised people?
+    answer: integrity
+    hint: ''
+    no_answer: false
+  - question: What element of the CIA triad ensures that data is available?
+    answer: availability
+    hint: ''
+    no_answer: false
+  - question: What element of the CIA triad ensures that data is only accessed by authorised people?
+    answer: confidentiality
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: What does the acronym "PIM" stand for?
+    answer: Privileged Identity Management
+    hint: ''
+    no_answer: false
+  - question: What does the acronym "PAM" stand for?
+    answer: Privileged Access Management
+    hint: ''
+    no_answer: false
+  - question: If you wanted to manage the privileges a system access role had, what methodology would
+      you use?
+    answer: PAM
+    hint: I'm looking for the short acronym here (PIM/PAM)
+    no_answer: false
+  - question: If you wanted to create a system role that is based on a users role/responsibilities with
+      an organisation, what methodology is this?
+    answer: PIM
+    hint: I'm looking for the short acronym here (PIM/PAM)
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: What is the name of the model that uses the rule "can't read up, can read down"?
+    answer: The Bell-LaPadula Model
+    hint: 'Formatting: The x Model
+
+
+      Look at the direction of the arrows and the text next to them to understand what directions can
+      read up/down depending upon the model.
+
+
+      Note: In some textbooks, it is described as "no read up" and "no write down."'
+    no_answer: false
+  - question: What is the name of the model that uses the rule "can read up, can't read down"?
+    answer: The Biba Model
+    hint: 'Formatting: The x Model
+
+
+      Look at the direction of the arrows and the text next to them to understand what directions can
+      read up/down depending upon the model.
+
+
+      Note: In some textbooks, it is described as "no read down" and "no write up."'
+    no_answer: false
+  - question: If you were a military, what security model would you use?
+    answer: The Bell-LaPadula Model
+    hint: 'Formatting: The x Model'
+    no_answer: false
+  - question: If you were a software developer, what security model would the company perhaps use?
+    answer: The Biba Model
+    hint: 'Formatting: The x Model'
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What model outlines "Spoofing"?
+    answer: STRIDE
+    hint: ''
+    no_answer: false
+  - question: What does the acronym "IR" stand for?
+    answer: Incident Response
+    hint: ''
+    no_answer: false
+  - question: You are tasked with adding some measures to an application to improve the integrity of data,
+      what STRIDE principle is this?
+    answer: Tampering
+    hint: ''
+    no_answer: false
+  - question: An attacker has penetrated your organisation's security and stolen data. It is your task
+      to return the organisation to business as usual. What incident response stage is this?
+    answer: Recovery
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001

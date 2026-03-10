@@ -1,0 +1,196 @@
+id: thm-xss
+platform: tryhackme
+name: Intro to Cross-site Scripting
+url: https://tryhackme.com/room/xss
+difficulty: easy
+estimated_time: 30
+skills: &id001
+- cross-site-scripting
+prerequisites:
+  rooms: []
+  skills: []
+brief: Learn how to detect and exploit XSS vulnerabilities, giving you control of other visitor's browsers.
+questions:
+- id: t1-q1
+  text: What does XSS stand for?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q1
+  text: Which document property could contain the user's session token?
+  hint: document.c_ _ _ _ _ _
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t2-q2
+  text: Which JavaScript method is often used as a Proof Of Concept?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t3-q1
+  text: Where in an URL is a good place to test for reflected XSS?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t4-q1
+  text: How are stored XSS payloads usually stored on a website?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t5-q1
+  text: What unsafe JavaScript method is good to look for in source code?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q1
+  text: What tool can you use to test for Blind XSS?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t6-q2
+  text: What type of XSS is very similar to Blind XSS?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t7-q1
+  text: What is the flag you received from level six?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+- id: t8-q1
+  text: What is the value of the staff-session cookie?
+  hint: ''
+  answer: ''
+  no_answer: false
+  answer_format: ''
+phases:
+- id: task-1
+  name: ''
+  objective: 'Complete Task 1: '
+  content: ''
+  questions:
+  - question: What does XSS stand for?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-1
+    narration: 'Read through the material for Task 1: .'
+    command: null
+    explanation: ''
+- id: task-2
+  name: ''
+  objective: 'Complete Task 2: '
+  content: ''
+  questions:
+  - question: Which document property could contain the user's session token?
+    answer: ''
+    hint: document.c_ _ _ _ _ _
+    no_answer: false
+  - question: Which JavaScript method is often used as a Proof Of Concept?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-2
+    narration: 'Read through the material for Task 2: .'
+    command: null
+    explanation: ''
+- id: task-3
+  name: ''
+  objective: 'Complete Task 3: '
+  content: ''
+  questions:
+  - question: Where in an URL is a good place to test for reflected XSS?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-3
+    narration: 'Read through the material for Task 3: .'
+    command: null
+    explanation: ''
+- id: task-4
+  name: ''
+  objective: 'Complete Task 4: '
+  content: ''
+  questions:
+  - question: How are stored XSS payloads usually stored on a website?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-4
+    narration: 'Read through the material for Task 4: .'
+    command: null
+    explanation: ''
+- id: task-5
+  name: ''
+  objective: 'Complete Task 5: '
+  content: ''
+  questions:
+  - question: What unsafe JavaScript method is good to look for in source code?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-5
+    narration: 'Read through the material for Task 5: .'
+    command: null
+    explanation: ''
+- id: task-6
+  name: ''
+  objective: 'Complete Task 6: '
+  content: ''
+  questions:
+  - question: What tool can you use to test for Blind XSS?
+    answer: ''
+    hint: ''
+    no_answer: false
+  - question: What type of XSS is very similar to Blind XSS?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-6
+    narration: 'Read through the material for Task 6: .'
+    command: null
+    explanation: ''
+- id: task-7
+  name: ''
+  objective: 'Complete Task 7: '
+  content: ''
+  questions:
+  - question: What is the flag you received from level six?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-7
+    narration: 'Read through the material for Task 7: .'
+    command: null
+    explanation: ''
+- id: task-8
+  name: ''
+  objective: 'Complete Task 8: '
+  content: ''
+  questions:
+  - question: What is the value of the staff-session cookie?
+    answer: ''
+    hint: ''
+    no_answer: false
+  steps:
+  - id: read-task-8
+    narration: 'Read through the material for Task 8: .'
+    command: null
+    explanation: ''
+completion:
+  skills_earned: *id001
